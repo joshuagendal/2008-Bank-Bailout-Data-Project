@@ -56,4 +56,12 @@ def member_search(request):
     # in html file add link back to data
 
     return render(request, 'member_search.html', {'members':members})
+
+def financial_services_committee(request):
+    fin_serv = []
+    for i in Bailout.objects.all():
+        if i.financial_services_committee == 1:
+            fin_serv.append(i)
+
+    return render(request, 'financial_services_committee.html', {'fin_serv':fin_serv})
 # Create your views here.
