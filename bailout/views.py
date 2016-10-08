@@ -58,11 +58,32 @@ def member_search(request):
 
 def financial_services_committee(request):
     fin_serv = []
+    dem_count_fs = 0
+    rep_count_fs = 0
     for i in Bailout.objects.all():
         if i.financial_services_committee == 1:
             fin_serv.append(i)
+    for i in fin_serv:
+        if i.party == 'Dem':
+            dem_count_fs += 1
+        if i.party == 'Rep':
+            rep_count_fs += 1
+    dummy_fs = 0
+    for i in fin_serv:
+        try:
+            dummy_fs += i.PAC
+        except:
+            pass
+    fin_serv_avg = dummy_fs/len(fin_serv)
+    context = {
+        'fin_serv' : fin_serv,
+        'dem_count_fs' : dem_count_fs,
+        'rep_count_fs' : rep_count_fs,
+        'fin_serv_avg' : fin_serv_avg,
+    }
 
-    return render(request, 'financial_services_committee.html', {'fin_serv':fin_serv})
+
+    return render(request, 'financial_services_committee.html', context)
 
 def switchers(request):
     the_switchers = []
@@ -124,8 +145,29 @@ def no_no(request):
 
 def yes_yes(request):
     yah_yah = []
+    dem_count_yy = 0
+    rep_count_yy = 0
     for i in Bailout.objects.all():
         if i.vote_1 == 'Yes' and i.vote_2 == 'Yes':
             yah_yah.append(i)
-    return render(request, 'yes_yes.html', {'yah_yah' : yah_yah})
+    for i in yah_yah:
+        if i.party == 'Dem':
+            dem_count_yy += 1
+        if i.party == 'Rep':
+            rep_count_yy += 1
+    dummy_yy = 0
+    for i in yah_yah:
+        try:
+            dummy_yy += i.PAC
+        except:
+            pass
+    yah_yah_avg = dummy_yy/len(yah_yah)
+
+    context = {
+        'yah_yah' : yah_yah,
+        'dem_count_yy' : dem_count_yy,
+        'rep_count_yy' : rep_count_yy,
+        'yah_yah_avg' : yah_yah_avg,
+    }
+    return render(request, 'yes_yes.html', context)
 # Create your views here.
