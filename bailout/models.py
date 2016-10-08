@@ -20,8 +20,9 @@ class Bailout(models.Model):
 
 
 
+
     def __unicode__(self):
-        return '{} -- {} -- {} -- {}'.format(self.identifier, self.name, self.state, self.switch, self.PAC)
+        return '{} -- {} -- {} -- {} -- {}'.format(self.identifier, self.name, self.state, self.switch, self.PAC)
 
 
 

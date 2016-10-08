@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse, HttpResponseRedirect
 from bailout.forms import MemberSearchForm
 from bailout.models import Bailout
@@ -64,4 +63,69 @@ def financial_services_committee(request):
             fin_serv.append(i)
 
     return render(request, 'financial_services_committee.html', {'fin_serv':fin_serv})
+
+def switchers(request):
+    the_switchers = []
+    dem_count_sw = 0
+    rep_count_sw = 0
+    for i in Bailout.objects.all():
+        if i.switch == 'Yes':
+            the_switchers.append(i)
+    for i in the_switchers:
+        if i.party == 'Dem':
+            dem_count_sw += 1
+        if i.party == 'Rep':
+            rep_count_sw += 1
+    dummy_sw = 0
+    for i in the_switchers:
+        try:
+            dummy_sw += i.PAC
+        except:
+            pass
+    the_switchers_avg = dummy_sw/len(the_switchers)
+
+    context = {
+        'the_switchers' : the_switchers,
+        'dem_count_sw' : dem_count_sw,
+        'rep_count_sw' : rep_count_sw,
+        'the_switchers_avg' : the_switchers_avg
+
+    }
+
+    return render(request, 'switchers.html', context)
+
+def no_no(request):
+    nah_nah = []
+    dem_count = 0
+    rep_count = 0
+    for i in Bailout.objects.all():
+        if i.vote_1 == 'No' and i.vote_2 == 'No':
+            nah_nah.append(i)
+    for i in nah_nah:
+        if i.party == 'Dem':
+            dem_count += 1
+        if i.party == 'Rep':
+            rep_count += 1
+    dummy = 0
+    for i in nah_nah:
+        try:
+            dummy += i.PAC
+        except:
+            pass
+    nah_nah_avg = dummy/len(nah_nah)
+
+    context = {
+        'nah_nah' : nah_nah,
+        'dem_count' : dem_count,
+        'rep_count' : rep_count,
+        'nah_nah_avg' : nah_nah_avg,
+    }
+    return render(request, 'no_no.html', context)
+
+def yes_yes(request):
+    yah_yah = []
+    for i in Bailout.objects.all():
+        if i.vote_1 == 'Yes' and i.vote_2 == 'Yes':
+            yah_yah.append(i)
+    return render(request, 'yes_yes.html', {'yah_yah' : yah_yah})
 # Create your views here.
