@@ -39,6 +39,42 @@
 
           </div>
         </div><!--/.sidebar-offcanvas-->
+        <div class="col-sm-9"><form action='/bailout/member_search' method="post" >
+    {{  form  }}
+    <input type="submit" value="Search">
+    {% csrf_token %}
+</form>
+<table>
+    <tr>
+        <th> ID </th>
+        <th> Name </th>
+        <th> Party </th>
+        <th> State </th>
+        <th> PAC $ </th>
+        <th> Vote 1 </th>
+        <th> Vote 2 </th>
+        <th> Switch </th>
+        <th> Dist Supp </th>
+        <th> Dist Opp </th>
+    </tr>
+
+    {% for obj in objs %}
+        <tr>
+            <td> {{  obj.identifier }} </td>
+            <td> {{  obj.name }} </td>
+            <td> {{  obj.party }} </td>
+            <td> {{  obj.state }} </td>
+            <td> {{  obj.PAC }} </td>
+            <td> {{  obj.vote_1 }} </td>
+            <td> {{  obj.vote_2 }} </td>
+            <td> {{  obj.switch }} </td>
+            <td> {{  obj.bailout_support }} </td>
+            <td> {{  obj.bailout_opposition }} </td>
+    {% endfor %}
+        </tr>
+
+</table>
+</div>
     </div>
 </div>
 <form action='/bailout/member_search' method="post" >
