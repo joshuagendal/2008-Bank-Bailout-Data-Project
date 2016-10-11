@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^switchers$', switchers),
     url(r'^no_no$', no_no),
     url(r'^yes_yes$', yes_yes),
-    url(r'^/register/$', register),
+    url(r'^register$', register),
 ]
