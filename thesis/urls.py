@@ -16,8 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from bailout import urls as bailout_urls
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
+    url(r'^$', auth_views.login, {'template_name' : 'login.html'}),
     url(r'^admin/', admin.site.urls),
-    url(r'^bailout/', include(bailout_urls)) #include: load, parse, use it
+    url(r'^bailout/', include(bailout_urls)), #include: load, parse, use it
+
 ]

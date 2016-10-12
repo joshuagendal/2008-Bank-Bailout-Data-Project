@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Data</title>
+    <title>{% block title %} Data {% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -19,16 +19,19 @@
     </style>
 </head>
 <body>
-
+{% block navbar %}
 <ul class="nav nav-tabs">
   <li role="presentation"><a href="/bailout">Home</a></li>
   <li role="presentation" class="active"><a href="/bailout/data">Data</a></li>
   <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
+  <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
 </ul>
-
-
+{% endblock %}
+{% block heading %}
 <h1>110th Congress Data</h1>
 <h2> Member Search Form</h2>
+{% endblock %}
+{% block sidebar %}
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
@@ -41,11 +44,15 @@
 
           </div>
         </div><!--/.sidebar-offcanvas-->
-        <div class="col-sm-9"><form action='/bailout/member_search' method="post" >
+{% endblock %}
+{% block searchform %}
+<div class="col-sm-9"><form action='/bailout/member_search' method="post" >
+<form>
     {{  form  }}
     <input type="submit" value="Search">
     {% csrf_token %}
-</form>
+{% endblock %}</form>
+
 <table>
     <tr>
         <th> ID </th>
@@ -60,7 +67,7 @@
         <th> Dist Opp </th>
     </tr>
 
-    {% for obj in objs %}
+    {% block looper %}{% for obj in members %}
         <tr>
             <td> {{  obj.identifier }} </td>
             <td> {{  obj.name }} </td>
@@ -73,6 +80,7 @@
             <td> {{  obj.bailout_support }} </td>
             <td> {{  obj.bailout_opposition }} </td>
     {% endfor %}
+    {% endblock %}
         </tr>
 
 </table>

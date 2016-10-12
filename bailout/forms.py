@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from bailout.models import Bailout, UserProfile
+from bailout.models import Bailout, UserProfile, Rating
 
 
 class MemberSearchForm(forms.ModelForm):
@@ -22,5 +22,12 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('zip_code', 'picture')
+
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['moc']
+
 
 

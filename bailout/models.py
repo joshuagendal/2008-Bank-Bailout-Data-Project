@@ -42,7 +42,7 @@ class Rating(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return 'Rating -- {} -- {} -- {} -- {}'.format(self.user ,self.moc.name, self.moc.state, self.moc.PAC)
+        return 'Rating -- {} -- {} -- {} -- {}'.format(self.moc.name, self.moc.state, self.moc.PAC)
 
 
 

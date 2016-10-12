@@ -218,12 +218,12 @@ def user_login(request):
             print 'Invalid login details: {0}, {1}'.format(username, password)
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'user_login.html', {})
+        return render(request, 'login.html', {})
 
 def user_dashboard(request):
     display = "You made it to the dashboard"
 
-    return render(request, 'user_dashboard.html', {'display' : display})
+    return render(request, 'dashboard.html', {'display' : display})
 
 
 

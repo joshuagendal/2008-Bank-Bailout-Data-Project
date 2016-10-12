@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Data</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <style>
-        td, th {
-            padding: 10px;
-            border: 1px solid black;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %} Registration {% endblock %}
+{% block tabbar %}
 <ul class="nav nav-tabs">
   <li role="presentation"><a href="/bailout">Home</a></li>
-  <li role="presentation" class="active"><a href="/bailout/data">Data</a></li>
+  <li role="presentation"><a href="/bailout/data">Data</a></li>
   <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
+  <li role="presentation" class="active"><a href="/bailout/register">Sign Up</a></li>
 </ul>
+{% endblock %}
+<body>
+{% block headingparagraph %}
 {% if registered %}
     <strong>Thank you for registering! B@ll on! :)</strong>
     <a href="/bailout">Return to the homepage</a><br />
@@ -32,13 +21,13 @@
           enctype="multipart/form-data">
 
     {% csrf_token %}
-
     <!-- Display each form -->
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
     <input type="submit" name="submit" value="Register" />
     </form>
 {% endif %}
+{% endblock %}
 
 </body>
 </html>

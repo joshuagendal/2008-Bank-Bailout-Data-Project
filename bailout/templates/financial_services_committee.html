@@ -1,28 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Member Search</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <style>
-        td, th {
-            padding: 10px;
-            border: 1px solid black;
-        }
-    </style>
-</head>
-<ul class="nav nav-tabs">
-  <li role="presentation"><a href="#">Home</a></li>
-  <li role="presentation" class="active"><a href="#">Data</a></li>
-  <li role="presentation"><a href="#">Links & Sources</a></li>
-</ul>
+{% extends 'data.html' %}
+{% block title %} Members on the Financial Services Committee {% endblock %}
 <body>
+{% block heading %}
 <h1>Members on the Financial Services Commmittee</h1>
 <h3> Party Breakdown of Members that were on the Financial Services Committee:</h3>
 <table>
@@ -38,6 +19,8 @@
 </table>
 <h3> Average Financial Services PAC Contributions for '08 Cycle For Members that Served on the Financial Services Committee</h3>
 <h4> {{ fin_serv_avg }} </h4>
+{% endblock %}
+{% block searchform %}{% endblock %}
 <table>
     <tr>
         <th> ID </th>
@@ -52,7 +35,7 @@
         <th> Dist Opp </th>
     </tr>
 
-    {% for obj in fin_serv %}
+    {% block looper %}{% for obj in fin_serv %}
         <tr>
             <td> {{  obj.identifier }} </td>
             <td> {{  obj.name }} </td>
@@ -66,6 +49,7 @@
             <td> {{  obj.bailout_opposition }} </td>
         </tr>
     {% endfor %}
+    {% endblock %}
 
 
 </table>

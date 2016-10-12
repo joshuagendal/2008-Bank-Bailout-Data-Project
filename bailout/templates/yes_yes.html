@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MOCs who Voted "Yes" Twice</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% extends 'data.html' %}
+{% block title %} Members that Voted Yes Twice {% endblock %}
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <style>
-        td, th {
-            padding: 10px;
-            border: 1px solid black;
-        }
-    </style>
-</head>
-<ul class="nav nav-tabs">
-  <li role="presentation"><a href="/bailout">Home</a></li>
-  <li role="presentation" class="active"><a href="/bailout/data">Data</a></li>
-  <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
-</ul>
 <body>
+{% block heading %}
 <h1>Members that Voted "Yes" Twice</h1>
 <h3> Party Breakdown of Members that Voted "Yes" Twice:</h3>
 <table>
@@ -38,6 +20,8 @@
 </table>
 <h3> Average Financial Services PAC Contributions for '08 Cycle For Members that Voted "Yes" Twice </h3>
 <h4> {{ yah_yah_avg }} </h4>
+{% endblock %}
+{% block searchform %}{% endblock %}
 <table>
     <tr>
         <th> ID </th>
@@ -52,7 +36,7 @@
         <th> Dist Opp </th>
     </tr>
 
-    {% for obj in yah_yah %}
+    {% block looper %}{% for obj in yah_yah %}
         <tr>
             <td> {{  obj.identifier }} </td>
             <td> {{  obj.name }} </td>
@@ -66,7 +50,7 @@
             <td> {{  obj.bailout_opposition }} </td>
         </tr>
     {% endfor %}
-
+    {% endblock %}
 
 </table>
 <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-{% block content %}
 <head>
     <meta charset="UTF-8">
-    <title>Bailout Project</title>
+    <title>{%  block title %} Bailout Project {%  endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -14,12 +13,15 @@
 
 </head>
 <body>
+{% block tabbar %}
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="/bailout">Home</a></li>
   <li role="presentation"><a href="/bailout/data">Data</a></li>
   <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
+  <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
 </ul>
 {% endblock %}
+{% block headingparagraph %}
 <h1>Bailout Project</h1>
 <h2>
     Summary
@@ -28,5 +30,6 @@
     This is where I will write a paragraph or two explaining the project. I'm going to keep writing <br>
     just to take up space and to mess around! :)
 </p>
+{% endblock %}
 </body>
 </html>

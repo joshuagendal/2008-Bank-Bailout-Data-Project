@@ -2,8 +2,8 @@
 <html lang="en">
 
 {% extends 'data.html' %}
-<h1>Member Search Results</h1>
-
+{% block title %} Members Search Results {% endblock %}
+{% block heading %}<h1>Member Search Results</h1> {% endblock %}
 <table>
     <tr>
         <th> ID </th>
@@ -18,7 +18,7 @@
         <th> Dist Opp </th>
     </tr>
 
-    {% for obj in members %}
+    {% block looper %} {% for obj in members %}
         <tr>
             <td> {{  obj.identifier }} </td>
             <td> {{  obj.name }} </td>
@@ -32,6 +32,7 @@
             <td> {{  obj.bailout_opposition }} </td>
         </tr>
     {% endfor %}
+    {% endblock %}
 
 
 
