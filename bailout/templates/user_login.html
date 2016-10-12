@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Bailout Project Home</title>
+    <title>Bailout Project</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -19,13 +18,18 @@
   <li role="presentation"><a href="/bailout/data">Data</a></li>
   <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
 </ul>
-<h1>Bailout Project</h1>
-<h2>
-    Summary
-</h2>
-<p>
-    This is where I will write a paragraph or two explaining the project. I'm going to keep writing <br>
-    just to take up space and to mess around! :)
-</p>
+
+<h1> Login to Rate Members of Congress </h1>
+<form id="login_form" method="post" action="/bailout/login/">
+    {% csrf_token %}
+    Username: <input type="text" name="username" value="" size="50" />
+    Password: <input type="password" name="password" value="" size="50" />
+    <br />
+    <input type="submit" value="submit" />
+    {% csrf_token %}
+</form>
+
+
+
 </body>
 </html>

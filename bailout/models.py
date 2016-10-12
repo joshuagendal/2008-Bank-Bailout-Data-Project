@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+RATING_VALUES = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), )
+
 class Bailout(models.Model):
     identifier = models.IntegerField(max_length=5, null=True, blank=True)
     name = models.CharField(max_length=250)
@@ -26,6 +28,7 @@ class UserProfile(models.Model):
     # Additional attributes
     zip_code = models.IntegerField(max_length=6)
     picture = models.ImageField(upload_to='profile_images', blank=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __unicode__(self):
         return '{} -- {} -- {}'.format(self.user.username, self.user.first_name, self.user.last_name)
@@ -33,7 +36,13 @@ class UserProfile(models.Model):
 
 
 class Rating(models.Model):
-    pass
+    moc = models.ForeignKey(Bailout)
+    user = models.OneToOneField(UserProfile)
+    rating = models.IntegerField(default=1, choices=RATING_VALUES)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return 'Rating -- {} -- {} -- {} -- {}'.format(self.user ,self.moc.name, self.moc.state, self.moc.PAC)
 
 
 

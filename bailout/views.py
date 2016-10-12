@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from bailout.forms import MemberSearchForm, UserForm, UserProfileForm
 from bailout.models import Bailout, UserProfile
 from django.contrib.auth.models import User
@@ -9,7 +11,7 @@ def index(request):
     context = {
         'display' : display
     }
-    return render(request, 'base_bailout.html', context)
+    return render(request, 'base.html', context)
 
 def data(request):
     members = []
@@ -201,7 +203,27 @@ def register(request):
 
     return render(request, 'user_registration.html', context)
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/bailout/dashboard')
+            else:
+                return HttpResponse("Your account is disabled :'(")
+        else:
+            print 'Invalid login details: {0}, {1}'.format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'user_login.html', {})
 
+def user_dashboard(request):
+    display = "You made it to the dashboard"
+
+    return render(request, 'user_dashboard.html', {'display' : display})
 
 
 
