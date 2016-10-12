@@ -37,12 +37,12 @@ class UserProfile(models.Model):
 
 class Rating(models.Model):
     moc = models.ForeignKey(Bailout)
-    user = models.OneToOneField(UserProfile)
+    user = models.ForeignKey(UserProfile)
     rating = models.IntegerField(default=1, choices=RATING_VALUES)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __unicode__(self):
-        return 'Rating -- {} -- {} -- {} -- {}'.format(self.moc.name, self.moc.state, self.moc.PAC)
+        return 'Rating -- {} -- {} -- {} -- {} -- {}'.format(self.user.username, self.moc.name, self.rating, self.self.moc.state, self.moc.PAC)
 
 
 
@@ -52,17 +52,6 @@ class Rating(models.Model):
 
 
 
-
-    """
-    Possible user and rating classes
-
-    class User(models.Models):
-        user_name =
-
-
-
-
-    """
 
 
 

@@ -11,6 +11,14 @@
 </ul>
 {% endblock %}
 <body>
-<h1> {{ display }}</h1>
+{% block headingparagraph %}
+<h1> Member Rating Form </h1>
+<div class="col-sm-9">
+    <form method="post">
+    {{  form  }}
+    <input type="submit" value="Save">
+    {% csrf_token %}
+</form>
+{% endblock %}
 </body>
 </html>

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bailout.forms import MemberSearchForm, UserForm, UserProfileForm
+from bailout.forms import MemberSearchForm, UserForm, UserProfileForm, RatingForm
 from bailout.models import Bailout, UserProfile
 from django.contrib.auth.models import User
 
@@ -221,9 +221,22 @@ def user_login(request):
         return render(request, 'login.html', {})
 
 def user_dashboard(request):
-    display = "You made it to the dashboard"
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RatingForm()
+    mocs = Bailout.objects.all()
+    context = {
+        'form' : form,
+    }
 
-    return render(request, 'dashboard.html', {'display' : display})
+
+
+
+
+    return render(request, 'dashboard.html', context)
 
 
 
