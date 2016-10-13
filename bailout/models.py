@@ -22,6 +22,17 @@ class Bailout(models.Model):
     def __unicode__(self):
         return '{} -- {} -- {} -- {} -- {}'.format(self.identifier, self.name, self.state, self.switch, self.PAC)
 
+
+    def get_avg_ratings(self):
+        if not self.rating_set.count():
+            return 'No ratings for {}'.format(self.name)
+        else:
+            dummy = 0
+            for i in self.rating_set.all():
+                dummy += 1
+            return dummy / self.rating_set.count()
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User) # This is the required field to link UserProfile to a User model instance
 
@@ -35,14 +46,15 @@ class UserProfile(models.Model):
 
 
 
+
 class Rating(models.Model):
-    moc = models.ForeignKey(Bailout)
-    user = models.ForeignKey(UserProfile)
+    moc = models.ForeignKey(Bailout, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=1, choices=RATING_VALUES)
     created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __unicode__(self):
-        return 'Rating -- {} -- {} -- {} -- {} -- {}'.format(self.user.username, self.moc.name, self.rating, self.self.moc.state, self.moc.PAC)
+        return 'Rating -- {} -- {} -- {} -- {}'.format(self.moc.name, self.rating, self.moc.state, self.moc.PAC)
 
 
 

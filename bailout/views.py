@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from bailout.forms import MemberSearchForm, UserForm, UserProfileForm, RatingForm
@@ -220,6 +221,7 @@ def user_login(request):
     else:
         return render(request, 'login.html', {})
 
+@login_required(login_url='/')
 def user_dashboard(request):
     if request.method == 'POST':
         form = RatingForm(request.POST)
