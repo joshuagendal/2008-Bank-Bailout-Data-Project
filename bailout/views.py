@@ -223,10 +223,13 @@ def user_login(request):
 
 @login_required(login_url='/')
 def user_dashboard(request):
+    members_to_rate = []
     if request.method == 'POST':
         form = RatingForm(request.POST)
         if form.is_valid():
-            form.save()
+            rate_objs = form.save(commit=False)
+            rate_objs.user = request.user # person who is rating the objects is the user who is requesting the information
+            rate_objs.save()
     else:
         form = RatingForm()
     mocs = Bailout.objects.all()
@@ -234,11 +237,8 @@ def user_dashboard(request):
         'form' : form,
     }
 
-
-
-
-
     return render(request, 'dashboard.html', context)
+
 
 
 

@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-RATING_VALUES = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), )
+RATING_VALUES = ((1, 'A STEAMING PILE OF POOPY'), (2, 2), (3, 3), (4, 4), (5, 5), )
 
 class Bailout(models.Model):
     identifier = models.IntegerField(max_length=5, null=True, blank=True)
@@ -13,7 +13,7 @@ class Bailout(models.Model):
     vote_2 = models.CharField(max_length=10, null=True)
     switch = models.CharField(max_length=10, null=True)
     PAC = models.IntegerField(max_length=15, null=True, blank=True)
-    state = models.CharField(max_length=25)
+    state = models.CharField(max_length=25) # CHANGE TO ABBREVIATIONS
     bailout_opposition = models.FloatField(max_length=25, null=True, blank=True)
     bailout_support = models.FloatField(max_length=25, null=True, blank=True)
     financial_services_committee = models.IntegerField(max_length=5, null=True, blank=True)
@@ -37,9 +37,10 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User) # This is the required field to link UserProfile to a User model instance
 
     # Additional attributes
-    zip_code = models.IntegerField(max_length=6)
+    zip_code = models.IntegerField(max_length=6) # change to state
     picture = models.ImageField(upload_to='profile_images', blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
+    # LOCAL FLAVOR STATE
 
     def __unicode__(self):
         return '{} -- {} -- {}'.format(self.user.username, self.user.first_name, self.user.last_name)
@@ -48,13 +49,14 @@ class UserProfile(models.Model):
 
 
 class Rating(models.Model):
-    moc = models.ForeignKey(Bailout, on_delete=models.CASCADE)
+    moc = models.ForeignKey(Bailout, on_delete=models.CASCADE, verbose_name='Member of Congress')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=1, choices=RATING_VALUES)
     created = models.DateTimeField(auto_now_add=True, null=True)
+    # unique_together - way to allow users to rate each member only once
 
     def __unicode__(self):
-        return 'Rating -- {} -- {} -- {} -- {}'.format(self.moc.name, self.rating, self.moc.state, self.moc.PAC)
+        return 'Rating -- {} -- {} -- {} -- {} -- {}'.format(self.user.username, self.moc.name, self.rating, self.moc.state, self.moc.PAC)
 
 
 

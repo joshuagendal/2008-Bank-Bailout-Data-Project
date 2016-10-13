@@ -27,7 +27,7 @@ class UserProfileForm(forms.ModelForm):
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
-        fields = ['moc', 'rating', 'user']
+        fields = ['moc', 'rating', ]
 
 
 
