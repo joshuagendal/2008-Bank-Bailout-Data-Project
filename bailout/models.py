@@ -29,7 +29,7 @@ class Bailout(models.Model):
         else:
             dummy = 0
             for i in self.rating_set.all():
-                dummy += 1
+                dummy += i.rating
             return dummy / self.rating_set.count()
 
 
