@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -16,6 +16,11 @@ def index(request):
 
 def data(request):
     members = []
+    members_1 = []
+    members_1 = Bailout.objects.all()
+    dems = 0
+    reps = 0
+
     if request.method == 'POST':
         form = MemberSearchForm(request.POST)
         if form.is_valid():
@@ -32,15 +37,29 @@ def data(request):
             #members = Bailout.objects.filter(**search_dict)
     else:
         form = MemberSearchForm()
-
+    for i in members_1:
+        if i.party == 'Dem':
+            dems += 1
+        if i.party == 'Rep':
+            reps += 1
+    dum = 0
+    for i in members_1:
+        try:
+            dum += i.PAC
+        except:
+            pass
+    members_avg = dum/len(members_1)
     objs = Bailout.objects.all()
     obj = objs[0]
-    display = ''
-    display += '{} - {} - {} - {} - {}<br><br>'.format(obj.identifier, obj.name, obj.state, obj.PAC, obj.switch)
+    # display = ''
+    # display += '{} - {} - {} - {} - {}<br><br>'.format(obj.identifier, obj.name, obj.state, obj.PAC, obj.switch)
     context = {
         'objs' : objs,
         'form': form,
-        'members': members
+        'members': members,
+        'dems' : dems,
+        'reps' : reps,
+        'members_avg' : members_avg,
     }
     return render(request, 'data.html', context)
 
@@ -223,23 +242,83 @@ def user_login(request):
 
 @login_required(login_url='/')
 def user_dashboard(request):
+    da_user = None
+    if request.user.is_authenticated():
+        da_user = request.user.username
     members_to_rate = []
+    members = []
+    members = Bailout.objects.all()
     if request.method == 'POST':
-        form = RatingForm(request.POST)
+        form = MemberSearchForm(request.POST)
         if form.is_valid():
-            rate_objs = form.save(commit=False)
-            rate_objs.user = request.user # person who is rating the objects is the user who is requesting the information
-            rate_objs.save()
-    else:
-        form = RatingForm()
-    mocs = Bailout.objects.all()
-    context = {
-        'form' : form,
-    }
+            #return HttpResponseRedirect('/bailout/member_search')
+            member_name = form.cleaned_data['name']
+            members_to_rate = Bailout.objects.filter(name__icontains=member_name)
 
+
+            # search_dict = {}
+            # for field_name, field_value in form.cleaned_data.iteritems():
+                # if field_value:
+                    # search_dict[field_name] = field_value
+            #print 'Search dict:\n\t{}'.format(str(search_dict))
+            #members = Bailout.objects.filter(**search_dict)
+    else:
+        form = MemberSearchForm()
+    context = {
+        'form': form,
+        'members_to_rate': members_to_rate,
+        'members' : members,
+        'da_user' : da_user,
+    }
     return render(request, 'dashboard.html', context)
 
 
+
+
+
+
+
+
+
+
+
+
+    # members_to_rate = []
+    # members_to_rate = Bailout.objects.all()
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    # # if request.method == 'POST':
+    # #     form = RatingForm(request.POST)
+    # #     if form.is_valid():
+    # #         rate_objs = form.save(commit=False)
+    # #         rate_objs.user = request.user # person who is rating the objects is the user who is requesting the information
+    # #         rate_objs.save()
+    # # else:
+    # #     form = RatingForm()
+    # # mocs = Bailout.objects.all()
+    # context = {
+    #     'members_to_rate' : members_to_rate,
+    # }
+    #
+    # return render(request, 'dashboard.html', context)
+
+def rating_page(request, name):
+    display = 'You made it dawg'
+    return render(request, 'rating_page.html', display)
+
+
+
+@login_required(login_url='/')
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
 
 
 # Create your views here.

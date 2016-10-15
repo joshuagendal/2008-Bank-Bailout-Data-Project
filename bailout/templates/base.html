@@ -10,7 +10,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+{% block header %}{% endblock %}
 </head>
 <body>
 {% block tabbar %}
@@ -20,6 +20,7 @@
   <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
   <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
   <li role="presentation"><a href="/bailout/dashboard">Dashboard</a></li>
+  <li role="presentation"><a href="/bailout/logout">Log Out</a></li>
 </ul>
 {% endblock %}
 {% block headingparagraph %}

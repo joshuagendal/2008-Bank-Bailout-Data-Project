@@ -26,10 +26,25 @@
   <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
   <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
   <li role="presentation"><a href="/bailout/dashboard">Dashboard</a></li>
+  <li role="presentation"><a href="/bailout/logout">Log Out</a></li>
 </ul>
 {% endblock %}
 {% block heading %}
-<h1>110th Congress Data</h1>
+<h1> 110th Congress </h1>
+<h2> Party Breakdown of all Members in the House of Reps </h2>
+<table>
+    <tr>
+        <th> Democrat </th>
+        <th> Republican </th>
+    </tr>
+
+    <tr>
+        <td> {{ dems }} </td>
+        <td> {{ reps }} </td>
+    </tr>
+</table>
+<h3> Average Financial Services PAC Contributions for '08 Cycle </h3>
+<h4> {{ members_avg }}</h4>
 <h2> Member Search Form</h2>
 {% endblock %}
 {% block sidebar %}

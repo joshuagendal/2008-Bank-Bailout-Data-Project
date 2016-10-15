@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 RATING_VALUES = ((1, 'A STEAMING PILE OF POOPY'), (2, 2), (3, 3), (4, 4), (5, 5), )
+POLITICAL_PARTY = (('Democrat', 'Democrat'), ('Republican', 'Republican'))
 
 class Bailout(models.Model):
     identifier = models.IntegerField(max_length=5, null=True, blank=True)
@@ -40,6 +41,7 @@ class UserProfile(models.Model):
     zip_code = models.IntegerField(max_length=6) # change to state
     picture = models.ImageField(upload_to='profile_images', blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
+    political_party = models.CharField(default='None', choices=POLITICAL_PARTY, max_length=50)
     # LOCAL FLAVOR STATE
 
     def __unicode__(self):

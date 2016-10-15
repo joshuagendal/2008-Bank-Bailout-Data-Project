@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from bailout.views import index, data, links, member_search, financial_services_committee, switchers, no_no, yes_yes, register, user_login, user_dashboard
+from bailout.views import index, data, links, member_search, financial_services_committee, switchers, no_no, yes_yes, register, user_login, user_dashboard, rating_page, user_logout
 urlpatterns = [
     url(r'^$', index),
     url(r'^data$', data),
@@ -12,5 +12,14 @@ urlpatterns = [
     url(r'^yes_yes$', yes_yes),
     url(r'^register$', register),
     url(r'^login/$', user_login),
+    url(r'^logout/$', user_logout),
     url(r'^dashboard$', user_dashboard),
+    url(r'^dashboard/(?P<string>[\w\-]+)/$', rating_page),
+
+
+
+
+
+
+     # url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
 ]
