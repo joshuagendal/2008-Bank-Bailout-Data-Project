@@ -1,10 +1,13 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+from localflavor.us.models import USStateField
 
 
 RATING_VALUES = ((1, 'A STEAMING PILE OF POOPY'), (2, 2), (3, 3), (4, 4), (5, 5), )
 POLITICAL_PARTY = (('Democrat', 'Democrat'), ('Republican', 'Republican'))
+
+
 
 class Bailout(models.Model):
     identifier = models.IntegerField(max_length=5, null=True, blank=True)
@@ -15,6 +18,7 @@ class Bailout(models.Model):
     switch = models.CharField(max_length=10, null=True)
     PAC = models.IntegerField(max_length=15, null=True, blank=True)
     state = models.CharField(max_length=25) # CHANGE TO ABBREVIATIONS
+    state_ab = models.CharField(max_length=2)
     bailout_opposition = models.FloatField(max_length=25, null=True, blank=True)
     bailout_support = models.FloatField(max_length=25, null=True, blank=True)
     financial_services_committee = models.IntegerField(max_length=5, null=True, blank=True)
@@ -42,7 +46,7 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     political_party = models.CharField(default='None', choices=POLITICAL_PARTY, max_length=50)
-    # LOCAL FLAVOR STATE
+    state = USStateField()
 
     def __unicode__(self):
         return '{} -- {} -- {}'.format(self.user.username, self.user.first_name, self.user.last_name)

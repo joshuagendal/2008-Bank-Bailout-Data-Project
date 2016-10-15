@@ -7,6 +7,7 @@ from bailout.forms import MemberSearchForm, UserForm, UserProfileForm, RatingFor
 from bailout.models import Bailout, UserProfile
 from django.contrib.auth.models import User
 
+
 def index(request):
     display = 'this is a test'
     context = {
@@ -309,9 +310,9 @@ def user_dashboard(request):
     #
     # return render(request, 'dashboard.html', context)
 
-def rating_page(request, name):
-    display = 'You made it dawg'
-    return render(request, 'rating_page.html', display)
+def rating_page(request, identifier=None):
+    display = identifier
+    return render(request, 'rating_page.html', {'display' : display})
 
 
 
