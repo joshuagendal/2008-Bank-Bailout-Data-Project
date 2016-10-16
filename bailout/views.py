@@ -311,12 +311,12 @@ def user_dashboard(request):
     # return render(request, 'dashboard.html', context)
 
 def rating_page(request, identifier=None):
-    member_to_rate = Bailout.objects.get(pk=identifier)
+    member_to_rate = Bailout.objects.get(identifier=identifier)
     da_user = None
     if request.user.is_authenticated():
         da_user = request.user.username
     if request.method == 'POST':
-        form = RatingForm(request.POST, initial={'moc' : 'member_to_rate'})
+        form = RatingForm(request.POST)
         if form.is_valid():
             rate_obj = form.save(commit=False)
             rate_obj.user = request.user
