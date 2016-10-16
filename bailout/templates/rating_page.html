@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> Rating Page </title>
-</head>
+{% extends 'base.html' %}
+{% block title %} Rating Page {% endblock %}
+{% block tabbar %}
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/bailout">Home</a></li>
+  <li role="presentation"><a href="/bailout/data">Data</a></li>
+  <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
+  <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
+  <li role="presentation" class="active"><a href="/bailout/dashboard">Dashboard</a></li>
+  <li role="presentation"><a href="/bailout/logout">Log Out</a></li>
+</ul>
+{% endblock %}
 <body>
-<h1> You made it Dawg</h1>
-<h1> {{ display }}</h1>
+{% block headingparagraph %}
+<h1> {{ da_user }} : Rate {{ member_to_rate.name }} who took {{ member_to_rate.PAC }} and represents {{ member_to_rate.state }}</h1>
+
+
+<h1> Member Rating Form </h1>
+<form action="/bailout/dashboard" method="post">
+    {{  form  }}
+    <input type="submit" value="Save">
+    {% csrf_token %}
+</form>
+{% endblock %}
 </body>
 </html>
+
+
+

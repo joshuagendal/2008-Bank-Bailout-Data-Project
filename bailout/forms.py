@@ -21,7 +21,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('zip_code', 'picture', 'political_party')
+        fields = ('zip_code', 'picture', 'political_party', 'state')
 
 
 class RatingForm(forms.ModelForm):
