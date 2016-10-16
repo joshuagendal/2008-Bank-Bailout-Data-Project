@@ -246,9 +246,11 @@ def user_dashboard(request):
     da_user = None
     if request.user.is_authenticated():
         da_user = request.user.username
+    user_profile = UserProfile.objects.get(user__username=da_user)
     members_to_rate = []
     members = []
     members = Bailout.objects.all()
+
     if request.method == 'POST':
         form = MemberSearchForm(request.POST)
         if form.is_valid():
@@ -270,6 +272,8 @@ def user_dashboard(request):
         'members_to_rate': members_to_rate,
         'members' : members,
         'da_user' : da_user,
+        # 'user_state' : user_state,
+        'user_profile' : user_profile,
     }
     return render(request, 'dashboard.html', context)
 
@@ -310,6 +314,7 @@ def user_dashboard(request):
     #
     # return render(request, 'dashboard.html', context)
 
+@login_required(login_url='/')
 def rating_page(request, identifier=None):
     member_to_rate = Bailout.objects.get(identifier=identifier)
     da_user = None
@@ -339,5 +344,18 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+def members_by_user_state(request, state=None):
+    da_user = None
+    if request.user.is_authenticated():
+        da_user = request.user.username
+    # user_state = UserProfile.User.objects.get()
+    members_of_user_state = Bailout.objects.filter(state=state)
 
+    context = {
+        'da_user' : da_user,
+        'members_of_user_state' : members_of_user_state,
+        # 'user_state' : user_state,
+
+    }
+    return render(request, 'member_by_user_state.html', context)
 # Create your views here.
