@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from bailout.forms import MemberSearchForm, UserForm, UserProfileForm, RatingForm
-from bailout.models import Bailout, UserProfile
+from bailout.models import Bailout, UserProfile, Rating, RATING_VALUES
 from django.contrib.auth.models import User
 
 
@@ -345,6 +345,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+@login_required(login_url='/')
 def members_by_user_state(request, state=None):
     da_user = None
     if request.user.is_authenticated():
@@ -360,4 +361,23 @@ def members_by_user_state(request, state=None):
 
     }
     return render(request, 'member_by_user_state.html', context)
+
+
+@login_required(login_url='/')
+def user_ratings(request):
+    da_user = None
+    if request.user.is_authenticated():
+        da_user = request.user.username
+    members_rated = Rating.objects.filter(user__username=da_user)
+    total_ratings = len(members_rated)
+    user_profile = UserProfile.objects.get(user__username=da_user)
+
+    context = {
+        'members_rated' : members_rated,
+        'total_ratings' : total_ratings,
+        'da_user' : da_user,
+        'user_profile' : user_profile,
+    }
+
+    return render(request, 'user_ratings.html', context)
 # Create your views here.

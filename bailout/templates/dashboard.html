@@ -27,6 +27,7 @@
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <a href="/bailout/dashboard/{{user_profile.state}}" class="list-group-item">Rate Members of your State</a>
+            <a href="/bailout/ratings/" class="list-group-item">Rating History</a>
     </div>
         </div>
           </div>
@@ -38,7 +39,6 @@
     <input type="submit" value="Search">
     {% csrf_token %}
 </form>
-
 
 
 
@@ -57,12 +57,14 @@
                 <th> Switch </th>
                 <th> Dist Supp </th>
                 <th> Dist Opp </th>
+                <th> ADA Score </th>
+                <th> Margin of Victory</th>
+                <th> Swing District</th>
             </tr>
-
         <div>
             <tr>
                 <td> {{ obj.identifier }}</td>
-                <td><a href="/bailout/dashboard/ {{  obj.name }}"> {{ obj.name }}</a></td>
+                <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
                 <td> {{  obj.party }} </td>
                 <td> {{  obj.state }} </td>
                 <td> {{  obj.PAC }} </td>
@@ -71,10 +73,14 @@
                 <td> {{  obj.switch }} </td>
                 <td> {{  obj.bailout_support }} </td>
                 <td> {{  obj.bailout_opposition }} </td>
+                <td> {{  obj.ada_score }} </td>
+                <td> {{  obj.win_margin_06 }} </td>
+                <td> {{  obj.swing_district }} </td>
+            </tr>
             <table>
-        </div>
-
+            </div>
     {% endfor %}
+
 
         {% for obj in members %}
             <table>
@@ -89,6 +95,9 @@
                 <th> Switch </th>
                 <th> Dist Supp </th>
                 <th> Dist Opp </th>
+                <th> ADA Score </th>
+                <th> Margin of Victory</th>
+                <th> Swing District</th>
             </tr>
 
         <div>
@@ -103,6 +112,10 @@
                 <td> {{  obj.switch }} </td>
                 <td> {{  obj.bailout_support }} </td>
                 <td> {{  obj.bailout_opposition }} </td>
+                <td> {{  obj.ada_score }} </td>
+                <td> {{  obj.win_margin_06 }} </td>
+                <td> {{  obj.swing_district }} </td>
+            </tr>
             <table>
         </div>
 

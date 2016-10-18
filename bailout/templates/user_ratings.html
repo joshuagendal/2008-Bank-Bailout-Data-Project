@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'base.html' %}
+
+{% block title %} Rating History {% endblock %}
+
+{% block header %}
+    <style>
+        td, th {
+            padding: 10px;
+            border: 1px solid black;
+        }
+    </style>
+
+{% endblock %}
+
+{% block headingparagraph %}
+    <div class="container-fluid">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+          <div class="list-group">
+            <a href="/bailout/dashboard/{{user_profile.state}}" class="list-group-item">Rate Members of your State</a>
+            <a href="/bailout/ratings/" class="list-group-item">Rating History</a>
+    </div>
+        </div>
+          </div>
+<h1> Welcome {{ da_user }}. Below is a list of your ratings! :)-</h1>
+    <table>
+        <tr>
+            <th> Name </th>
+            <th> Rating </th>
+            <th> PAC </th>
+            <th> Party </th>
+            <th> State </th>
+        </tr>
+
+        {% block looper %}{% for obj in members_rated %}
+        <tr>
+            <td> {{ obj.moc.name }} </td>
+            <td> {{ obj.rating }}</td>
+            <td> {{ obj.moc.PAC }}</td>
+            <td> {{ obj.moc.party }}</td>
+            <td> {{ obj.moc.state }}</td>
+        </tr>
+        {% endfor %}
+        {% endblock %}
+    </table>
+
+{% endblock %}
+<body>
+
+</body>
+</html>
