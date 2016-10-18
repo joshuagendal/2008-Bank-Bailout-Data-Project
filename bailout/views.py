@@ -61,6 +61,7 @@ def data(request):
         'dems' : dems,
         'reps' : reps,
         'members_avg' : members_avg,
+        'dum' : dum,
     }
     return render(request, 'data.html', context)
 
@@ -321,7 +322,7 @@ def rating_page(request, identifier=None):
     if request.user.is_authenticated():
         da_user = request.user.username
     if request.method == 'POST':
-        form = RatingForm(request.POST)
+        form = RatingForm(request.POST, instance=member_to_rate)
         if form.is_valid():
             rate_obj = form.save(commit=False)
             rate_obj.user = request.user
@@ -349,12 +350,13 @@ def members_by_user_state(request, state=None):
     if request.user.is_authenticated():
         da_user = request.user.username
     # user_state = UserProfile.User.objects.get()
-    members_of_user_state = Bailout.objects.filter(state=state)
+    members_of_user_state = Bailout.objects.filter(state_ab=state)
+    user_state = state
 
     context = {
         'da_user' : da_user,
         'members_of_user_state' : members_of_user_state,
-        # 'user_state' : user_state,
+        'user_state' : user_state,
 
     }
     return render(request, 'member_by_user_state.html', context)

@@ -12,6 +12,37 @@
 {% endblock %}
 {% block headingparagraph %}
 <h1> Welcome {{ da_user }} : Rate Members of your State: {{ user_state }} </h1>
+    <table>
+    <tr>
+        <th> ID </th>
+        <th> Name </th>
+        <th> Party </th>
+        <th> State </th>
+        <th> PAC $ </th>
+        <th> Vote 1 </th>
+        <th> Vote 2 </th>
+        <th> Switch </th>
+        <th> Dist Supp </th>
+        <th> Dist Opp </th>
+    </tr>
+
+    {% block looper %}{% for obj in members_of_user_state %}
+        <tr>
+            <td> {{  obj.identifier }} </td>
+            <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
+            <td> {{  obj.party }} </td>
+            <td> {{  obj.state }} </td>
+            <td> {{  obj.PAC }} </td>
+            <td> {{  obj.vote_1 }} </td>
+            <td> {{  obj.vote_2 }} </td>
+            <td> {{  obj.switch }} </td>
+            <td> {{  obj.bailout_support }} </td>
+            <td> {{  obj.bailout_opposition }} </td>
+    {% endfor %}
+    {% endblock %}
+        </tr>
+
+</table>
 {% endblock %}
 <body>
 

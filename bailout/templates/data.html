@@ -45,6 +45,8 @@
 </table>
 <h3> Average Financial Services PAC Contributions for '08 Cycle </h3>
 <h4> {{ members_avg }}</h4>
+<h3> Total contributions from financial services PACs for all Members for '08 Cycle</h3>
+<h4> {{ dum }}</h4>
 <h2> Member Search Form</h2>
 {% endblock %}
 {% block sidebar %}
@@ -67,8 +69,9 @@
     {{  form  }}
     <input type="submit" value="Search">
     {% csrf_token %}
-{% endblock %}</form>
+</form>{% endblock %}
 
+{% comment %}
 <table>
     <tr>
         <th> ID </th>
@@ -81,6 +84,9 @@
         <th> Switch </th>
         <th> Dist Supp </th>
         <th> Dist Opp </th>
+        <th> ADA Score </th>
+        <th> Margin of Vict </th>
+        <th> Swing District </th>
     </tr>
 
     {% block looper %}{% for obj in members %}
@@ -95,9 +101,13 @@
             <td> {{  obj.switch }} </td>
             <td> {{  obj.bailout_support }} </td>
             <td> {{  obj.bailout_opposition }} </td>
+            <td> {{  obj.ada_score }} </td>
+            <td> {{  obj.marginals }} </td>
+            <td> {{  obj.swing_district }} </td>
     {% endfor %}
     {% endblock %}
         </tr>
+{% endcomment %}
 
 </table>
 </div>
@@ -108,6 +118,7 @@
     <input type="submit" value="Search">
     {% csrf_token %}
 </form>
+{% block table %}
 <table>
     <tr>
         <th> ID </th>
@@ -120,6 +131,9 @@
         <th> Switch </th>
         <th> Dist Supp </th>
         <th> Dist Opp </th>
+        <th> ADA Score </th>
+        <th> Margin of Victory</th>
+        <th> Swing District</th>
     </tr>
 
     {% for obj in objs %}
@@ -134,26 +148,15 @@
             <td> {{  obj.switch }} </td>
             <td> {{  obj.bailout_support }} </td>
             <td> {{  obj.bailout_opposition }} </td>
+            <td> {{  obj.ada_score }} </td>
+            <td> {{  obj.win_margin_06 }} </td>
+            <td> {{  obj.swing_district }} </td>
     {% endfor %}
         </tr>
 
 </table>
+{% endblock %}
 
-<table>
-
-    {% for obj in members %}
-        <tr>
-            <td> {{  obj.identifier }}</td>
-            <td> {{  obj.name }}</td>
-            <td> {{  obj.state }}</td>
-            <td> {{  obj.PAC }}</td>
-            <td> {{  obj.switch }}</td>
-        </tr>
-    {% endfor %}
-
-
-
-</table>
 </body>
 </html>
 

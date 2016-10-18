@@ -22,6 +22,8 @@
 <h4> {{ yah_yah_avg }} </h4>
 {% endblock %}
 {% block searchform %}{% endblock %}
+
+{% block table %}
 <table>
     <tr>
         <th> ID </th>
@@ -34,9 +36,12 @@
         <th> Switch </th>
         <th> Dist Supp </th>
         <th> Dist Opp </th>
+        <th> ADA Score </th>
+        <th> Margin of Victory</th>
+        <th> Swing District</th>
     </tr>
 
-    {% block looper %}{% for obj in yah_yah %}
+    {% for obj in yah_yah %}
         <tr>
             <td> {{  obj.identifier }} </td>
             <td> {{  obj.name }} </td>
@@ -48,6 +53,9 @@
             <td> {{  obj.switch }} </td>
             <td> {{  obj.bailout_support }} </td>
             <td> {{  obj.bailout_opposition }} </td>
+            <td> {{  obj.ada_score }} </td>
+            <td> {{  obj.win_margin_06 }} </td>
+            <td> {{  obj.swing_district }} </td>
         </tr>
     {% endfor %}
     {% endblock %}

@@ -22,6 +22,10 @@ class Bailout(models.Model):
     bailout_opposition = models.FloatField(max_length=25, null=True, blank=True)
     bailout_support = models.FloatField(max_length=25, null=True, blank=True)
     financial_services_committee = models.IntegerField(max_length=5, null=True, blank=True)
+    ada_score = models.IntegerField(max_length=2, null=True, blank=True)
+    swing_district = models.FloatField(max_length=10, null=True, blank=True)
+    win_margin_06 = models.FloatField(max_length=5, null=True, blank=True)
+
 
 
     def __unicode__(self):
