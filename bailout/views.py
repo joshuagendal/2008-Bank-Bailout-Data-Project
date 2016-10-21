@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from bailout.forms import MemberSearchForm, UserForm, UserProfileForm, RatingForm
-from bailout.models import Bailout, UserProfile, Rating, RATING_VALUES
+from bailout.models import Bailout, UserProfile, Rating
 from django.contrib.auth.models import User
 
 
@@ -168,6 +168,15 @@ def no_no(request):
     }
     return render(request, 'no_no.html', context)
 
+def order_by_pac(request):
+    membs_order_by_pac = Bailout.objects.order_by('-PAC')
+
+    context = {
+        'membs_order_by_pac' : membs_order_by_pac,
+    }
+
+    return render(request, 'order_by_pac.html', context)
+
 def yes_yes(request):
     yah_yah = []
     dem_count_yy = 0
@@ -195,6 +204,204 @@ def yes_yes(request):
         'yah_yah_avg' : yah_yah_avg,
     }
     return render(request, 'yes_yes.html', context)
+
+
+def analyze(request):
+#____________ALL-MEMBERS_________________________________________
+    all_members = Bailout.objects.all()
+    dems = 0
+    reps = 0
+    for i in all_members:
+        if i.party == 'Dem':
+            dems += 1
+        if i.party == 'Rep':
+            reps += 1
+    dummy_all = 0
+    bailout_supp_all = 0
+    bailout_opp_all = 0
+    ada_all = 0
+    for i in all_members:
+        try:
+            dummy_all += i.PAC
+            bailout_supp_all += i.bailout_support
+            bailout_opp_all += i.bailout_opposition
+            ada_all += i.ada_score
+
+        except:
+            pass
+    all_members_avg = dummy_all / len(all_members)
+    bailout_supp_all_avg = bailout_supp_all/len(all_members)
+    bailout_opp_all_avg = bailout_opp_all/len(all_members)
+    ada_all_avg = ada_all / len(all_members)
+#____________YES-YES_____________________________________________
+    yah_yah = []
+    dem_count_yy = 0
+    rep_count_yy = 0
+    for i in Bailout.objects.all():
+        if i.vote_1 == 'Yes' and i.vote_2 == 'Yes':
+            yah_yah.append(i)
+    for i in yah_yah:
+        if i.party == 'Dem':
+            dem_count_yy += 1
+        if i.party == 'Rep':
+            rep_count_yy += 1
+    dummy_yy = 0
+    bailout_supp_yah_yah = 0
+    bailout_opp_yah_yah = 0
+    ada_yah_yah = 0
+    for i in yah_yah:
+        try:
+            dummy_yy += i.PAC
+            bailout_supp_yah_yah += i.bailout_support
+            bailout_opp_yah_yah += i.bailout_opposition
+            ada_yah_yah += i.ada_score
+        except:
+            pass
+    yah_yah_avg = dummy_yy / len(yah_yah)
+    bailout_supp_yah_yah_avg = bailout_supp_yah_yah / len(yah_yah)
+    bailout_opp_yah_yah_avg = bailout_opp_yah_yah / len(yah_yah)
+    ada_yah_yah_avg = ada_yah_yah / len(yah_yah)
+# __________ NO-NO ___________________________________________________
+    nah_nah = []
+    dem_count_nn = 0
+    rep_count_nn = 0
+    for i in Bailout.objects.all():
+        if i.vote_1 == 'No' and i.vote_2 == 'No':
+            nah_nah.append(i)
+    for i in nah_nah:
+        if i.party == 'Dem':
+            dem_count_nn += 1
+        if i.party == 'Rep':
+            rep_count_nn += 1
+    dummy_nn = 0
+    bailout_supp_nah_nah = 0
+    bailout_opp_nah_nah = 0
+    ada_nah_nah = 0
+    for i in nah_nah:
+        try:
+            dummy_nn += i.PAC
+            bailout_supp_nah_nah += i.bailout_support
+            bailout_opp_nah_nah += i.bailout_opposition
+            ada_nah_nah += i.ada_score
+        except:
+            pass
+    nah_nah_avg = dummy_nn / len(nah_nah)
+    bailout_supp_nah_nah_avg = bailout_supp_nah_nah / len(nah_nah)
+    bailout_opp_nah_nah_avg = bailout_supp_nah_nah / len(nah_nah)
+    ada_nah_nah_avg = ada_nah_nah / len(yah_yah)
+#____________FINANCIAL SERVICES COMMITTEE____________________________________________________
+    fin_serv = []
+    dem_count_fs = 0
+    rep_count_fs = 0
+    for i in Bailout.objects.all():
+        if i.financial_services_committee == 1:
+            fin_serv.append(i)
+    for i in fin_serv:
+        if i.party == 'Dem':
+            dem_count_fs += 1
+        if i.party == 'Rep':
+            rep_count_fs += 1
+    dummy_fs = 0
+    bailout_supp_fs = 0
+    bailout_opp_fs = 0
+    ada_fs = 0
+    for i in fin_serv:
+        try:
+            dummy_fs += i.PAC
+            bailout_supp_fs += i.bailout_support
+            bailout_opp_fs += i.bailout_opposition
+            ada_fs += i.ada_score
+        except:
+            pass
+    fin_serv_avg = dummy_fs / len(fin_serv)
+    bailout_supp_fs_avg = bailout_supp_fs / len(fin_serv)
+    bailout_opp_fs_avg = bailout_opp_fs / len(fin_serv)
+    ada_fs_avg = ada_fs / len(fin_serv)
+
+#____________SWITCH______________________________________________
+    the_switchers = []
+    dem_count_sw = 0
+    rep_count_sw = 0
+    for i in Bailout.objects.all():
+        if i.switch == 'Yes':
+            the_switchers.append(i)
+    for i in the_switchers:
+        if i.party == 'Dem':
+            dem_count_sw += 1
+        if i.party == 'Rep':
+            rep_count_sw += 1
+    dummy_sw = 0
+    bailout_supp_sw = 0
+    bailout_opp_sw = 0
+    ada_sw = 0
+    for i in the_switchers:
+        try:
+            dummy_sw += i.PAC
+            bailout_supp_sw += i.bailout_support
+            bailout_opp_sw += i.bailout_opposition
+            ada_sw += i.ada_score
+        except:
+            pass
+    the_switchers_avg = dummy_sw / len(the_switchers)
+    bailout_supp_sw_avg = bailout_supp_sw / len(the_switchers)
+    bailout_opp_sw_avg = bailout_opp_sw / len(the_switchers)
+    ada_sw_avg = ada_sw / len(the_switchers)
+
+
+#_____________CONTEXT_______________________________________________
+    context = {
+        'all_members': all_members,
+        'dems': dems,
+        'reps': reps,
+        'all_members_avg': all_members_avg,
+        'dummy_all': dummy_all,
+        'bailout_supp_all_avg': bailout_supp_all_avg,
+        'bailout_opp_all_avg': bailout_opp_all_avg,
+        'ada_all_avg' : ada_all_avg,
+
+        'yah_yah': yah_yah,
+        'dem_count_yy': dem_count_yy,
+        'rep_count_yy': rep_count_yy,
+        'yah_yah_avg': yah_yah_avg,
+        'dummy_yy' : dummy_yy,
+        'bailout_supp_yah_yah_avg' : bailout_supp_yah_yah_avg,
+        'bailout_opp_yah_yah_avg' : bailout_opp_yah_yah_avg,
+        'ada_yah_yah_avg' : ada_yah_yah_avg,
+
+        'nah_nah': nah_nah,
+        'dem_count_nn': dem_count_nn,
+        'rep_count_nn': rep_count_nn,
+        'nah_nah_avg': nah_nah_avg,
+        'dummy_nn' : dummy_nn,
+        'bailout_supp_nah_nah_avg' : bailout_supp_nah_nah_avg,
+        'bailout_opp_nah_nah_avg' : bailout_opp_nah_nah_avg,
+        'ada_nah_nah_avg' : ada_nah_nah_avg,
+
+        'fin_serv': fin_serv,
+        'dem_count_fs': dem_count_fs,
+        'rep_count_fs': rep_count_fs,
+        'fin_serv_avg': fin_serv_avg,
+        'dummy_fs' : dummy_fs,
+        'bailout_supp_fs_avg' : bailout_supp_fs_avg,
+        'bailout_opp_fs_avg' : bailout_opp_fs_avg,
+        'ada_fs_avg' : ada_fs_avg,
+
+
+        'the_switchers': the_switchers,
+        'dem_count_sw': dem_count_sw,
+        'rep_count_sw': rep_count_sw,
+        'the_switchers_avg': the_switchers_avg,
+        'dummy_sw' : dummy_sw,
+        'bailout_supp_sw_avg' : bailout_supp_sw_avg,
+        'bailout_opp_sw_avg' : bailout_opp_sw_avg,
+        'ada_sw_avg' : ada_sw_avg,
+
+
+    }
+
+    return render(request, 'analyze.html', context)
+
+
 
 def register(request):
     registered = False
@@ -322,7 +529,7 @@ def rating_page(request, identifier=None):
     if request.user.is_authenticated():
         da_user = request.user.username
     if request.method == 'POST':
-        form = RatingForm(request.POST, instance=member_to_rate)
+        form = RatingForm(request.POST )
         if form.is_valid():
             rate_obj = form.save(commit=False)
             rate_obj.user = request.user
