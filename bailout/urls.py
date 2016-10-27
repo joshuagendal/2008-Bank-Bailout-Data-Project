@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^login/$', user_login),
     url(r'^logout/$', user_logout),
     url(r'^dashboard$', user_dashboard),
-    url(r'^dashboard/(?P<identifier>\d+)$', rating_page),
+    url(r'^dashboard/(?P<identifier>\d+)$', rating_page), #change to r'^/rate/...
     url(r'^dashboard/(?P<state>\w+)$', members_by_user_state),
     url(r'^ratings/$', user_ratings),
     url(r'^analyze/$', analyze),

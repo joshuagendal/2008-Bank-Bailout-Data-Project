@@ -554,10 +554,10 @@ def user_logout(request):
 
 @login_required(login_url='/')
 def members_by_user_state(request, state=None):
-    da_user = None
-    if request.user.is_authenticated():
-        da_user = request.user.username
+    da_user = request.user.username #CHANGE FOR OTHERS!!!!!!!
     # user_state = UserProfile.User.objects.get()
+    # if not state:
+        # make default state for user if they dont add when they sign up
     members_of_user_state = Bailout.objects.filter(state_ab=state)
     user_state = state
 

@@ -48,6 +48,50 @@
         <th> Dist bailout Opposition Avg</th>
         <th> ADA Score Avg</th>
     </tr>
+
+    <tr>
+        <td> All Members </td>
+        <td>{{ all_members_avg }}</td>
+        <td> {{ bailout_supp_all_avg }}</td>
+        <td> {{ bailout_opp_all_avg }}</td>
+        <td> {{ ada_all_avg }}</td>
+    </tr>
+
+    <tr>
+        <td> Members that Voted Yes Twice </td>
+        <td> {{ yah_yah_avg }}</td>
+        <td> {{ bailout_supp_yah_yah_avg }}</td>
+        <td> {{ bailout_opp_yah_yah_avg }}</td>
+        <td> {{ ada_yah_yah_avg }}</td>
+
+    </tr>
+
+    <tr>
+        <td> Members that Voted No Twice </td>
+        <td> {{ nah_nah_avg }}</td>
+        <td> {{ bailout_supp_nah_nah_avg }}</td>
+        <td> {{ bailout_opp_nah_nah_avg }}</td>
+        <td> {{ ada_nah_nah_avg }}</td>
+    </tr>
+
+    <tr>
+        <td> Members that Switched Thier Vote </td>
+        <td> {{ the_switchers_avg }}</td>
+        <td> {{ bailout_supp_sw_avg }} </td>
+        <td> {{ bailout_opp_sw_avg }}</td>
+        <td> {{ ada_sw_avg }}</td>
+    </tr>
+
+
+    <tr>
+        <td> Members on the Financial Services Committee </td>
+        <td> {{ fin_serv_avg }}</td>
+        <td> {{ bailout_supp_fs_avg }}</td>
+        <td> {{ bailout_opp_fs_avg }}</td>
+        <td> {{ ada_fs_avg }}</td>
+    </tr
+
+
 </table>
 
         {%endblock%}
