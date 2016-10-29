@@ -51,7 +51,7 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     political_party = models.CharField(default='None', choices=POLITICAL_PARTY, max_length=50)
-    #state = USStateField()
+    state = USStateField()
 
     def __unicode__(self):
         return '{} -- {} -- {}'.format(self.user.username, self.user.first_name, self.user.last_name)

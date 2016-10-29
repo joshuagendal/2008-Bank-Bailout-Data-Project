@@ -32,8 +32,8 @@ ALLOWED_HOSTS = []
 # Application de
 
 INSTALLED_APPS = [
-    'django.contrib.staticfiles'
-    #'localflavor',
+    #'django.contrib.staticfiles'
+    'localflavor',
     'bailout',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,7 +58,9 @@ ROOT_URLCONF = 'thesis.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'bailout/templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

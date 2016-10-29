@@ -13,7 +13,7 @@ def index(request):
     context = {
         'display' : display
     }
-    return render(request, 'bailout/templates/base.html', context)
+    return render(request, 'base.html', context)
 
 def data(request):
     members = []
@@ -63,10 +63,10 @@ def data(request):
         'members_avg' : members_avg,
         'dum' : dum,
     }
-    return render(request, 'bailout/templates/data.html', context)
+    return render(request, 'data.html', context)
 
 def links(request):
-    return render(request, 'bailout/templates/links.html')
+    return render(request, 'links.html')
 
 def member_search(request):
     members = []
@@ -79,7 +79,7 @@ def member_search(request):
     #make context dictionary and pass it to render
     # in html file add link back to data
 
-    return render(request, 'bailout/templates/member_search.html', {'members':members})
+    return render(request, 'member_search.html', {'members':members})
 
 def financial_services_committee(request):
     fin_serv = []
@@ -108,7 +108,7 @@ def financial_services_committee(request):
     }
 
 
-    return render(request, 'bailout/templates/financial_services_committee.html', context)
+    return render(request, 'financial_services_committee.html', context)
 
 def switchers(request):
     the_switchers = []
@@ -138,7 +138,7 @@ def switchers(request):
 
     }
 
-    return render(request, 'bailout/templates/switchers.html', context)
+    return render(request, 'switchers.html', context)
 
 def no_no(request):
     nah_nah = []
@@ -166,7 +166,7 @@ def no_no(request):
         'rep_count' : rep_count,
         'nah_nah_avg' : nah_nah_avg,
     }
-    return render(request, 'bailout/templates/no_no.html', context)
+    return render(request, 'no_no.html', context)
 
 def order_by_pac(request):
     membs_order_by_pac = Bailout.objects.order_by('-PAC')
@@ -175,7 +175,7 @@ def order_by_pac(request):
         'membs_order_by_pac' : membs_order_by_pac,
     }
 
-    return render(request, 'bailout/templates/order_by_pac.html', context)
+    return render(request, 'order_by_pac.html', context)
 
 def yes_yes(request):
     yah_yah = []
@@ -203,7 +203,7 @@ def yes_yes(request):
         'rep_count_yy' : rep_count_yy,
         'yah_yah_avg' : yah_yah_avg,
     }
-    return render(request, 'bailout/templates/yes_yes.html', context)
+    return render(request, 'yes_yes.html', context)
 
 
 def analyze(request):
@@ -399,7 +399,7 @@ def analyze(request):
 
     }
 
-    return render(request, 'bailout/templates/analyze.html', context)
+    return render(request, 'analyze.html', context)
 
 
 
@@ -430,7 +430,7 @@ def register(request):
         'registered' : registered
     }
 
-    return render(request, 'bailout/templates/user_registration.html', context)
+    return render(request, 'user_registration.html', context)
 
 def user_login(request):
     if request.method == 'POST':
@@ -447,7 +447,7 @@ def user_login(request):
             print 'Invalid login details: {0}, {1}'.format(username, password)
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'bailout/templates/login.html', {})
+        return render(request, 'login.html', {})
 
 @login_required(login_url='/')
 def user_dashboard(request):
@@ -483,7 +483,7 @@ def user_dashboard(request):
         # 'user_state' : user_state,
         'user_profile' : user_profile,
     }
-    return render(request, 'bailout/templates/dashboard.html', context)
+    return render(request, 'dashboard.html', context)
 
 
 
@@ -543,7 +543,7 @@ def rating_page(request, identifier=None):
         'member_to_rate' : member_to_rate,
     }
 
-    return render(request, 'bailout/templates/rating_page.html', context)
+    return render(request, 'rating_page.html', context)
 
 
 
@@ -567,7 +567,7 @@ def members_by_user_state(request, state=None):
         'user_state' : user_state,
 
     }
-    return render(request, 'bailout/templates/member_by_user_state.html', context)
+    return render(request, 'member_by_user_state.html', context)
 
 
 @login_required(login_url='/')
@@ -586,5 +586,5 @@ def user_ratings(request):
         'user_profile' : user_profile,
     }
 
-    return render(request, 'bailout/templates/user_ratings.html', context)
+    return render(request, 'user_ratings.html', context)
 # Create your views here.

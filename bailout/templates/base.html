@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,8 +34,6 @@
 </head>
 <body>
 {% block tabbar %}
-
-{% endblock %}
 
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -70,6 +70,8 @@
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
+    {% endblock %}
+
     {% block headingparagraph %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
