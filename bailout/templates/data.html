@@ -1,9 +1,28 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %} Data {% endblock %}</title>
+{% block header %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>{%  block title %} Bailout Project {%  endblock %}</title>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{% static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/jumbotron.css" %}"rel="stylesheet">
+
+
+    {% comment %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -11,6 +30,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% endcomment %}
     <style>
         td, th {
             padding: 10px;
@@ -18,37 +38,75 @@
         }
     </style>
 </head>
-<body>
-{% block navbar %}
-<ul class="nav nav-tabs">
-  <li role="presentation"><a href="/bailout">Home</a></li>
-  <li role="presentation" class="active"><a href="/bailout/data">Data</a></li>
-  <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
-  <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
-  <li role="presentation"><a href="/bailout/dashboard">Dashboard</a></li>
-  <li role="presentation"><a href="/bailout/logout">Log Out</a></li>
-</ul>
 {% endblock %}
-{% block heading %}
-<h1> 110th Congress </h1>
-<h2> Party Breakdown of all Members in the House of Reps </h2>
-<table>
-    <tr>
-        <th> Democrat </th>
-        <th> Republican </th>
-    </tr>
 
-    <tr>
-        <td> {{ dems }} </td>
-        <td> {{ reps }} </td>
-    </tr>
-</table>
-<h3> Average Financial Services PAC Contributions for '08 Cycle </h3>
-<h4> {{ members_avg }}</h4>
-<h3> Total contributions from financial services PACs for all Members for '08 Cycle</h3>
-<h4> {{ dum }}</h4>
-<h2> Member Search Form</h2>
-{% endblock %}
+</head>
+<body>
+{% block tabbar %}
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="/bailout">Home</a></li>
+            <li><a href="/bailout/data">Data</a></li>
+            <li><a href="/bailout/links">Links & Sources</a></li>
+            <li><a href="/bailout/register">Sign Up</a></li>
+            <li><a href="/bailout/dashboard">Dashboard</a></li>
+            <li><a href="/bailout/logout">Log Out</a></li>
+            </ul>
+          {% comment %}
+            <form class="navbar-form navbar-right">
+              <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+          {% endcomment %}
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+    {% endblock %}
+
+    {% block heading %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1> 110th Congress </h1>
+        <h2> Party Breakdown of Members in the House of Reps </h2>
+        <table>
+            <tr>
+                <th> Democrat </th>
+                <th> Republican </th>
+            </tr>
+
+            <tr>
+                <td> {{ dems }} </td>
+                <td> {{ reps }} </td>
+            </tr>
+        </table>
+        <h2> Average Financial Services PAC Contributions for '08 Cycle </h2>
+        <h3> {{ members_avg }}</h3>
+        <h2> Total contributions from financial services PACs for all Members for '08 Cycle</h2>
+        <h3> {{ dum }}</h3>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>
+    {% endblock %}
+
 {% block sidebar %}
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-right">
@@ -64,6 +122,7 @@
         </div><!--/.sidebar-offcanvas-->
 {% endblock %}
 {% block searchform %}
+    <h2> Member Search Form</h2>
 <div class="col-sm-9"><form action='/bailout/member_search' method="post" >
 <form>
     {{  form  }}
@@ -113,11 +172,12 @@
 </div>
     </div>
 </div>
+{% comment %}
 <form action='/bailout/member_search' method="post" >
     {{  form  }}
     <input type="submit" value="Search">
     {% csrf_token %}
-</form>
+</form>{% endcomment %}
 {% block table %}
 <table>
     <tr>

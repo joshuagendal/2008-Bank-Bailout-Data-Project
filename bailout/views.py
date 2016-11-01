@@ -105,6 +105,7 @@ def financial_services_committee(request):
         'dem_count_fs' : dem_count_fs,
         'rep_count_fs' : rep_count_fs,
         'fin_serv_avg' : fin_serv_avg,
+        'dummy_fs' : dummy_fs
     }
 
 
@@ -586,5 +587,5 @@ def user_ratings(request):
         'user_profile' : user_profile,
     }
 
-    return render(request, 'user_ratings.html', context)
+    return render(request, 'user_ratings.html'      , context)
 # Create your views here.
