@@ -487,6 +487,9 @@ def user_dashboard(request):
     return render(request, 'dashboard.html', context)
 
 
+# @login_required(login_url='/')
+# def rating_page_search(request):
+
 
 
 
@@ -532,8 +535,8 @@ def rating_page(request, identifier=None):
     if request.method == 'POST':
         form = RatingForm(request.POST )
         if form.is_valid():
-            rate_obj = form.save(commit=False)
-            rate_obj.user = request.user
+            rate_obj = form.save(commit=False)  # Must link rating and logged in user prior to saving
+            rate_obj.user = request.user      # This line links the rating object with the user that is logged in
             rate_obj.save()
     else:
         form = RatingForm()

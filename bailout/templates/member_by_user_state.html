@@ -1,26 +1,39 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'bailout/base.html' %}
+
 {% block title %} Rate Members by State {% endblock %}
-{% block header %}
-    <style>
-        td, th {
-            padding: 10px;
-            border: 1px solid black;
-        }
-    </style>
-{% endblock %}
-{% block headingparagraph %}
+
+{% block sidebar %}
     <div class="container-fluid">
-    <div class="row row-offcanvas row-offcanvas-right">
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-          <div class="list-group">
-            <a href="/bailout/dashboard/{{user_profile.state}}" class="list-group-item">Rate Members of your State</a>
-            <a href="/bailout/ratings/" class="list-group-item">Rating History</a>
-    </div>
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/bailout/dashboard">Overview <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="/bailout/dashboard/{{user_profile.state}}">Rate Members of Your State</a></li>
+            <li><a href="/bailout/ratings/">Rating History</a></li>
+          </ul>
         </div>
-          </div>
+{% endblock %}
+
+
+{% block first_section %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <h1> Welcome {{ da_user }} : Rate Members of your State: {{ user_state }} </h1>
+
+{% endblock %}
+
+
+
+
+{% block table %}
+    <div class="table-responsive">
+    <table class="table table-striped">
     <table>
     <tr>
         <th> ID </th>
@@ -33,6 +46,9 @@
         <th> Switch </th>
         <th> Dist Supp </th>
         <th> Dist Opp </th>
+        <th> ADA Score </th>
+        <th> Margin of Victory </th>
+        <td> Swing District </td>
     </tr>
 
     {% block looper %}{% for obj in members_of_user_state %}
@@ -47,6 +63,9 @@
             <td> {{  obj.switch }} </td>
             <td> {{  obj.bailout_support }} </td>
             <td> {{  obj.bailout_opposition }} </td>
+            <td> {{  obj.ada_score }}</td>
+            <td>  {{ obj.win_margin_06 }}</td>
+            <td>  {{ obj.swing_district }}</td>
     {% endfor %}
     {% endblock %}
         </tr>

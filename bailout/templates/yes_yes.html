@@ -1,6 +1,10 @@
+{% extends 'data.html' %}
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'data.html' %}
+
 {% block title %} Members that Voted Yes Twice {% endblock %}
 
 <body>
@@ -58,9 +62,9 @@
             <td> {{  obj.swing_district }} </td>
         </tr>
     {% endfor %}
+    <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
     {% endblock %}
 
 </table>
-<a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
 </body>
 </html>
