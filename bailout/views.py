@@ -22,6 +22,7 @@ def data(request):
     dems = 0
     reps = 0
 
+
     if request.method == 'POST':
         form = MemberSearchForm(request.POST)
         if form.is_valid():
@@ -50,6 +51,7 @@ def data(request):
         except:
             pass
     members_avg = dum/len(members_1)
+    total_members = dems + reps
     objs = Bailout.objects.all()
     obj = objs[0]
     # display = ''
@@ -62,7 +64,9 @@ def data(request):
         'reps' : reps,
         'members_avg' : members_avg,
         'dum' : dum,
+        'total_members' : total_members,
     }
+
     return render(request, 'data.html', context)
 
 def links(request):
@@ -99,13 +103,16 @@ def financial_services_committee(request):
             dummy_fs += i.PAC
         except:
             pass
+
     fin_serv_avg = dummy_fs/len(fin_serv)
+    total_members = dem_count_fs + rep_count_fs
     context = {
         'fin_serv' : fin_serv,
         'dem_count_fs' : dem_count_fs,
         'rep_count_fs' : rep_count_fs,
         'fin_serv_avg' : fin_serv_avg,
-        'dummy_fs' : dummy_fs
+        'dummy_fs' : dummy_fs,
+        'total_members' : total_members,
     }
 
 
@@ -130,12 +137,14 @@ def switchers(request):
         except:
             pass
     the_switchers_avg = dummy_sw/len(the_switchers)
+    total_members = dem_count_sw + rep_count_sw
 
     context = {
         'the_switchers' : the_switchers,
         'dem_count_sw' : dem_count_sw,
         'rep_count_sw' : rep_count_sw,
-        'the_switchers_avg' : the_switchers_avg
+        'the_switchers_avg' : the_switchers_avg,
+        'total_members' : total_members,
 
     }
 
@@ -160,12 +169,15 @@ def no_no(request):
         except:
             pass
     nah_nah_avg = dummy/len(nah_nah)
+    total_members = dem_count + rep_count
+
 
     context = {
         'nah_nah' : nah_nah,
         'dem_count' : dem_count,
         'rep_count' : rep_count,
         'nah_nah_avg' : nah_nah_avg,
+        'total_members' : total_members,
     }
     return render(request, 'no_no.html', context)
 
@@ -197,12 +209,14 @@ def yes_yes(request):
         except:
             pass
     yah_yah_avg = dummy_yy/len(yah_yah)
+    total_members = dem_count_yy + rep_count_yy
 
     context = {
         'yah_yah' : yah_yah,
         'dem_count_yy' : dem_count_yy,
         'rep_count_yy' : rep_count_yy,
         'yah_yah_avg' : yah_yah_avg,
+        'total_members' : total_members,
     }
     return render(request, 'yes_yes.html', context)
 
@@ -236,16 +250,18 @@ def analyze(request):
     ada_all_avg = ada_all / len(all_members)
 #____________YES-YES_____________________________________________
     yah_yah = []
-    dem_count_yy = 0
-    rep_count_yy = 0
+    dems_yes_yes = []
+    reps_yes_yes = []
     for i in Bailout.objects.all():
         if i.vote_1 == 'Yes' and i.vote_2 == 'Yes':
             yah_yah.append(i)
     for i in yah_yah:
         if i.party == 'Dem':
-            dem_count_yy += 1
+            dems_yes_yes.append(i)
         if i.party == 'Rep':
-            rep_count_yy += 1
+            reps_yes_yes.append(i)
+    dem_count_yy = len(dems_yes_yes)
+    rep_count_yy = len(reps_yes_yes)
     dummy_yy = 0
     bailout_supp_yah_yah = 0
     bailout_opp_yah_yah = 0
@@ -264,16 +280,18 @@ def analyze(request):
     ada_yah_yah_avg = ada_yah_yah / len(yah_yah)
 # __________ NO-NO ___________________________________________________
     nah_nah = []
-    dem_count_nn = 0
-    rep_count_nn = 0
+    dems_no_no = []
+    reps_no_no = []
     for i in Bailout.objects.all():
         if i.vote_1 == 'No' and i.vote_2 == 'No':
             nah_nah.append(i)
     for i in nah_nah:
         if i.party == 'Dem':
-            dem_count_nn += 1
+            dems_no_no.append(i)
         if i.party == 'Rep':
-            rep_count_nn += 1
+            reps_no_no.append(i)
+    dem_count_nn = len(dems_no_no)
+    rep_count_nn = len(reps_no_no)
     dummy_nn = 0
     bailout_supp_nah_nah = 0
     bailout_opp_nah_nah = 0
@@ -292,16 +310,18 @@ def analyze(request):
     ada_nah_nah_avg = ada_nah_nah / len(yah_yah)
 #____________FINANCIAL SERVICES COMMITTEE____________________________________________________
     fin_serv = []
-    dem_count_fs = 0
-    rep_count_fs = 0
+    dems_fs = []
+    reps_fs = []
     for i in Bailout.objects.all():
         if i.financial_services_committee == 1:
             fin_serv.append(i)
     for i in fin_serv:
         if i.party == 'Dem':
-            dem_count_fs += 1
+            dems_fs.append(i)
         if i.party == 'Rep':
-            rep_count_fs += 1
+            reps_fs.append(i)
+    dem_count_fs = len(dems_fs)
+    rep_count_fs = len(reps_fs)
     dummy_fs = 0
     bailout_supp_fs = 0
     bailout_opp_fs = 0
@@ -321,16 +341,18 @@ def analyze(request):
 
 #____________SWITCH______________________________________________
     the_switchers = []
-    dem_count_sw = 0
-    rep_count_sw = 0
+    dems_sw = []
+    reps_sw = []
     for i in Bailout.objects.all():
         if i.switch == 'Yes':
             the_switchers.append(i)
     for i in the_switchers:
         if i.party == 'Dem':
-            dem_count_sw += 1
+            dems_sw.append(i)
         if i.party == 'Rep':
-            rep_count_sw += 1
+            reps_sw.append(i)
+    dem_count_sw = len(dems_sw)
+    rep_count_sw = len(reps_sw)
     dummy_sw = 0
     bailout_supp_sw = 0
     bailout_opp_sw = 0
@@ -347,6 +369,165 @@ def analyze(request):
     bailout_supp_sw_avg = bailout_supp_sw / len(the_switchers)
     bailout_opp_sw_avg = bailout_opp_sw / len(the_switchers)
     ada_sw_avg = ada_sw / len(the_switchers)
+
+#_____________DEMS & REPS / VOTING GROUPS___________________________________________
+
+    all_democrats = Bailout.objects.filter(party='Dem')
+    all_republicans = Bailout.objects.filter(party='Rep')
+    # LIST OF VARIABLES FROM SAME VIEW DECLARED EARLIER
+    # dems_yes_yes, reps_yes_yes, dems_no_no, reps_no_no
+    # dems_sw, reps_sw, dems_fs, reps_fs
+
+    pac_total_all_dems = 0
+    bailout_supp_all_dems_total = 0
+    bailout_opp_all_dems_total = 0
+    ada_all_dems = 0
+    for i in all_democrats:
+        try:
+            pac_total_all_dems += i.PAC
+            bailout_supp_all_dems_total += i.bailout_support
+            bailout_opp_all_dems_total += i.bailout_opposition
+            ada_all_dems += i.ada_score
+        except:
+            pass
+    all_dems_pac_avg = pac_total_all_dems/len(all_democrats)
+    all_dems_bailout_supp_avg = bailout_supp_all_dems_total/len(all_democrats)
+    all_dems_bailout_opp_avg = bailout_opp_all_dems_total/len(all_democrats)
+    ada_all_dems_avg = ada_all_dems/len(all_democrats)
+
+    pac_total_all_reps = 0
+    bailout_supp_all_reps_total = 0
+    bailout_opp_all_reps_total = 0
+    ada_all_reps = 0
+    for i in all_republicans:
+        try:
+            pac_total_all_reps += i.PAC
+            bailout_supp_all_reps_total += i.bailout_support
+            bailout_opp_all_reps_total += i.bailout_opposition
+            ada_all_reps += i.ada_score
+        except:
+            pass
+    all_reps_pac_avg = pac_total_all_reps / len(all_republicans)
+    all_reps_bailout_supp_avg = bailout_supp_all_reps_total / len(all_republicans)
+    all_reps_bailout_opp_avg = bailout_opp_all_reps_total / len(all_republicans)
+    ada_all_reps_avg = ada_all_reps / len(all_republicans)
+
+    length_dems_yy = len(dems_yes_yes)
+    pac_total_dems_yy = 0
+    bailout_supp_dems_yy_total = 0
+    bailout_opp_dems_yy_total = 0
+    ada_dems_yy = 0
+
+    for i in dems_yes_yes:
+        try:
+            pac_total_dems_yy += i.PAC
+            bailout_supp_dems_yy_total += i.bailout_support
+            bailout_opp_dems_yy_total += i.bailout_opposition
+            ada_dems_yy += i.ada_score
+        except:
+            pass
+    dems_yy_pac_avg = pac_total_dems_yy/len(dems_yes_yes)
+    dems_yy_bailout_supp_avg = bailout_supp_dems_yy_total/len(dems_yes_yes)
+    dems_yy_bailout_opp_avg = bailout_opp_dems_yy_total/len(dems_yes_yes)
+    dems_yy_ada_avg = ada_dems_yy/len(dems_yes_yes)
+
+
+    length_reps_yy = len(reps_yes_yes)
+    pac_total_reps_yy = 0
+    bailout_supp_reps_yy_total = 0
+    bailout_opp_reps_yy_total = 0
+    ada_reps_yy = 0
+    for i in reps_yes_yes:
+        try:
+            pac_total_reps_yy += i.PAC
+            bailout_supp_reps_yy_total += i.bailout_support
+            bailout_opp_reps_yy_total += i.bailout_opposition
+            ada_reps_yy += i.ada_score
+        except:
+            pass
+    reps_yy_pac_avg = pac_total_reps_yy / len(reps_yes_yes)
+    reps_yy_bailout_supp_avg = bailout_supp_reps_yy_total / len(reps_yes_yes)
+    reps_yy_bailout_opp_avg = bailout_opp_reps_yy_total / len(reps_yes_yes)
+    reps_yy_ada_avg = ada_reps_yy / len(reps_yes_yes)
+
+
+    length_dems_nn = len(dems_no_no)
+    pac_total_dems_nn = 0
+    bailout_supp_dems_nn_total = 0
+    bailout_opp_dems_nn_total = 0
+    ada_dems_nn = 0
+    for i in dems_no_no:
+        try:
+            pac_total_dems_nn += i.PAC
+            bailout_supp_dems_nn_total += i.bailout_support
+            bailout_opp_dems_nn_total += i.bailout_opposition
+            ada_dems_nn += i.ada_score
+        except:
+            pass
+    dems_nn_pac_avg = pac_total_dems_nn / len(dems_no_no)
+    dems_nn_bailout_supp_avg = bailout_supp_dems_nn_total / len(dems_no_no)
+    dems_nn_bailout_opp_avg = bailout_opp_dems_nn_total / len(dems_no_no)
+    dems_nn_ada_avg = ada_dems_nn / len(dems_no_no)
+
+
+    length_reps_nn = len(reps_no_no)
+    pac_total_reps_nn = 0
+    bailout_supp_reps_nn_total = 0
+    bailout_opp_reps_nn_total = 0
+    ada_reps_nn = 0
+    for i in reps_no_no:
+        try:
+            pac_total_reps_nn += i.PAC
+            bailout_supp_reps_nn_total += i.bailout_support
+            bailout_opp_reps_nn_total += i.bailout_opposition
+            ada_reps_nn += i.ada_score
+        except:
+            pass
+    reps_nn_pac_avg = pac_total_reps_nn / len(reps_no_no)
+    reps_nn_bailout_supp_avg = bailout_supp_reps_nn_total / len(reps_no_no)
+    reps_nn_bailout_opp_avg = bailout_opp_reps_nn_total / len(reps_no_no)
+    reps_nn_ada_avg = ada_reps_nn / len(reps_no_no)
+
+    length_dems_sw = len(dems_sw)
+    pac_total_dems_sw = 0
+    bailout_supp_dems_sw_total = 0
+    bailout_opp_dems_sw_total = 0
+    ada_dems_sw = 0
+    for i in dems_sw:
+        try:
+            pac_total_dems_sw += i.PAC
+            bailout_supp_dems_sw_total += i.bailout_support
+            bailout_opp_dems_sw_total += i.bailout_opposition
+            ada_dems_sw += i.ada_score
+        except:
+            pass
+    dems_sw_pac_avg = pac_total_dems_sw/len(dems_sw)
+    dems_sw_bailout_supp_avg = bailout_supp_dems_sw_total / len(dems_sw)
+    dems_sw_bailout_opp_avg = bailout_supp_dems_sw_total / len(dems_sw)
+    dems_sw_ada_avg = ada_dems_sw / len(dems_sw)
+
+
+    length_reps_sw = len(reps_sw)
+    pac_total_reps_sw = 0
+    bailout_supp_reps_sw_total = 0
+    bailout_opp_reps_sw_total = 0
+    ada_reps_sw = 0
+    for i in reps_sw:
+        try:
+            pac_total_reps_sw += i.PAC
+            bailout_supp_reps_sw_total += i.bailout_support
+            bailout_opp_reps_sw_total += i.bailout_opposition
+            ada_reps_sw += i.ada_score
+        except:
+            pass
+    reps_sw_pac_avg = pac_total_reps_sw / len(reps_sw)
+    reps_sw_bailout_supp_avg = bailout_supp_reps_sw_total / len(reps_sw)
+    reps_sw_bailout_opp_avg = bailout_supp_reps_sw_total / len(reps_sw)
+    reps_sw_ada_avg = ada_reps_sw / len(reps_sw)
+
+
+
+
 
 
 #_____________CONTEXT_______________________________________________
@@ -368,6 +549,8 @@ def analyze(request):
         'bailout_supp_yah_yah_avg' : bailout_supp_yah_yah_avg,
         'bailout_opp_yah_yah_avg' : bailout_opp_yah_yah_avg,
         'ada_yah_yah_avg' : ada_yah_yah_avg,
+        'dems_yes_yes' : dems_yes_yes,
+        'reps_yes_yes' : reps_yes_yes,
 
         'nah_nah': nah_nah,
         'dem_count_nn': dem_count_nn,
@@ -396,6 +579,67 @@ def analyze(request):
         'bailout_supp_sw_avg' : bailout_supp_sw_avg,
         'bailout_opp_sw_avg' : bailout_opp_sw_avg,
         'ada_sw_avg' : ada_sw_avg,
+
+        'all_democrats' : all_democrats,
+        'all_republicans' : all_republicans,
+        'all_dems_pac_avg' : all_dems_pac_avg,
+        'all_dems_bailout_supp_avg' : all_dems_bailout_supp_avg,
+        'all_dems_bailout_opp_avg' : all_dems_bailout_opp_avg,
+        'ada_all_dems_avg' : ada_all_dems_avg,
+
+        'all_reps_pac_avg' : all_reps_pac_avg,
+        'all_reps_bailout_supp_avg' : all_reps_bailout_supp_avg,
+        'all_reps_bailout_opp_avg' : all_reps_bailout_opp_avg,
+        'ada_all_reps_avg' : ada_all_reps_avg,
+
+        'dems_yy_pac_avg' : dems_yy_pac_avg,
+        'dems_yy_bailout_supp_avg' : dems_yy_bailout_supp_avg,
+        'dems_yy_bailout_opp_avg' : dems_yy_bailout_opp_avg,
+        'dems_yy_ada_avg' : dems_yy_ada_avg,
+        'length_dems_yy' : length_dems_yy,
+
+        'reps_yy_pac_avg' : reps_yy_pac_avg,
+        'reps_yy_bailout_supp_avg' : reps_yy_bailout_supp_avg,
+        'reps_yy_bailout_opp_avg' : reps_yy_bailout_opp_avg,
+        'reps_yy_ada_avg' : reps_yy_ada_avg,
+        'length_reps_yy' : length_reps_yy,
+
+        'dems_nn_pac_avg' : dems_nn_pac_avg,
+        'dems_nn_bailout_supp_avg' : dems_nn_bailout_supp_avg,
+        'dems_nn_bailout_opp_avg' : dems_nn_bailout_opp_avg,
+        'dems_nn_ada_avg' : dems_nn_ada_avg,
+        'length_dems_nn' : length_dems_nn,
+
+        'reps_nn_pac_avg' : reps_nn_pac_avg,
+        'reps_nn_bailout_supp_avg' : reps_nn_bailout_supp_avg,
+        'reps_nn_bailout_opp_avg' : reps_nn_bailout_opp_avg,
+        'reps_nn_ada_avg' : reps_nn_ada_avg,
+        'length_reps_nn' : length_reps_nn,
+
+        'dems_sw_pac_avg' : dems_sw_pac_avg,
+        'dems_sw_bailout_supp_avg' : dems_sw_bailout_supp_avg,
+        'dems_sw_bailout_opp_avg' : dems_sw_bailout_opp_avg,
+        'dems_sw_ada_avg' : dems_sw_ada_avg,
+        'length_dems_sw' : length_dems_sw,
+
+        'reps_sw_pac_avg' : reps_sw_pac_avg,
+        'reps_sw_bailout_supp_avg' : reps_sw_bailout_supp_avg,
+        'reps_sw_bailout_opp_avg' : reps_sw_bailout_opp_avg,
+        'reps_sw_ada_avg' : reps_sw_ada_avg,
+        'length_reps_sw' : length_reps_sw,
+
+        'pac_total_all_dems' : pac_total_all_dems,
+        'pac_total_all_reps' : pac_total_all_reps,
+        'pac_total_dems_yy' : pac_total_dems_yy,
+        'pac_total_reps_yy' : pac_total_reps_yy,
+        'pac_total_dems_nn' : pac_total_dems_nn,
+        'pac_total_reps_nn' : pac_total_reps_nn,
+        'pac_total_dems_sw' : pac_total_dems_sw,
+        'pac_total_reps_sw' : pac_total_reps_sw,
+
+
+
+
 
 
     }
@@ -460,12 +704,29 @@ def user_dashboard(request):
     members = []
     members = Bailout.objects.all()
 
+
+
+
+
+
+    search_form = MemberSearchForm()
     if request.method == 'POST':
-        form = MemberSearchForm(request.POST)
-        if form.is_valid():
-            #return HttpResponseRedirect('/bailout/member_search')
-            member_name = form.cleaned_data['name']
-            members_to_rate = Bailout.objects.filter(name__icontains=member_name)
+        if request.POST.get('moc', False):
+            form = RatingForm(request.POST)
+            if form.is_valid():
+                rate_obj = form.save(commit=False)  # Must link rating and logged in user prior to saving
+                rate_obj.user = request.user  # This line links the rating object with the user that is logged in
+                rate_obj.save()
+                print 'i made it this far'
+
+
+
+        else:
+            search_form = MemberSearchForm(request.POST)
+            if search_form.is_valid():
+                #return HttpResponseRedirect('/bailout/member_search')
+                member_name = search_form.cleaned_data['name']
+                members_to_rate = Bailout.objects.filter(name__icontains=member_name)
 
 
             # search_dict = {}
@@ -475,9 +736,9 @@ def user_dashboard(request):
             #print 'Search dict:\n\t{}'.format(str(search_dict))
             #members = Bailout.objects.filter(**search_dict)
     else:
-        form = MemberSearchForm()
+        search_form = MemberSearchForm()
     context = {
-        'form': form,
+        'form': search_form,
         'members_to_rate': members_to_rate,
         'members' : members,
         'da_user' : da_user,
@@ -533,7 +794,7 @@ def rating_page(request, identifier=None):
     if request.user.is_authenticated():
         da_user = request.user.username
     if request.method == 'POST':
-        form = RatingForm(request.POST )
+        form = RatingForm(request.POST)
         if form.is_valid():
             rate_obj = form.save(commit=False)  # Must link rating and logged in user prior to saving
             rate_obj.user = request.user      # This line links the rating object with the user that is logged in
@@ -554,7 +815,7 @@ def rating_page(request, identifier=None):
 @login_required(login_url='/')
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect('/bailout/')
 
 @login_required(login_url='/')
 def members_by_user_state(request, state=None):
@@ -590,5 +851,10 @@ def user_ratings(request):
         'user_profile' : user_profile,
     }
 
-    return render(request, 'user_ratings.html'      , context)
+    return render(request, 'user_ratings.html', context)
+
+def explain_variables(request):
+    return render(request, 'explain_variables.html')
+
+
 # Create your views here.

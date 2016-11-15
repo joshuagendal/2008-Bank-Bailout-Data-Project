@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <title>{%  block title %} Bailout Project {%  endblock %}</title>
+
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -31,6 +31,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     {% endcomment %}
 {% endblock %}
+{%  block title %}<title> Bailout Project </title>{%  endblock %}
 </head>
 <body>
 {% block tabbar %}
@@ -45,7 +46,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -91,27 +92,55 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-md-12">
+          <h2>Project and Research Paper Background</h2>
+          <p class="home-intro indented"> The 2008 financial crisis was a trying time for the United States of America. Irresponsible, and some would argue illegal, mortgage and investing
+          practices by large financial institutions beginning in the Clinton years resulted in the <a href="https://business.cch.com/images/banner/subprime.pdf"> sub-prime mortgage crisis </a> in 2008.
+          Toxic investments in a troubled housing market had a malicious domino effect on the U.S., and world, economy.
+          Investment banking firm Lehman Brothers was a truly pivotal domino to fall, declaring insolvency on September 15, 2008.
+          This resulted in a financial panic in the stock market that had the potential to foster a bank run. The dominoes continued
+          to fall to various financial markets, when the inevitability of the collapse of the credit market prompted government officials
+          to take action. <br><br>
+
+          In response to the financial crisis, Treasury Secretary Henry Paulson announced his Troubled Asset Relief
+          Program (TARP) on September 20. Known as the Paulson Proposal, TARP proposed that the Treasury would buy up
+          to $700 billion of Mortgage Backed Securities owned by large financial institutions, in hopes of stabilizing
+          financial markets by directly reducing the uncertainty in the financial market and banking system. Four
+          days later, President Bush addressed the nation on primetime television to rally public support for Paulson’s
+          Proposal. <br><br>
+
+          In Congress, the TARP proposal became a bill called the Emergency Economic Stabilization Act of
+          2008 (EESA). The bill was taken up expeditiously for a vote in the House on September 29, but it failed
+          205-228. That same day, investors responded to the failed bailout, and the Dow Jones Industrial Average
+          had its largest <a href="http://money.cnn.com/2008/09/29/markets/markets_newyork/index.htm">single-day point drop in its history </a>.
+          The media’s reporting was starting to become frightening, warning that people’s savings and 401k investments
+          were at risk of being lost. After being passed in the Senate on October 1, the EESA was sent back to
+          the lower chamber for a revote on October 3. This time, the EESA passed the House comfortably, 263-171.
+          Between the first and second votes on the $700 billion bailout, 58 members of the House of Representatives
+          changed their vote from “nay” to “yay.” <br><br>
+
+          The research paper I wrote for my honors thesis in college, and whose data is the basis for this web app,
+          tried to find statistical factors that may have caused 58 members of the House of Representatives
+          to switch their vote from "no" to "yes" on the EESA. I looked at factors such as financial services
+          Political Action Committee campaign contributions, ideology, bailout public opinion by district, and
+          others.
+          <br><br>
+          Unfortunately, my data analysis for the project did not yield any deifnitive conclusions on what factors may have directly
+          caused these members of the House of Representatives to switch their vote on this very important bill.
+
+
+
+
+
+
+          </p>
         </div>
       </div>
     {% endblock %}
       <hr>
 
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; 2016 Joshie G</p>
       </footer>
     </div> <!-- /container -->
 

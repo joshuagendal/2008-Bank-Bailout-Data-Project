@@ -1,5 +1,214 @@
-/* Move down content because we have a fixed navbar that is 50px tall */
+/* Jumbotron */
+
 body {
   padding-top: 50px;
   padding-bottom: 20px;
+  scroll-behavior: touch;
+}
+
+/* Navigation */
+
+.navbar {
+  background-color: #0052A5;
+  border-bottom: 5px solid #E0162B;
+  height: 100px;
+}
+
+@media(max-width:992px) {
+  .navbar {
+    height: 50px;
+  }
+}
+
+
+.navbar-nav > li > a {
+  color: #fff !important;
+  font-size: 20px;
+  margin-top: 20px;
+  transition: color 0.25s ease;
+}
+
+.navbar-nav  > li > a:hover {
+  color: #cee8ff !important;
+}
+
+@media(max-width:992px) {
+  .navbar-nav > li > a {
+    font-size: 16px;
+    margin-top: 0px;
+  }
+}
+
+.navbar-brand {
+  background: url('bailout-logo.png') center no-repeat;
+  background-size: cover;
+  margin-top: 23%;
+  height: 35px;
+  width: 135px;
+}
+
+@media(max-width: 992px) {
+  .navbar-brand {
+    margin-top: 5px;
+  }
+}
+
+.sidebar {
+  background-color: #f3f3f3;
+  height: 100%;
+  position: fixed;
+  top: 100px;
+}
+
+@media(max-width:992px) {
+  .sidebar {
+    height: auto;
+    position: relative;
+    text-align: center;
+    top: 0px;
+    width: 100%;
+  }
+}
+
+.nav-sidebar {
+  margin-left: -15px;
+  width: 114%;
+}
+
+.nav-sidebar > li {
+  font-size: 18px;
+}
+
+.nav-sidebar > li.active > a {
+  background: #dfdfdf;
+  color: #0052A5;
+}
+
+.nav-sidebar > li > a:hover {
+  background: #dfdfdf;
+  color: #0052A5;
+}
+
+
+/* Layout */
+
+.jumbotron {
+  padding-top: 92px;
+}
+
+@media(max-width:992px) {
+  .jumbotron {
+    padding-top: 48px;
+  }
+}
+
+.row {
+  margin-top: 50px;
+}
+
+@media(max-width:992px) {
+  .row {
+    margin-top: 0px;
+  }
+}
+
+/* Typography */
+
+h1 {
+  color: #0052A5;
+}
+
+h1.page-header {
+  color: #E0162B;
+}
+
+h2 {
+  color: #0052A5;
+}
+
+h3 {
+  color: #E0162B;
+}
+
+.home-intro {
+  font-size: 20px;
+}
+
+.helptext {
+  display: block;
+}
+
+/* Table Styles */
+
+table {
+  background-color: #FCFCFC;
+  overflow: scroll;
+  text-align: center;
+  width: 100%;
+}
+
+td:hover {
+  background-color: #cee8ff;
+  cursor: default;
+}
+
+/* Member Search Form */
+
+.list-group-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-bar {
+  padding: 15px;
+}
+
+#user_form {
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+#id_name {
+  border: 1px solid #808080;
+  border-radius: 5px;
+  font-size: 24px;
+  height: 36px;
+  padding: 5px;
+  transition: all 0.3s ease;
+  width: 50%;
+}
+
+#id_name:focus {
+  background: #cee8ff;
+  outline: none;
+}
+
+input[type=submit] {
+  background-color: #0052A5;
+  border: 2px solid #0052A5;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 24px;
+  height: 36px;
+  line-height: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  vertical-align: top;
+  width: 100px;
+}
+
+input[type=submit]:hover {
+  background-color: #fff;
+  border: 2px solid #0052A5;
+  color: #0052A5;
+}
+
+form {
+  text-align: center;
+}
+
+label {
+  font-size: 18px;
+  padding-right: 10px;
 }

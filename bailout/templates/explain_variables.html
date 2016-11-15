@@ -1,0 +1,79 @@
+{% extends 'data.html' %}
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block searchform %}{% endblock %}
+
+
+    {% block heading %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1> Explanation of Variables/Columns </h1>
+        <p>
+        <br> <br>
+        <h3> On this page you will find explanations for all the variables you find in this project.
+        You can think of variables as the data in the columns for all the tables.</h3></p>
+      </div>
+    </div>
+
+
+        <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-12">
+          <p class="home-intro indented">
+              <h2> ID </h2>
+                <h3> A simple identifier number from 1-434.</h3>
+              <h2> Party </h2>
+                <h3> Political Party - Dem is Democrat and Rep is Republican</h3>
+              <h2> State </h2>
+                <h3> U.S. State. It is worth noting that all of the tables for this project are ordered by state, and then
+                state district ID number. </h3>
+              <h2> PAC $ </h2>
+                <h3> Campaign contributions from Political Action Committees representing the financial services industry
+                for the 2008 eleciton cycle. </h3>
+              <h2> Vote 1</h2>
+                <h3> The member's first vote on the 2008 EESA (bank bailout) </h3>
+              <h2> Vote 2 </h2>
+                <h3> The member's second vote on the 2008 EESA (bank bailout) </h3>
+              <h2> Switch </h2>
+                <h3> This indicates whether or not the members changed their vote on the 2008 EESA (bank bailout) </h3>
+              <h2> Dist Supp </h2>
+                <h3> This is the result of a public opinion survey of constituents in the member's congressional district,
+                asking respondents if they support or oppose the bank bailout of 2008. Dist Supp is the percentage of respondents in
+                the member's district that answered they support the bailout. </h3>
+              <h2> Dist Opp</h2>
+                <h3> This is the result of a public opinion survey of constituents in the member's congressional district,
+                asking respondents if they support or oppose the bank bailout of 2008. Dist Opp is the percentage of respondents in
+                the member's district that answered they oppose the bailout. </h3>
+              <h2> ADA Score </h2>
+                <h3> ADA stands for Americans for Democratic Action. Each year, the institution picks 20 legislative votes
+                dealing with hot-button social and economic issues, and assigns 5 points to the congressman or congresswoman
+                if the public position they take on the vote is the liberal/Democratic position. The score essentially
+                is an indicator for how liberal each member of Congress votes, and is the standard used in Political Science
+                to quantify how ideologically liberal or conservative a member of Congress is. This score ranges from 0-100,
+                0 being the most conservative and 100 being the most liberal. </h3>
+              <h2> Margin of Victory </h2>
+                <h3> The member's margin of victory for the 2006 election. </h3>
+              <h3> Swing District </h3>
+                <h3> This indicated whether or not a member is in a "swing district", or a congressional district
+                whose election continuously sees close races.</h3>
+
+
+
+
+          </p>
+        </div>
+      </div>
+        {% endblock %}
+{% block table %}{% endblock %}
+</head>
+<body>
+
+</body>
+</html>

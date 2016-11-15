@@ -1,20 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
 <!DOCTYPE html>
-{% extends 'bailout/base.html' %}
-{% block tabbar %}
-<ul class="nav nav-tabs">
-  <li role="presentation"><a href="/bailout">Home</a></li>
-  <li role="presentation"><a href="/bailout/data">Data</a></li>
-  <li role="presentation" class="active"><a href="/bailout/links">Links & Sources</a></li>
-  <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
-  <li role="presentation"><a href="/bailout/dashboard">Dashboard</a></li>
-  <li role="presentation"><a href="/bailout/logout">Log Out</a></li>
-</ul>
-{% endblock %}
+
 {% block headingparagraph %}
+<div class="jumbotron">
+    <div class="container">
 <h1>Links & Sources</h1>
 <h2>Links</h2>
 <p> Here are some links to websites relevant to my project:<br>
 <a href="http://opensecrets.org">opensecrets.org:</a> Incredible website where I got all of my campaign finance information.
+<br><a href="https://www.opensecrets.org/pacs/pacfaq.php"> Explanation of PACs:</a> Here is where you can find out what a Political
+Action Committee is.<br>
+<a href="http://www.washingtonpost.com/wp-dyn/content/article/2008/09/28/AR2008092800900.html"> Analysis of Legislation</a>
+Washington Post's detailed explanation of what was in the bill that passed.
+
+    </div>
+    </div>
 </a>
 
 </p>

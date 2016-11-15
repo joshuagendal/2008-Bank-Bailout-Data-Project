@@ -1,5 +1,6 @@
 {% load static %}
 
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +56,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/bailout">Bailout</a>
+          <a class="navbar-brand" href="/bailout"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -87,31 +88,48 @@
     <div class="jumbotron">
       <div class="container">
         <h1> 110th Congress </h1>
-        <h2> Party Breakdown of Members in the House of Reps </h2>
+        <h2> Party Breakdown of All Members in the U.S. House of Representatives, 110th Congress </h2>
         <table>
             <tr>
                 <th> Democrat </th>
                 <th> Republican </th>
+                <th> Total </th>
             </tr>
 
             <tr>
-                <td> {{ dems }} </td>
-                <td> {{ reps }} </td>
+                <td> {{ dems|intcomma }} </td>
+                <td> {{ reps|intcomma }} </td>
+                <td> {{ total_members }}</td>
             </tr>
         </table>
         <h2> Average Financial Services PAC Contributions for '08 Cycle </h2>
-        <h3> {{ members_avg }}</h3>
+        <h3> ${{ members_avg|intcomma }}</h3>
         <h2> Total contributions from financial services PACs for all Members for '08 Cycle</h2>
-        <h3> {{ dum }}</h3>
+        <h3> ${{ dum|intcomma }}</h3>
+        <br><br><p> Pssssttt... If you want to rate members of congress, make sure you <a href="/bailout/register"> click here </a>
+        to register. If you are already registered, <a href="/bailout/dashboard"> click here</a> to go to the dashboard page and
+        get to ratin'! </p>
 
       </div>
     </div>
     {% endblock %}
 
+
+{% block searchform %}
+    <div class="container">
+    <h2> Member Search Form</h2>
+<div class="search-bar"><form action='/bailout/member_search' method="post" >
+<form>
+    {{  form  }}
+    <input type="submit" value="Search">
+    {% csrf_token %}
+</form></div>{% endblock %}
+
 {% block sidebar %}
+<div class="container">
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-right">
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+        <div id="sidebar">
           <div class="list-group">
             <a href="/bailout/data" class="list-group-item">All Members in the House of Reps</a>
             <a href="/bailout/financial_services_committee" class="list-group-item">Financial Services Committee</a>
@@ -119,18 +137,12 @@
             <a href="/bailout/yes_yes" class="list-group-item">Members Who, When Asked their Thoughts on the Bailout, said "Yes-Yes"</a>
             <a href="/bailout/no_no" class="list-group-item">Members Who, When Asked their Thoughts on the Bailout, said "No-No"</a>
             <a href="/bailout/analyze" class="list-group-item"> Analyze Different Groups of Members</a>
+            <a href="/bailout/explain_variables" class="list-group-item">Explanation of Variables/Columns</a>
 
           </div>
         </div><!--/.sidebar-offcanvas-->
+    </div>
 {% endblock %}
-{% block searchform %}
-    <h2> Member Search Form</h2>
-<div class="col-sm-9"><form action='/bailout/member_search' method="post" >
-<form>
-    {{  form  }}
-    <input type="submit" value="Search">
-    {% csrf_token %}
-</form>{% endblock %}
 
 {% comment %}
 <table>
@@ -181,42 +193,44 @@
     {% csrf_token %}
 </form>{% endcomment %}
 {% block table %}
-<table>
-    <tr>
-        <th> ID </th>
-        <th> Name </th>
-        <th> Party </th>
-        <th> State </th>
-        <th><a href="/bailout/order_by_pac"> PAC $</a> </th>
-        <th> Vote 1 </th>
-        <th> Vote 2 </th>
-        <th> Switch </th>
-        <th> Dist Supp </th>
-        <th> Dist Opp </th>
-        <th> ADA Score </th>
-        <th> Margin of Victory</th>
-        <th> Swing District</th>
-    </tr>
-
-    {% for obj in objs %}
+<div class="container">
+    <table>
         <tr>
-            <td> {{  obj.identifier }} </td>
-            <td> {{  obj.name }} </td>
-            <td> {{  obj.party }} </td>
-            <td> {{  obj.state }} </td>
-            <td> {{  obj.PAC }} </td>
-            <td> {{  obj.vote_1 }} </td>
-            <td> {{  obj.vote_2 }} </td>
-            <td> {{  obj.switch }} </td>
-            <td> {{  obj.bailout_support }} </td>
-            <td> {{  obj.bailout_opposition }} </td>
-            <td> {{  obj.ada_score }} </td>
-            <td> {{  obj.win_margin_06 }} </td>
-            <td> {{  obj.swing_district }} </td>
-    {% endfor %}
+            <th> ID </th>
+            <th> Name </th>
+            <th> Party </th>
+            <th> State </th>
+            <th><a href="/bailout/order_by_pac"> PAC $</a> </th>
+            <th> Vote 1 </th>
+            <th> Vote 2 </th>
+            <th> Switch </th>
+            <th> Dist Supp </th>
+            <th> Dist Opp </th>
+            <th> ADA Score </th>
+            <th> Margin of Victory</th>
+            <th> Swing District</th>
         </tr>
 
-</table>
+        {% for obj in objs %}
+            <tr>
+                <td> {{  obj.identifier }} </td>
+                <td> {{  obj.name }} </td>
+                <td> {{  obj.party }} </td>
+                <td> {{  obj.state }} </td>
+                <td> {{  obj.PAC }} </td>
+                <td> {{  obj.vote_1 }} </td>
+                <td> {{  obj.vote_2 }} </td>
+                <td> {{  obj.switch }} </td>
+                <td> {{  obj.bailout_support }} </td>
+                <td> {{  obj.bailout_opposition }} </td>
+                <td> {{  obj.ada_score }} </td>
+                <td> {{  obj.win_margin_06 }} </td>
+                <td> {{  obj.swing_district }} </td>
+        {% endfor %}
+            </tr>
+
+    </table>
+</div>
 {% endblock %}
 
 {% block javascript %}

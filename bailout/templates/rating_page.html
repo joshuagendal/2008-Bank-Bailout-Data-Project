@@ -1,20 +1,58 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'base.html' %}
-{% block title %} Rating Page {% endblock %}
-{% block tabbar %}
-<ul class="nav nav-tabs">
-  <li role="presentation"><a href="/bailout">Home</a></li>
-  <li role="presentation"><a href="/bailout/data">Data</a></li>
-  <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
-  <li role="presentation"><a href="/bailout/register">Sign Up</a></li>
-  <li role="presentation" class="active"><a href="/bailout/dashboard">Dashboard</a></li>
-  <li role="presentation"><a href="/bailout/logout">Log Out</a></li>
-</ul>
-{% endblock %}
+
 <body>
-{% block headingparagraph %}
+{% block first_section %}
+    <div class="container col-md-10" style="float:right;">
+
 <h1> {{ da_user }} : Rate {{ member_to_rate.name }} who took {{ member_to_rate.PAC }} and represents {{ member_to_rate.state }}</h1>
+{% endblock %}
+
+{% block table %}
+        <div class="table-responsive">
+    <table class="table table-striped">
+<table>
+
+        <tr>
+            <th> ID </th>
+            <th> Name </th>
+            <th> Party </th>
+            <th> State </th>
+            <th> PAC </th>
+            <th> Vote 1 </th>
+            <th> Vote 2 </th>
+            <th> Switch </th>
+            <th> Dist Supp </th>
+            <th> Dist Opp </th>
+            <th> ADA Score </th>
+            <th> Margin of Victory</th>
+            <th> Swing District</th>
+        </tr>
+
+        <tr>
+            <td> {{ member_to_rate.identifier }} </td>
+            <td> {{ member_to_rate.name }}</td>
+            <td> {{ member_to_rate.party }}</td>
+            <td> {{ member_to_rate.state }}</td>
+            <td> {{ member_to_rate.PAC|intcomma }}</td>
+            <td> {{ member_to_rate.vote_1 }}</td>
+            <td> {{ member_to_rate.vote_2 }}</td>
+            <td> {{ member_to_rate.switch }}</td>
+            <td> {{ member_to_rate.bailout_support }}</td>
+            <td> {{ member_to_rate.bailout_opposition }}</td>
+            <td> {{ member_to_rate.ada_score }}</td>
+            <td> {{ member_to_rate.win_margin_06 }}</td>
+            <td> {{ member_to_rate.swing_district }}</td>
+        </tr>
+
+</table>
+
 
 
 <h1> Member Rating Form </h1>
@@ -23,6 +61,8 @@
     <input type="submit" value="Save">
     {% csrf_token %}
 </form>
+    </div>
+
 {% endblock %}
 </body>
 </html>

@@ -1,24 +1,34 @@
-{% extends 'bailout/base.html' %}
+{% extends 'base.html' %}
+
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="/bailout">Home</a></li>
-  <li role="presentation"><a href="/bailout/data">Data</a></li>
-  <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
-</ul>
 {% block headingparagraph %}
-<h1> Login to Rate Members of Congress </h1>
-<form id="login_form" method="post" action="/bailout/login/">
-    {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50" />
-    Password: <input type="password" name="password" value="" size="50" />
-    <br />
-    <input type="submit" value="submit" />
-    {% csrf_token %}
-</form>
+    <div class="jumbotron">
+        <div class="container">
+            <h2 style="text-align:center;"> Login to Rate Members of Congress </h2>
+            <form id="login_form" method="post" action="/bailout/login/">
+                {% csrf_token %}
+                Username: <input type="text" name="username" value="" size="50" />
+                Password: <input type="password" name="password" value="" size="50" />
+                <br />
+                <input type="submit" value="submit" style="margin-top:15px;"/>
+                {% csrf_token %}
+            </form>
+            <br><br><br><br><br>
+            <h3><strong> If you do not have a username, <a href="/bailout/register"> click here </a> to create one so you can express
+            how you feel about members of Congress! <br><br>
+            You cannot rate members of Congress if you do not sign up and create a username, but you can view the other parts of the website!
+
+
+            </strong></h3>
+        </div>
+    </div>
+
 {% endblock %}
+
 
 
 </body>

@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,25 +11,32 @@
 
 <body>
 {% block heading %}
+    <div class="jumbotron">
+      <div class="container">
 <h1>Members that Voted "Yes" Twice</h1>
 <h3> Party Breakdown of Members that Voted "Yes" Twice:</h3>
 <table>
     <tr>
         <th> Dem </th>
         <th> Rep </th>
+        <th> Total </th>
     </tr>
 
     <tr>
         <td>{{ dem_count_yy }}</td>
         <td>{{ rep_count_yy }}</td>
+        <td> {{ total_members }}</td>
     </tr>
 </table>
 <h3> Average Financial Services PAC Contributions for '08 Cycle For Members that Voted "Yes" Twice </h3>
-<h4> {{ yah_yah_avg }} </h4>
+<h4> ${{ yah_yah_avg|intcomma }} </h4>
+    </div>
+    </div>
 {% endblock %}
 {% block searchform %}{% endblock %}
 
 {% block table %}
+<div class="container">
 <table>
     <tr>
         <th> ID </th>
@@ -66,5 +75,6 @@
     {% endblock %}
 
 </table>
+</div>
 </body>
 </html>

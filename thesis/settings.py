@@ -26,7 +26,7 @@ SECRET_KEY = 'sg=r^+r8m2bs9rl+ze3wgbgb*fz+h5q&l5t16lsdb!haes@qyu'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '**********'
+    '*'
 ]
 
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

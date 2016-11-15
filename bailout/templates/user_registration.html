@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'bailout/base.html' %}
+{% extends 'base.html' %}
 
+{% load static %}
 {% block title %} Registration {% endblock %}
 
-{% block tabbar %}
-<ul class="nav nav-tabs">
-  <li role="presentation"><a href="/bailout">Home</a></li>
-  <li role="presentation"><a href="/bailout/data">Data</a></li>
-  <li role="presentation"><a href="/bailout/links">Links & Sources</a></li>
-  <li role="presentation" class="active"><a href="/bailout/register">Sign Up</a></li>
-  <li role="presentation"><a href="/bailout/dashboard">Dashboard</a></li>
-</ul>
-{% endblock %}
 
 <body>
 
 {% block headingparagraph %}
 {% if registered %}
-    <strong>Thank you for registering! B@ll on! :)</strong>
-    <a href="/bailout">Return to the homepage</a><br />
+<div class="jumbotron">
+    <div class="container">
+        <strong>Thank you for registering! B@ll on! :)</strong>
+        <a href="/bailout">Return to the homepage</a><br />
+    </div>
+</div>
 {% else %}
-    <strong>Register Here!</strong><br />
-    <form id="user_form" method="post" action="/bailout/register"
-          enctype="multipart/form-data">
+<div class="jumbotron"">
+    <div class="container">
+        <strong><h3 style="text-align:center;">Register Here!</h3></strong><br />
+        <form id="user_form" method="post" action="/bailout/register"
+              enctype="multipart/form-data">
 
-    {% csrf_token %}
-    <!-- Display each form -->
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <input type="submit" name="submit" value="Register" />
-    </form>
+        {% csrf_token %}
+        <!-- Display each form -->
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <input type="submit" name="submit" value="Register" />
+        </form>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
 

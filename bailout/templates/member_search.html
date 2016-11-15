@@ -2,8 +2,9 @@
 <html lang="en">
 
 {% extends 'data.html' %}
+{% load static %}
 {% block title %} Members Search Results {% endblock %}
-{% block heading %}<h1>Member Search Results</h1> {% endblock %}
+{% block heading %}<h1>Member Search Results</h1>
 <table>
     <tr>
         <th> ID </th>
@@ -18,7 +19,7 @@
         <th> Dist Opp </th>
     </tr>
 
-    {% block looper %} {% for obj in members %}
+    {% for obj in members %}
         <tr>
             <td> {{  obj.identifier }} </td>
             <td> {{  obj.name }} </td>
@@ -58,5 +59,8 @@
 
  <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
     {% endblock %}
+
+{% block searchform %}{% endblock %}
+{% block table %}{% endblock %}
 </body>
 </html>

@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,62 +19,71 @@
             <tr>
                 <th> Democrat </th>
                 <th> Republican </th>
+                <th> Total </th>
             </tr>
 
             <tr>
                 <td> {{ dem_count_fs }} </td>
                 <td> {{ rep_count_fs }} </td>
+                <td> {{ total_members }}</td>
             </tr>
         </table>
-        <h3> Average Financial Services PAC Contributions for '08 Cycle </h3>
-        <h4> {{ fin_serv_avg }}</h4>
+        <h3> Average Financial Services PAC Contributions to Members on the Financial Services Committee for '08 Cycle </h3>
+        <h4> ${{ fin_serv_avg|intcomma }}</h4>
         <h3> Total contributions from financial services PACs to Members on the Financial Services Committee</h3>
-        <h4> {{ dummy_fs }}</h4>
+        <h4> ${{ dummy_fs|intcomma }}</h4>
+        <br><br><p> <a href="https://en.wikipedia.org/wiki/United_States_House_Committee_on_Financial_Services">The United States House Committee on
+        Financial Services</a> is the committee in our great House of Representatives that is responsible for oversight of the entire
+        financial services industry. I'll allow you to ask yourself "Gee wait a second... You mean the Congressmen who make up the body
+        in the House of Representatives that is responsible for directly overseeing banking regulation and lawmaking relating to the financial
+        services industry received over $15.5 million for 1 eleciton cycle, and an average of $232,653 per member, all directly from
+        Political Action Committees that represent the financial services industry itself?" <br><br>
+        Yup.
 
       </div>
     </div>
     {% endblock %}
 {% block searchform %}{% endblock %}
 {% block table %}
-<table>
-    <tr>
-        <th> ID </th>
-        <th> Name </th>
-        <th> Party </th>
-        <th> State </th>
-        <th> PAC $ </th>
-        <th> Vote 1 </th>
-        <th> Vote 2 </th>
-        <th> Switch </th>
-        <th> Dist Supp </th>
-        <th> Dist Opp </th>
-        <th> ADA Score </th>
-        <th> Margin of Victory</th>
-        <th> Swing District</th>
-    </tr>
-
-    {% for obj in fin_serv %}
+<div class="container">
+    <table>
         <tr>
-            <td> {{  obj.identifier }} </td>
-            <td> {{  obj.name }} </td>
-            <td> {{  obj.party }} </td>
-            <td> {{  obj.state }} </td>
-            <td> {{  obj.PAC }} </td>
-            <td> {{  obj.vote_1 }} </td>
-            <td> {{  obj.vote_2 }} </td>
-            <td> {{  obj.switch }} </td>
-            <td> {{  obj.bailout_support }} </td>
-            <td> {{  obj.bailout_opposition }} </td>
-            <td> {{  obj.ada_score }} </td>
-            <td> {{  obj.win_margin_06 }} </td>
-            <td> {{  obj.swing_district }} </td>
+            <th> ID </th>
+            <th> Name </th>
+            <th> Party </th>
+            <th> State </th>
+            <th> PAC $ </th>
+            <th> Vote 1 </th>
+            <th> Vote 2 </th>
+            <th> Switch </th>
+            <th> Dist Supp </th>
+            <th> Dist Opp </th>
+            <th> ADA Score </th>
+            <th> Margin of Victory</th>
+            <th> Swing District</th>
         </tr>
-    {% endfor %}
-    <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
-    {% endblock %}
 
-
-</table>
+        {% for obj in fin_serv %}
+            <tr>
+                <td> {{  obj.identifier }} </td>
+                <td> {{  obj.name }} </td>
+                <td> {{  obj.party }} </td>
+                <td> {{  obj.state }} </td>
+                <td> {{  obj.PAC }} </td>
+                <td> {{  obj.vote_1 }} </td>
+                <td> {{  obj.vote_2 }} </td>
+                <td> {{  obj.switch }} </td>
+                <td> {{  obj.bailout_support }} </td>
+                <td> {{  obj.bailout_opposition }} </td>
+                <td> {{  obj.ada_score }} </td>
+                <td> {{  obj.win_margin_06 }} </td>
+                <td> {{  obj.swing_district }} </td>
+            </tr>
+        {% endfor %}
+        <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
+        {% endblock %}
+    </table>
+</div>
 <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
 </body>
 </html>
