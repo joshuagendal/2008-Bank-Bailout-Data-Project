@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from localflavor.us.models import USStateField
 
 
-RATING_VALUES = ((1, 'A STEAMING PILE OF POOPY'), (2, 'A NORMAL PILE OF POOPY'),
-                 (3, "It's like, whatever, man."), (4, 'Pretty, pretty, pretty... good'), (5, 'Really great!'))
+RATING_VALUES = ((1, 1), (2, 2),
+                 (3, 3), (4, 4), (5, 5))
 POLITICAL_PARTY = (('Democrat', 'Democrat'), ('Republican', 'Republican'))
 
 
