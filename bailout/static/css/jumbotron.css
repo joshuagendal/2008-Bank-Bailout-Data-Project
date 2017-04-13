@@ -3,11 +3,11 @@
 body {
   padding-top: 50px;
   padding-bottom: 20px;
-  scroll-behavior: touch;
+  /*scroll-behavior: touch; */
 }
 
 /* Navigation */
-
+/*
 .navbar {
   background-color: #0052A5;
   border-bottom: 5px solid #E0162B;
@@ -90,7 +90,7 @@ body {
 }
 
 
-/* Layout */
+ Layout
 
 .jumbotron {
   padding-top: 92px;
@@ -112,7 +112,7 @@ body {
   }
 }
 
-/* Typography */
+Typography
 
 h1 {
   color: #0052A5;
@@ -138,7 +138,7 @@ h3 {
   display: block;
 }
 
-/* Table Styles */
+ Table Styles
 
 table {
   background-color: #FCFCFC;
@@ -152,7 +152,7 @@ td:hover {
   cursor: default;
 }
 
-/* Member Search Form */
+Member Search Form
 
 .list-group-item {
   cursor: pointer;
@@ -211,4 +211,4 @@ form {
 label {
   font-size: 18px;
   padding-right: 10px;
-}
+}*/
