@@ -79,12 +79,12 @@
   </div>
 {% endblock %}
 
-
+{% block sidebar %}
  <!-- TOP CONTENT CONTAINER -->
  <div class="row">
    <div class="container pad50t50b align-left">
     <!-- SIDEBAR -->
-    {% block sidebar %}
+    
     <div class="col-md-3">
       <div class="sidebar-1 affix-top">
         <div class="row pad25b">
@@ -109,6 +109,8 @@
 	</div> 
 {% endblock %}
  
+{% block table-extra %}{% endblock %}
+ 
 {% block table %}
   <div class="row">		  
   	<div class="col-md-1">
@@ -124,7 +126,7 @@
 			</form><br>
 			<div>
       <table class="dashboard-table table-responsive table-striped">
-        <thead class="">
+        <thead>
 {% if members_to_rate %}
   
 

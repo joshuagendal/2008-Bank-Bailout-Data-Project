@@ -37,7 +37,8 @@
 
 
 {% block table %}
-		<h1 class="pad50t50b"> Welcome {{ da_user }} : Rate Members of your State: {{ user_state }} </h1>
+		
+		<h1 class="pad50t50b center-align"> Welcome {{ da_user }} : Rate Members of your State: {{ user_state }} </h1>
 		<div class="table-holder">
 				<table class="table-responsive">
 							<tr>
@@ -53,7 +54,7 @@
 									<th> Dist Opp </th>
 									<th> ADA Score </th>
 									<th> Margin of Victory </th>
-									<td> Swing District </td>
+									<th> Swing District </th>
 							</tr>
 
 					{% for obj in members_of_user_state %}
@@ -79,5 +80,6 @@
 
 
 {% endblock %}
+
 	</body>
 </html>
