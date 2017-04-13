@@ -113,18 +113,21 @@
  
 {% block table %}
   <div class="row">		  
+<!--
   	<div class="col-md-1">
-  		<!-- EMPTY DIV FOR SPACING -->
   	</div>  
-  	<div class="col-md-10 pad50t50b align-center">
-			<h1 class="big-header align-left"> Below, select the member of the House of Representatives for the 110th Congress that you want to rate! </h1><br>
+-->
+ 		<div class="container">
+ 			<h1 class="big-header align-left"> Below, select the member of the House of Representatives for the 110th Congress that you want to rate! </h1><br>
+ 		</div>
+  	<div class="col-md-12 pad50t50b align-center">
 			<!-- SEARCH FORM -->
 			<form action='/bailout/dashboard' method="post" class="align-center">
 			{{  form  }}
 			<input type="submit" value="Search">
 			{% csrf_token %}
 			</form><br>
-			<div>
+			<div class="table-holder">
       <table class="dashboard-table table-responsive table-striped">
         <thead>
 {% if members_to_rate %}
@@ -216,9 +219,11 @@
 			</div>
 
 </div>
+<!--
 			<div class="col-md-1">
-				<!-- EMPTY DIV FOR SPACING -->
+				
 			</div>
+-->
 
   	</div>   
 {% endblock %}
