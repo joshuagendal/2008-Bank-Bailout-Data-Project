@@ -9,6 +9,28 @@
 </head>
 
 <body>
+{% block sidebar %}
+	 
+  <div class="container pad50t50b align-left">
+    <div class="col-md-3">
+      <div class="sidebar-1 affix-top">
+        <div class="row pad25b">
+        <!-- SIDEBAR MENU -->
+          <div id="MainMenu">
+              <div class="list-group panel sidebar-color align-left">
+                <a href="/bailout/data" class="list-group-item strong top-level-nav">All Members</a>
+                <a href="/bailout/financial_services_committee" class="list-group-item strong top-level-nav active">Financial Services Committee</a>
+                <a href="/bailout/switchers" class="list-group-item strong top-level-nav">Members That Switched Votes <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/yes_yes" class="list-group-item strong top-level-nav">Members That Voted "Yes" Twice <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/no_no" class="list-group-item strong top-level-nav">Members That Voted "No" Twice <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/analyze" class="list-group-item strong top-level-nav">Analyze Different Groups of Congresspeople <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/explain_variables" class="list-group-item strong top-level-nav">Explanation of Variables/Columns <i class="fa fa-caret-down"></i></a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
 {% block main-content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="col-md-9 align-left main-content">

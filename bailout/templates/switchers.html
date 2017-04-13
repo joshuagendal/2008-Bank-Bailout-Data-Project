@@ -5,6 +5,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+{% block sidebar %}
+	 
+  <div class="container pad50t50b align-left">
+    <div class="col-md-3">
+      <div class="sidebar-1 affix-top">
+        <div class="row pad25b">
+        <!-- SIDEBAR MENU -->
+          <div id="MainMenu">
+              <div class="list-group panel sidebar-color align-left">
+                <a href="/bailout/data" class="list-group-item strong top-level-nav">All Members</a>
+                <a href="/bailout/financial_services_committee" class="list-group-item strong top-level-nav">Financial Services Committee</a>
+                <a href="/bailout/switchers" class="list-group-item strong top-level-nav active">Members That Switched Votes</a>
+                <a href="/bailout/yes_yes" class="list-group-item strong top-level-nav">Members That Voted "Yes" Twice</a>
+                <a href="/bailout/no_no" class="list-group-item strong top-level-nav">Members That Voted "No" Twice</a>
+                <a href="/bailout/analyze" class="list-group-item strong top-level-nav">Analyze Different Groups of Congresspeople</a>
+                <a href="/bailout/explain_variables" class="list-group-item strong top-level-nav">Explanation of Variables/Columns</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
 {% block main-content %}
   <div class="container">
     <div class="col-md-9 align-left main-content">
