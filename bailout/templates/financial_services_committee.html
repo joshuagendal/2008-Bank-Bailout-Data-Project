@@ -1,37 +1,36 @@
-{% extends 'data.html' %}
-
+{% extends 'data_new.html' %}
 {% load static %}
-
 {% load humanize %}
 
 <!DOCTYPE html>
 <html lang="en">
 
-{% block title %} Members on the Financial Services Committee {% endblock %}
-<body>
-    {% block heading %}
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1> 110th Congress </h1>
-        <h2> Party Breakdown of all Members in the Financial Services Committee </h2>
-        <table>
-            <tr>
-                <th> Democrat </th>
-                <th> Republican </th>
-                <th> Total </th>
-            </tr>
+<head>
+</head>
 
-            <tr>
-                <td> {{ dem_count_fs }} </td>
-                <td> {{ rep_count_fs }} </td>
-                <td> {{ total_members }}</td>
-            </tr>
-        </table>
-        <h3> Average Financial Services PAC Contributions to Members on the Financial Services Committee for '08 Cycle </h3>
-        <h4> ${{ fin_serv_avg|intcomma }}</h4>
-        <h3> Total contributions from financial services PACs to Members on the Financial Services Committee</h3>
-        <h4> ${{ dummy_fs|intcomma }}</h4>
+<body>
+{% block main-content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="col-md-9 align-left main-content">
+    <h1 class="big-header"> 110th Congress </h1>
+    <h1 class="black-color-theme"> Party Breakdown of all Members in the Financial Services Committee </h2><br>
+      <table class="political-party-breakdown-table">
+        <tr>
+          <th> Democrat </th>
+          <th> Republican </th>
+          <th> Total </th>
+        </tr>
+
+        <tr>
+          <td> {{ dem_count_fs }} </td>
+          <td> {{ rep_count_fs }} </td>
+          <td> {{ total_members }}</td>
+        </tr>
+      </table>
+        <h1 class="black-color-theme"> Average Financial Services PAC Contributions to Members on the Financial Services Committee for '08 Cycle </h1>
+        <h1 class="money-green"> ${{ fin_serv_avg|intcomma }}</h1>
+        <h1 class="black-color-theme"> Total contributions from financial services PACs to Members on the Financial Services Committee</h1>
+        <h1 class="money-green"> ${{ dummy_fs|intcomma }}</h1>
         <br><br><p> <a href="https://en.wikipedia.org/wiki/United_States_House_Committee_on_Financial_Services">The United States House Committee on
         Financial Services</a> is the committee in our great House of Representatives that is responsible for oversight of the entire
         financial services industry. I'll allow you to ask yourself "Gee wait a second... You mean the Congressmen who make up the body
@@ -41,12 +40,11 @@
         Yup.
 
       </div>
-    </div>
     {% endblock %}
 {% block searchform %}{% endblock %}
 {% block table %}
 <div class="container">
-    <table>
+    <table class="table-responsive">
         <tr>
             <th> ID </th>
             <th> Name </th>
@@ -81,7 +79,7 @@
             </tr>
         {% endfor %}
         <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
-        {% endblock %}
+{% endblock %}
     </table>
 </div>
 <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>

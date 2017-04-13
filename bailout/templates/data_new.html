@@ -1,0 +1,193 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block header %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static "css/bootstrap.css" %}" type="text/css" rel="stylesheet">
+
+  <!-- Custom Styles for this template -->
+  <link href="{% static "css/custom.css" %}" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:100, 200, 300,400,600" rel="stylesheet">
+  <!-- Javascript -->
+  <script src="{% static "js/bootstrap.js" %}"></script>
+  <style>
+      td, th {
+          padding: 10px;
+          border: 1px solid black;
+      }
+  </style>
+  {% block title %}<title>Data</title>{% endblock %}
+</head>
+{% endblock %}
+<body>
+{% block tabbar %}      <!-- TOP NAVBAR -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div id="navbar" class="collapse navbar-collapse">
+      <div class="bailout-logo">
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/bailout">Home</a></li>
+        <li><a href="/bailout/data">Data</a></li>
+        <li><a href="/bailout/links">Links & Sources</a></li>
+        <li><a href="/bailout/register">Sign Up</a></li>
+        <li><a href="/bailout/dashboard">Dashboard</a></li>
+
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+  </nav>
+{% endblock %}
+
+<!-- PICTURE SLIDER -->
+{% block picture-slider %}
+  <div class="container-fluid">
+    <div class="container">
+      <!-- <img class="img-responsive hero-image" src="US-capitol.jpg" alt="http://www.publicdomainpictures.net/view-image.php?image=21750">-->
+      <div class="hero-image">
+      </div>
+    </div><!-- /.container -->
+  </div>
+{% endblock %}
+
+<!-- SIDE NAVBAR -->
+{% block sidebar %}
+  <div class="container pad50t50b align-left">
+    <div class="col-md-3">
+      <div class="sidebar-1 affix-top" data-spy="affix" data-offset-top="20" data-offset-bottom="200">
+        <div class="row pad25b">
+        <!-- SIDEBAR MENU -->
+          <div id="MainMenu">
+            <h3> Sidebar Navigation</h3>
+              <div class="list-group panel sidebar-color align-left">
+                <a href="/bailout/data" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">All Members</a>
+                <a href="/bailout/financial_services_committee" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Financial Services Committee</a>
+                <a href="/bailout/switchers" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Members That Switched Votes <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/yes_yes" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Members That Voted "Yes" Twice <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/no_no" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Members That Voted "No" Twice <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/analyze" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Analyze Different Groups of Congresspeople <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/explain_variables" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Explanation of Variables/Columns <i class="fa fa-caret-down"></i></a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+<!-- MAIN CONTENT -->
+{% block main-content %}
+      <div class="col-md-9 align-left main-content">
+        <h1 class="big-header"> 110th Congress </h1>
+        <h1 class="black-color-theme"> Party Breakdown of All Members in the U.S. House of Representatives, 110th Congress </h2><br>
+        <table class="political-party-breakdown-table">
+            <tr>
+                <th> Democrat </th>
+                <th> Republican </th>
+                <th> Total </th>
+            </tr>
+
+            <tr>
+                <td> {{ dems|intcomma }} </td>
+                <td> {{ reps|intcomma }} </td>
+                <td> {{ total_members }}</td>
+            </tr>
+        </table>
+        <h1 class="black-color-theme"> Average Financial Services PAC Contributions for '08 Cycle </h1>
+        <h1 class="money-green"> ${{ members_avg|intcomma }}</h3>
+        <h1 class="black-color-theme"> Total contributions from financial services PACs for all Members for '08 Cycle</h1>
+        <h1 class="money-green"> ${{ dum|intcomma }}</h3>
+        <br><br><p> Pssssttt... If you want to rate members of congress, make sure you <a href="/bailout/register"> click here </a>
+        to register. If you are already registered, <a href="/bailout/dashboard"> click here</a> to go to the dashboard page and
+        get to ratin'! </p>
+  </div>
+{% endblock %}
+</div>
+{% block searchform %}
+  <div class="container">
+    <h1 class="black-color-theme"> Member Search Form</h2><br>
+    <div class="search-bar"><form action='/bailout/member_search' method="post" >
+    <form>
+      {{  form  }}
+      <input type="submit" value="Search">
+      {% csrf_token %}
+      </form></div>
+{% endblock %}
+  </div><br>
+  <!-- BIG TABLE -->
+  {% block table %}
+  <div class="container">
+      <table class="table-responsive">
+          <tr>
+              <th> ID </th>
+              <th> Name </th>
+              <th> Party </th>
+              <th> State </th>
+              <th><a href="/bailout/order_by_pac"> PAC $</a> </th>
+              <th> Vote 1 </th>
+              <th> Vote 2 </th>
+              <th> Switch </th>
+              <th> Dist Supp </th>
+              <th> Dist Opp </th>
+              <th> ADA Score </th>
+              <th> Margin of Victory</th>
+              <th> Swing District</th>
+          </tr>
+
+          {% for obj in objs %}
+              <tr>
+                  <td> {{  obj.identifier }} </td>
+                  <td> {{  obj.name }} </td>
+                  <td> {{  obj.party }} </td>
+                  <td> {{  obj.state }} </td>
+                  <td> {{  obj.PAC }} </td>
+                  <td> {{  obj.vote_1 }} </td>
+                  <td> {{  obj.vote_2 }} </td>
+                  <td> {{  obj.switch }} </td>
+                  <td> {{  obj.bailout_support }} </td>
+                  <td> {{  obj.bailout_opposition }} </td>
+                  <td> {{  obj.ada_score }} </td>
+                  <td> {{  obj.win_margin_06 }} </td>
+                  <td> {{  obj.swing_district }} </td>
+          {% endfor %}
+              </tr>
+
+      </table>
+  </div>
+  {% endblock %}
+
+</body>
+</html>
+
+
+{% comment %}
+
+
+EXTRA CLUTTER TOOK OUR OF SIDE NAV
+<div class="collapse" id="demo3">
+  <a href="#SubMenu1" class="list-group-item strong sub-level-nav" data-toggle="collapse" data-parent="#SubMenu1">Lorem ipsum <i class="fa fa-caret-down"></i></a>
+    <div class="collapse list-group-submenu" id="SubMenu1">
+      <a href="#" class="list-group-item" data-parent="#SubMenu1">Lorem ipsum dolor sit amet</a>
+      <a href="#" class="list-group-item" data-parent="#SubMenu1">consectetur adipisicing elit</a>
+      <a href="#SubSubMenu1" class="list-group-item strong" data-toggle="collapse" data-parent="#SubSubMenu1">Lorem ipsum <i class="fa fa-caret-down"></i></a>
+        <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu1">
+          <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Lorem</a>
+          <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Ipsum Dolor</a>
+        </div>
+      <a href="#" class="list-group-item" data-parent="#SubMenu1">Sit Amet</a>
+      <a href="#SubSubMenu3" class="list-group-item strong" data-toggle="collapse" data-parent="#SubSubMenu3"> Consectetur <i class="fa fa-caret-down"></i></a>
+        <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu3">
+          <a href="#" class="list-group-item" data-parent="#SubSubMenu3">Adipiscing</a>
+          <a href="#" class="list-group-item" data-parent="#SubSubMenu3">Elit</a>
+        </div>
+    </div>
+</div>
+      <a href="#" class="list-group-item strong top-level-nav">Some other link</a>
+
+{% endcomment %}

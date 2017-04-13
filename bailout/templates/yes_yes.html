@@ -1,43 +1,38 @@
-{% extends 'data.html' %}
-
+{% extends 'data_new.html' %}
 {% load static %}
-
 {% load humanize %}
 
 <!DOCTYPE html>
 <html lang="en">
 
-{% block title %} Members that Voted Yes Twice {% endblock %}
-
 <body>
-{% block heading %}
-    <div class="jumbotron">
-      <div class="container">
-<h1>Members that Voted "Yes" Twice</h1>
-<h3> Party Breakdown of Members that Voted "Yes" Twice:</h3>
-<table>
-    <tr>
+{% block main-content %}
+  <div class="col-md-9 main-content">
+    <h1 class="big-header">Members that Voted "Yes" Twice</h1>
+    <h1 class="black-color-theme"> Party Breakdown of Members that Voted "Yes" Twice:</h1>
+    <table class="political-party-breakdown-table">
+      <tr>
         <th> Dem </th>
         <th> Rep </th>
         <th> Total </th>
-    </tr>
+      </tr>
 
-    <tr>
-        <td>{{ dem_count_yy }}</td>
-        <td>{{ rep_count_yy }}</td>
-        <td> {{ total_members }}</td>
-    </tr>
-</table>
-<h3> Average Financial Services PAC Contributions for '08 Cycle For Members that Voted "Yes" Twice </h3>
-<h4> ${{ yah_yah_avg|intcomma }} </h4>
-    </div>
-    </div>
+      <tr>
+          <td>{{ dem_count_yy }}</td>
+          <td>{{ rep_count_yy }}</td>
+          <td> {{ total_members }}</td>
+      </tr>
+    </table>
+    <h1 class="black-color-theme"> Average Financial Services PAC Contributions for '08 Cycle For Members that Voted "Yes" Twice </h1>
+    <h1 class="money-green"> ${{ yah_yah_avg|intcomma }} </h1>
+  </div>
+
 {% endblock %}
 {% block searchform %}{% endblock %}
 
 {% block table %}
 <div class="container">
-<table>
+<table class="table-responsive">
     <tr>
         <th> ID </th>
         <th> Name </th>
@@ -72,7 +67,7 @@
         </tr>
     {% endfor %}
     <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
-    {% endblock %}
+{% endblock %}
 
 </table>
 </div>

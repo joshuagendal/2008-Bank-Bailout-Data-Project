@@ -12,31 +12,43 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static "css/jumbotron.css" %}"rel="stylesheet">
+    <link href="{% static "css/custom.css" %}" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:100, 200, 300,400,600" rel="stylesheet">
 
-
-    {% comment %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    {% endcomment %}
 {% endblock %}
 {%  block title %}<title> Bailout Project </title>{%  endblock %}
 </head>
 <body>
 {% block tabbar %}
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div id="navbar" class="collapse navbar-collapse">
+      <div class="bailout-logo">
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/bailout">Home</a></li>
+        <li><a href="/bailout/data">Data</a></li>
+        <li><a href="/bailout/links">Links & Sources</a></li>
+        <li><a href="/bailout/register">Sign Up</a></li>
+        <li><a href="/bailout/dashboard">Dashboard</a></li>
+
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+  </nav>
 
 
+
+
+{% endblock %}
+{% comment %}
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -57,7 +69,6 @@
             <li><a href="/bailout/dashboard">Dashboard</a></li>
             <li><a href="/bailout/logout">Log Out</a></li>
             </ul>
-          {% comment %}
             <form class="navbar-form navbar-right">
               <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
@@ -67,18 +78,17 @@
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
-          {% endcomment %}
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
-    {% endblock %}
+    {% endcomment %}
+
 
     {% block headingparagraph %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
       <div class="container">
-        <h1> 2008 Bank Bailout Data Project </h1>
-        <p> Hello, and welcome to my website! My name is Josh, and I'm not "just Joshin' you".
+        <h1 class="big-header"> 2008 Bank Bailout Data Project </h1>
+        <p id="site-standard-text"> Hello, and welcome to my website!
             During my undergrad years at Florida State University
         (go Noles!), I wrote several political science research papers and for these papers I had developed a data set on all of the members of
         the House of Representatives of the 110th Congress, with 40+ columns of information. Using the django-python web framework,
@@ -87,13 +97,12 @@
         On this page, I will go into more detail about my research paper. But please, explore this website and make sure to sign up and create a user
         so you can rate members of the House of Representatives!</p>
       </div>
-    </div>
 
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-12">
-          <h2>Project and Research Paper Background</h2>
+          <h1 class="black-color-theme">Project and Research Paper Background</h2>
           <p class="home-intro indented"> The 2008 financial crisis was a trying time for the United States of America. Irresponsible, and some would argue illegal, mortgage and investing
           practices by large financial institutions beginning in the Clinton years resulted in the <a href="https://business.cch.com/images/banner/subprime.pdf"> sub-prime mortgage crisis </a> in 2008.
           Toxic investments in a troubled housing market had a malicious domino effect on the U.S., and world, economy.

@@ -1,8 +1,5 @@
-{% extends 'data.html' %}
-
-
+{% extends 'data_new.html' %}
 {% load static %}
-
 {% load humanize %}
 
 <!DOCTYPE html>
@@ -12,7 +9,7 @@
 
 
 
-{% block title %} Analyze {% endblock %}
+
 
 <body>
 
@@ -21,11 +18,10 @@
 {% block searchform %}{% endblock %}
 
 
-    {% block heading %}
+    {% block main-content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1> Analyze Different Groups of Members of the House </h1>
+    <div class="col-md-9 align-left main-content">
+      <h1 class="big-header"> Analyze Different Groups of Members of the House of Representatives</h1>
 
 
       </div>
@@ -188,7 +184,7 @@
 
 </div>
 
-        {%endblock%}
+{% endblock %}
 
 </body>
 </html>

@@ -1,32 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-{% extends 'data.html' %}
+{% extends 'data_new.html' %}
 {% load static %}
 {% load humanize %}
-{% block title %} Members that Switched their Vote {% endblock %}
-<body>
-{% block heading %}
-        <div class="jumbotron">
-      <div class="container">
-<h1>Members that Switched their Vote</h1>
-<h3> Party Breakdown of Members that Switched their Vote:</h3>
-<table>
-    <tr>
-        <th> Dem </th>
-        <th> Rep </th>
-        <th> Total</th>
-    </tr>
 
-    <tr>
-        <td>{{ dem_count_sw }}</td>
-        <td>{{ rep_count_sw }}</td>
-        <td>{{ total_members }}</td>
-    </tr>
-</table>
-<h3> Average Financial Services PAC Contributions for '08 Cycle For Members that Switched Their Vote</h3>
-<h4> ${{ the_switchers_avg|intcomma }} </h4>
+<!DOCTYPE html>
+<html lang="en">
+<body>
+{% block main-content %}
+  <div class="container">
+    <div class="col-md-9 align-left main-content">
+      <h1 class="big-header">Members that Switched their Vote</h1>
+      <h1 class="black-color-theme"> Party Breakdown of Members that Switched their Vote:</h1>
+      <table class="political-party-breakdown-table">
+        <tr>
+            <th> Dem </th>
+            <th> Rep </th>
+            <th> Total</th>
+        </tr>
+
+        <tr>
+            <td>{{ dem_count_sw }}</td>
+            <td>{{ rep_count_sw }}</td>
+            <td>{{ total_members }}</td>
+        </tr>
+      </table>
+      <h1 class="black-color-theme"> Average Financial Services PAC Contributions for '08 Cycle For Members that Switched Their Vote</h3>
+      <h1 class="money-green"> ${{ the_switchers_avg|intcomma }} </h4>
     </div>
-    </div>
+  </div>
 {% endblock %}
 {% block searchform %}{% endblock %}
 {% block table %}
