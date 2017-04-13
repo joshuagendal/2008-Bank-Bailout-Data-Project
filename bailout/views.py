@@ -67,7 +67,7 @@ def data(request):
         'total_members' : total_members,
     }
 
-    return render(request, 'data.html', context)
+    return render(request, 'data_new.html', context)
 
 def links(request):
     return render(request, 'links.html')
@@ -145,7 +145,7 @@ def switchers(request):
         'rep_count_sw' : rep_count_sw,
         'the_switchers_avg' : the_switchers_avg,
         'total_members' : total_members,
-
+				'dummy_sw' : dummy_sw,
     }
 
     return render(request, 'switchers.html', context)
@@ -162,13 +162,13 @@ def no_no(request):
             dem_count += 1
         if i.party == 'Rep':
             rep_count += 1
-    dummy = 0
+    dummy_nn = 0
     for i in nah_nah:
         try:
-            dummy += i.PAC
+            dummy_nn += i.PAC
         except:
             pass
-    nah_nah_avg = dummy/len(nah_nah)
+    nah_nah_avg = dummy_nn/len(nah_nah)
     total_members = dem_count + rep_count
 
 
@@ -178,6 +178,7 @@ def no_no(request):
         'rep_count' : rep_count,
         'nah_nah_avg' : nah_nah_avg,
         'total_members' : total_members,
+			  'dummy_nn' : dummy_nn,
     }
     return render(request, 'no_no.html', context)
 
@@ -217,6 +218,7 @@ def yes_yes(request):
         'rep_count_yy' : rep_count_yy,
         'yah_yah_avg' : yah_yah_avg,
         'total_members' : total_members,
+			  'dummy_yy' : dummy_yy,
     }
     return render(request, 'yes_yes.html', context)
 

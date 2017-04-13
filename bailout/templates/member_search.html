@@ -1,66 +1,68 @@
+{% extends 'data_new.html' %}
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
+<body>
 
-{% extends 'data.html' %}
-{% load static %}
-{% block title %} Members Search Results {% endblock %}
-{% block heading %}<h1>Member Search Results</h1>
-<table>
-    <tr>
-        <th> ID </th>
-        <th> Name </th>
-        <th> Party </th>
-        <th> State </th>
-        <th> PAC $ </th>
-        <th> Vote 1 </th>
-        <th> Vote 2 </th>
-        <th> Switch </th>
-        <th> Dist Supp </th>
-        <th> Dist Opp </th>
-    </tr>
+{% block main-content %}{% endblock %}
 
-    {% for obj in members %}
-        <tr>
-            <td> {{  obj.identifier }} </td>
-            <td> {{  obj.name }} </td>
-            <td> {{  obj.party }} </td>
-            <td> {{  obj.state }} </td>
-            <td> {{  obj.PAC }} </td>
-            <td> {{  obj.vote_1 }} </td>
-            <td> {{  obj.vote_2 }} </td>
-            <td> {{  obj.switch }} </td>
-            <td> {{  obj.bailout_support }} </td>
-            <td> {{  obj.bailout_opposition }} </td>
-        </tr>
-    {% endfor %}
+{%block table %}
 
 
 
 
-    {% comment %}
-    {% for obj in members %}
-        <tr>
-            <td> {{  obj.identifier }}</td>
-            <td> {{  obj.name }}</td>
-            <td> {{  obj.state }}</td>
-            <td> {{  obj.PAC }}</td>
-            <td> {{  obj.switch }}</td>
-    {% endfor %}
-        </tr>
-    {%  endcomment %}
-    {%  comment %}
-    <tr>
-        <td> Column 1</td>
-        <td></td>
-        <td> Column 3</td>
-    </tr>
-    {% endcomment %}
-</table>
 
- <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
-    {% endblock %}
+{% if members %}
+	<div class="table-holder center-align">
+		<div class="container">
+			<h1 class="big-header pad50b">Search Results</h1>
+		</div>
+		<table class="table-responsive">
+			<tr>
+					<th> ID </th>
+					<th> Name </th>
+					<th> Party </th>
+					<th> State </th>
+					<th> PAC $ </th>
+					<th> Vote 1 </th>
+					<th> Vote 2 </th>
+					<th> Switch </th>
+					<th> Dist Supp </th>
+					<th> Dist Opp </th>
+					<th> Margin of Victory</th>
+					<th> Swing District </th>
+			</tr>
+
+			{% for obj in members %}
+			<tr>
+					<td> {{ obj.identifier }} </td>
+					<td> {{ obj.name }} </td>
+					<td> {{ obj.party }} </td>
+					<td> {{ obj.state }} </td>
+					<td> {{ obj.PAC }} </td>
+					<td> {{ obj.vote_1 }} </td>
+					<td> {{ obj.vote_2 }} </td>
+					<td> {{ obj.switch }} </td>
+					<td> {{ obj.bailout_support }} </td>
+					<td> {{ obj.bailout_opposition }} </td>
+					<td> {{ obj.win_margin_06|floatformat:2 }} </td>
+					<td> {{ obj.swing_district }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% else %}
+	<div class="container">
+		<h1 class="big-header">Sorry, your search turned up empty. Click <a href="/bailout/data">here</a> to try again.</h1>
+	</div>
+	
+{% endif %}
+{%endblock %}
+
+
 
 {% block searchform %}{% endblock %}
-{% block table %}{% endblock %}
 </body>
 </html>

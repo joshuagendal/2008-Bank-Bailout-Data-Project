@@ -1,30 +1,35 @@
 {% extends 'dashboard.html' %}
-
 {% load static %}
-
 
 <!DOCTYPE html>
 <html lang="en">
-
-{% block title %} Rate Members by State {% endblock %}
-
+<body>
 {% block sidebar %}
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li><a href="/bailout/dashboard">Overview <span class="sr-only">(current)</span></a></li>
-            <li class="active"><a href="/bailout/dashboard/{{user_profile.state}}">Rate Members of Your State</a></li>
-            <li><a href="/bailout/ratings/">Rating History</a></li>
-          </ul>
+  <div class="container">
+    <div class="row">
+    <div class="col-md-3">
+      <div class="sidebar-1 affix-top">
+        <div class="row pad25b">
+        <!-- SIDEBAR MENU -->
+          <div id="MainMenu">
+              <div class="list-group panel sidebar-color align-left">
+								<a href="/bailout/dashboard" class="list-group-item strong top-level-nav">View and Search for All members</a>
+                <a href="/bailout/dashboard/{{user_profile.state}}" class="list-group-item strong top-level-nav active">Rate Members of Your State</a>
+                <a href="/bailout/ratings" class="list-group-item strong top-level-nav">Rating History</a>
+              </div>
+          </div>
         </div>
+      </div>
+    </div>
+		</div>
+	</div>
 {% endblock %}
 
 
-{% block first_section %}
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<h1> Welcome {{ da_user }} : Rate Members of your State: {{ user_state }} </h1>
+{% block main-content %}
+
+
 
 {% endblock %}
 
@@ -32,48 +37,47 @@
 
 
 {% block table %}
-    <div class="table-responsive">
-    <table class="table table-striped">
-    <table>
-    <tr>
-        <th> ID </th>
-        <th> Name </th>
-        <th> Party </th>
-        <th> State </th>
-        <th> PAC $ </th>
-        <th> Vote 1 </th>
-        <th> Vote 2 </th>
-        <th> Switch </th>
-        <th> Dist Supp </th>
-        <th> Dist Opp </th>
-        <th> ADA Score </th>
-        <th> Margin of Victory </th>
-        <td> Swing District </td>
-    </tr>
+		<h1 class="pad50t50b"> Welcome {{ da_user }} : Rate Members of your State: {{ user_state }} </h1>
+		<div class="table-holder">
+				<table class="table-responsive">
+							<tr>
+									<th> ID </th>
+									<th> Name </th>
+									<th> Party </th>
+									<th> State </th>
+									<th> PAC $ </th>
+									<th> Vote 1 </th>
+									<th> Vote 2 </th>
+									<th> Switch </th>
+									<th> Dist Supp </th>
+									<th> Dist Opp </th>
+									<th> ADA Score </th>
+									<th> Margin of Victory </th>
+									<td> Swing District </td>
+							</tr>
 
-    {% block looper %}{% for obj in members_of_user_state %}
-        <tr>
-            <td> {{  obj.identifier }} </td>
-            <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
-            <td> {{  obj.party }} </td>
-            <td> {{  obj.state }} </td>
-            <td> {{  obj.PAC }} </td>
-            <td> {{  obj.vote_1 }} </td>
-            <td> {{  obj.vote_2 }} </td>
-            <td> {{  obj.switch }} </td>
-            <td> {{  obj.bailout_support }} </td>
-            <td> {{  obj.bailout_opposition }} </td>
-            <td> {{  obj.ada_score }}</td>
-            <td>  {{ obj.win_margin_06 }}</td>
-            <td>  {{ obj.swing_district }}</td>
-    {% endfor %}
-    {% endblock %}
-        </tr>
-    </div>
+					{% for obj in members_of_user_state %}
+							<tr>
+									<td> {{  obj.identifier }} </td>
+									<td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
+									<td> {{  obj.party }} </td>
+									<td> {{  obj.state }} </td>
+									<td> {{  obj.PAC }} </td>
+									<td> {{  obj.vote_1 }} </td>
+									<td> {{  obj.vote_2 }} </td>
+									<td> {{  obj.switch }} </td>
+									<td> {{  obj.bailout_support }} </td>
+									<td> {{  obj.bailout_opposition }} </td>
+									<td> {{  obj.ada_score }}</td>
+									<td>  {{ obj.win_margin_06|floatformat:2 }}</td>
+									<td>  {{ obj.swing_district }}</td>
+					{% endfor %}
 
-</table>
+						</tr>
+				</table>
+				</div>
+
+
 {% endblock %}
-<body>
-
-</body>
+	</body>
 </html>

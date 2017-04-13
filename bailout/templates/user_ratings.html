@@ -1,49 +1,70 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
-{% extends 'dashboard.html' %}
 
-{% block title %} Rating History {% endblock %}
 
+
+
+										<!-- SIDEBAR -->
 {% block sidebar %}
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li><a href="/bailout/dashboard">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="/bailout/dashboard/{{user_profile.state}}">Rate Members of Your State</a></li>
-            <li class="active"><a href="/bailout/ratings/">Rating History</a></li>
-          </ul>
+  <div class="container">
+    <div class="row">
+    <div class="col-md-3">
+      <div class="sidebar-1 affix-top">
+        <div class="row pad25b">
+        <!-- SIDEBAR MENU -->
+          <div id="MainMenu">
+              <div class="list-group panel sidebar-color align-left">
+								<a href="/bailout/dashboard" class="list-group-item strong top-level-nav">View and Search for All members</a>
+                <a href="/bailout/dashboard/{{user_profile.state}}" class="list-group-item strong top-level-nav">Rate Members of Your State</a>
+                <a href="/bailout/ratings" class="list-group-item strong top-level-nav active">Rating History</a>
+              </div>
+          </div>
         </div>
-{% endblock %}
-
-{% block first_section %}
-
-    <div class="container col-md-10" style="float:right;">
-    <h1> Welcome {{ da_user }}. Below is a list of your ratings! :)-</h1>
-    <table>
-        <tr>
-            <th> Name </th>
-            <th> Rating </th>
-            <th> PAC </th>
-            <th> Party </th>
-            <th> State </th>
-        </tr>
-
-        {% block looper %}{% for obj in members_rated %}
-        <tr>
-            <td> {{ obj.moc.name }} </td>
-            <td> {{ obj.rating }}</td>
-            <td> {{ obj.moc.PAC }}</td>
-            <td> {{ obj.moc.party }}</td>
-            <td> {{ obj.moc.state }}</td>
-        </tr>
-        {% endfor %}
-        {% endblock %}
-    </table>
+      </div>
     </div>
+{% block main-content %}{% endblock %}
+   <div class="col-md-1">
+   	<!-- EMPTY DIV FOR SPACING -->
+   </div>
+    <div class="col-md-12">
+   		<h1 class="pad50b"> Welcome {{ da_user }}. Below is a list of your ratings!</h1>
+   		<div class="table-holder">
+				<table class="table-responsive">
+						<tr>
+							<th> Name </th>
+							<th> Rating </th>
+							<th> PAC </th>
+							<th> Party </th>
+							<th> State </th>
+						</tr>
 
+					{% for obj in members_rated %}
+						<tr>
+							<td> {{ obj.moc.name }} </td>
+							<td> {{ obj.rating }}</td> 
+							<td> {{ obj.moc.PAC }}</td>
+							<td> {{ obj.moc.party }}</td>
+							<td> {{ obj.moc.state }}</td>
+							</tr>
+					{% endfor %}
+				</table>
+			</div>
+  		</div>
+		</div>
+	</div>
 {% endblock %}
+
+{% block table %}
+	
+	{% endblock %}
+
+
+
 <body>
 
 </body>

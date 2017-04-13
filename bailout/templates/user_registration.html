@@ -1,13 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'base.html' %}
-
-{% load static %}
-{% block title %} Registration {% endblock %}
-
 
 <body>
+{% block tabbar %}
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div id="navbar" class="collapse navbar-collapse">
+      <div class="bailout-logo">
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/bailout">Home</a></li>
+        <li><a href="/bailout/data">Data</a></li>
+        <li><a href="/bailout/links">Links & Sources</a></li>
+        <li class="active"><a href="/bailout/register">Sign Up</a></li>
+        <li><a href="/bailout/dashboard">Dashboard</a></li>
 
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+  </nav>
+{% endblock %}
 {% block headingparagraph %}
 {% if registered %}
 <div class="jumbotron">
@@ -17,8 +32,8 @@
     </div>
 </div>
 {% else %}
-<div class="jumbotron"">
-    <div class="container">
+
+    <div class="container align-left">
         <strong><h3 style="text-align:center;">Register Here!</h3></strong><br />
         <form id="user_form" method="post" action="/bailout/register"
               enctype="multipart/form-data">
@@ -30,7 +45,7 @@
         <input type="submit" name="submit" value="Register" />
         </form>
     </div>
-</div>
+
 {% endif %}
 {% endblock %}
 

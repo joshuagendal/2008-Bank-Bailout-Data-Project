@@ -43,7 +43,7 @@
     {% endblock %}
 {% block searchform %}{% endblock %}
 {% block table %}
-<div class="container">
+	<div class="table-holder">
     <table class="table-responsive">
         <tr>
             <th> ID </th>
@@ -74,11 +74,11 @@
                 <td> {{  obj.bailout_support }} </td>
                 <td> {{  obj.bailout_opposition }} </td>
                 <td> {{  obj.ada_score }} </td>
-                <td> {{  obj.win_margin_06 }} </td>
+                <td> {{  obj.win_margin_06|floatformat:2 }} </td>
                 <td> {{  obj.swing_district }} </td>
             </tr>
         {% endfor %}
-        <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
+        
 {% endblock %}
     </table>
 </div>

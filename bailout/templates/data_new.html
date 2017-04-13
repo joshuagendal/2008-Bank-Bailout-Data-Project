@@ -34,8 +34,8 @@
       <div class="bailout-logo">
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/bailout">Home</a></li>
-        <li><a href="/bailout/data">Data</a></li>
+        <li><a href="/bailout">Home</a></li>
+        <li class="active"><a href="/bailout/data">Data</a></li>
         <li><a href="/bailout/links">Links & Sources</a></li>
         <li><a href="/bailout/register">Sign Up</a></li>
         <li><a href="/bailout/dashboard">Dashboard</a></li>
@@ -59,21 +59,21 @@
 
 <!-- SIDE NAVBAR -->
 {% block sidebar %}
+	 
   <div class="container pad50t50b align-left">
     <div class="col-md-3">
-      <div class="sidebar-1 affix-top" data-spy="affix" data-offset-top="20" data-offset-bottom="200">
+      <div class="sidebar-1 affix-top">
         <div class="row pad25b">
         <!-- SIDEBAR MENU -->
           <div id="MainMenu">
-            <h3> Sidebar Navigation</h3>
               <div class="list-group panel sidebar-color align-left">
-                <a href="/bailout/data" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">All Members</a>
-                <a href="/bailout/financial_services_committee" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Financial Services Committee</a>
-                <a href="/bailout/switchers" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Members That Switched Votes <i class="fa fa-caret-down"></i></a>
-                <a href="/bailout/yes_yes" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Members That Voted "Yes" Twice <i class="fa fa-caret-down"></i></a>
-                <a href="/bailout/no_no" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Members That Voted "No" Twice <i class="fa fa-caret-down"></i></a>
-                <a href="/bailout/analyze" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Analyze Different Groups of Congresspeople <i class="fa fa-caret-down"></i></a>
-                <a href="/bailout/explain_variables" class="list-group-item strong top-level-nav" data-toggle="collapse" data-parent="#MainMenu">Explanation of Variables/Columns <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/data" class="list-group-item strong top-level-nav active">All Members</a>
+                <a href="/bailout/financial_services_committee" class="list-group-item strong top-level-nav">Financial Services Committee</a>
+                <a href="/bailout/switchers" class="list-group-item strong top-level-nav">Members That Switched Votes <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/yes_yes" class="list-group-item strong top-level-nav">Members That Voted "Yes" Twice <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/no_no" class="list-group-item strong top-level-nav">Members That Voted "No" Twice <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/analyze" class="list-group-item strong top-level-nav">Analyze Different Groups of Congresspeople <i class="fa fa-caret-down"></i></a>
+                <a href="/bailout/explain_variables" class="list-group-item strong top-level-nav">Explanation of Variables/Columns <i class="fa fa-caret-down"></i></a>
               </div>
           </div>
         </div>
@@ -122,7 +122,7 @@
   </div><br>
   <!-- BIG TABLE -->
   {% block table %}
-  <div class="container">
+	 <div class="table-holder">
       <table class="table-responsive">
           <tr>
               <th> ID </th>
@@ -153,13 +153,13 @@
                   <td> {{  obj.bailout_support }} </td>
                   <td> {{  obj.bailout_opposition }} </td>
                   <td> {{  obj.ada_score }} </td>
-                  <td> {{  obj.win_margin_06 }} </td>
+                  <td> {{  obj.win_margin_06|floatformat:2 }} </td>
                   <td> {{  obj.swing_district }} </td>
           {% endfor %}
               </tr>
 
       </table>
-  </div>
+		</div>
   {% endblock %}
 
 </body>

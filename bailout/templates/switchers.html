@@ -9,7 +9,7 @@
   <div class="container">
     <div class="col-md-9 align-left main-content">
       <h1 class="big-header">Members that Switched their Vote</h1>
-      <h1 class="black-color-theme"> Party Breakdown of Members that Switched their Vote:</h1>
+      <h1 class="black-color-theme"> Party breakdown of members that switched their vote:</h1>
       <table class="political-party-breakdown-table">
         <tr>
             <th> Dem </th>
@@ -23,15 +23,17 @@
             <td>{{ total_members }}</td>
         </tr>
       </table>
-      <h1 class="black-color-theme"> Average Financial Services PAC Contributions for '08 Cycle For Members that Switched Their Vote</h3>
-      <h1 class="money-green"> ${{ the_switchers_avg|intcomma }} </h4>
+      <h1 class="black-color-theme"> Average financial services PAC Contributions for '08 cycle for members that switched their vote:</h1>
+      <h1 class="money-green"> ${{ the_switchers_avg|intcomma }} </h1>
+      <h1 class="black-color-theme">Total contributions from financial services PACs to members that switched their vote:</h1>
+      <h1 class="money-green"> ${{dummy_sw|intcomma}}</h1>
     </div>
   </div>
 {% endblock %}
 {% block searchform %}{% endblock %}
 {% block table %}
-<div class="container">
-<table>
+<div class="table-holder">
+<table class="table-responsive">
     <tr>
         <th> ID </th>
         <th> Name </th>
@@ -61,7 +63,7 @@
             <td> {{  obj.bailout_support }} </td>
             <td> {{  obj.bailout_opposition }} </td>
             <td> {{  obj.ada_score }} </td>
-            <td> {{  obj.win_margin_06 }} </td>
+            <td> {{  obj.win_margin_06|floatformat:2 }} </td>
             <td> {{  obj.swing_district }} </td>
         </tr>
     {% endfor %}
@@ -70,6 +72,5 @@
 
 </table>
 </div>
-<a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
 </body>
 </html>

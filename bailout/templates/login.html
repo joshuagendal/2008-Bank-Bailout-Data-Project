@@ -1,31 +1,30 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <body>
 {% block headingparagraph %}
-    <div class="jumbotron">
-        <div class="container">
-            <h2 style="text-align:center;"> Login to Rate Members of Congress </h2>
+    
+        <div class="container pad50t50b">
+            <h2 class="pad50b" style="text-align:center;"> Login to Rate Members of Congress </h2>
             <form id="login_form" method="post" action="/bailout/login/">
                 {% csrf_token %}
-                Username: <input type="text" name="username" value="" size="50" />
+                Username: <input type="text" name="username" value="" size="50" /><br />
                 Password: <input type="password" name="password" value="" size="50" />
                 <br />
                 <input type="submit" value="submit" style="margin-top:15px;"/>
                 {% csrf_token %}
             </form>
-            <br><br><br><br><br>
-            <h3><strong> If you do not have a username, <a href="/bailout/register"> click here </a> to create one so you can express
+            
+            <p class="pad50t50b site-standard-text"><strong> If you do not have a username, <a href="/bailout/register"> click here </a> to create one so you can express
             how you feel about members of Congress! <br><br>
             You cannot rate members of Congress if you do not sign up and create a username, but you can view the other parts of the website!
 
 
-            </strong></h3>
+            </strong></p>
         </div>
-    </div>
+
 
 {% endblock %}
 

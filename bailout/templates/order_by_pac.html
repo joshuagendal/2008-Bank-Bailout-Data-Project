@@ -1,9 +1,9 @@
+{% extends 'data_new.html' %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-
-{% extends 'data.html' %}
-
-{% block title %} Ordered by PAC contributions {% endblock %}
+	
 
 <body>
 {% block heading %}
@@ -11,9 +11,15 @@
 {% endblock %}
 
 {% block searchform %}{% endblock %}
+{% block main-content %}
+<div class="col-md-9">
+	<h1 class="big-header">Members of the 110th House of Representatives ordered by campaign contributions from financial services PACs for the 2008 election cycle</h1>
+</div>
 
+{% endblock %}
 {% block table %}
-<table>
+<div class="table-holder">
+<table class="table-responsive">
     <tr>
         <th> ID </th>
         <th> Name </th>
@@ -47,8 +53,8 @@
             <td> {{  obj.swing_district }} </td>
         </tr>
     {% endfor %}
-
+	</table>
+	</div>
     {% endblock %}
-    <a href="/bailout/data"><class="list-group-item">Go Back to Member Search</a>
 </body>
 </html>

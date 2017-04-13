@@ -20,77 +20,83 @@
 
     {% block main-content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="col-md-9 align-left main-content">
-      <h1 class="big-header"> Analyze Different Groups of Members of the House of Representatives</h1>
-
-
-      </div>
-    </div>
+	<div class="col-md-9 align-left main-content">
+    <h1 class="big-header"> Analyze Different Groups of Members of the House of Representatives</h1>
+  </div>
     {% endblock %}
 
 {% block table %}
-<div class="container">
-<table>
-    <tr>
-        <th> Member Group</th>
-        <th> PAC Avg </th>
-        <th> Dist Bailout Support Avg </th>
-        <th> Dist Bailout Opposition Avg</th>
-        <th> ADA Score Avg</th>
-    </tr>
+	<div class="col-md-2">
+		<!-- EMPTY DIV FOR SPACING -->
+	</div>
+	<div class="col-md-8">
+		<div class="table-holder">
+			<table class="table-responsive">
+				<tr>
+						<th> Member Group</th>
+						<th> PAC Avg </th>
+						<th> Dist Bailout Support Avg </th>
+						<th> Dist Bailout Opposition Avg</th>
+						<th> ADA Score Avg</th>
+				</tr>
 
-    <tr>
-        <td> All Members </td>
-        <td>{{ all_members_avg|intcomma }}</td>
-        <td> {{ bailout_supp_all_avg }}</td>
-        <td> {{ bailout_opp_all_avg }}</td>
-        <td> {{ ada_all_avg }}</td>
-    </tr>
+				<tr>
+						<td> All Members </td>
+						<td>{{ all_members_avg|intcomma }}</td>
+						<td> {{ bailout_supp_all_avg|floatformat:2 }}</td>
+						<td> {{ bailout_opp_all_avg|floatformat:2 }}</td>
+						<td> {{ ada_all_avg }}</td>
+				</tr>
 
-    <tr>
-        <td> Members that Voted Yes Twice </td>
-        <td> {{ yah_yah_avg|intcomma }}</td>
-        <td> {{ bailout_supp_yah_yah_avg }}</td>
-        <td> {{ bailout_opp_yah_yah_avg }}</td>
-        <td> {{ ada_yah_yah_avg }}</td>
+				<tr>
+						<td> Members that Voted Yes Twice </td>
+						<td> {{ yah_yah_avg|intcomma }}</td>
+						<td> {{ bailout_supp_yah_yah_avg|floatformat:2 }}</td>
+						<td> {{ bailout_opp_yah_yah_avg|floatformat:2 }}</td>
+						<td> {{ ada_yah_yah_avg }}</td>
 
-    </tr>
+				</tr>
 
-    <tr>
-        <td> Members that Voted No Twice </td>
-        <td> {{ nah_nah_avg|intcomma }}</td>
-        <td> {{ bailout_supp_nah_nah_avg }}</td>
-        <td> {{ bailout_opp_nah_nah_avg }}</td>
-        <td> {{ ada_nah_nah_avg }}</td>
-    </tr>
+				<tr>
+						<td> Members that Voted No Twice </td>
+						<td> {{ nah_nah_avg|intcomma }}</td>
+						<td> {{ bailout_supp_nah_nah_avg|floatformat:2 }}</td>
+						<td> {{ bailout_opp_nah_nah_avg|floatformat:2 }}</td>
+						<td> {{ ada_nah_nah_avg }}</td>
+				</tr>
 
-    <tr>
-        <td> Members that Switched Thier Vote </td>
-        <td> {{ the_switchers_avg|intcomma }}</td>
-        <td> {{ bailout_supp_sw_avg }} </td>
-        <td> {{ bailout_opp_sw_avg }}</td>
-        <td> {{ ada_sw_avg }}</td>
-    </tr>
+				<tr>
+						<td> Members that Switched Thier Vote </td>
+						<td> {{ the_switchers_avg|intcomma }}</td>
+						<td> {{ bailout_supp_sw_avg|floatformat:2 }} </td>
+						<td> {{ bailout_opp_sw_avg|floatformat:2 }}</td>
+						<td> {{ ada_sw_avg }}</td>
+				</tr>
 
 
-    <tr>
-        <td> Members on the Financial Services Committee </td>
-        <td> {{ fin_serv_avg|intcomma }}</td>
-        <td> {{ bailout_supp_fs_avg }}</td>
-        <td> {{ bailout_opp_fs_avg }}</td>
-        <td> {{ ada_fs_avg }}</td>
-    </tr>
+				<tr>
+						<td> Members on the Financial Services Committee </td>
+						<td> {{ fin_serv_avg|intcomma }}</td>
+						<td> {{ bailout_supp_fs_avg|floatformat:2 }}</td>
+						<td> {{ bailout_opp_fs_avg|floatformat:2 }}</td>
+						<td> {{ ada_fs_avg }}</td>
+				</tr>
 
-</table>
-</div>
+			</table>
+		</div>
+	</div>
+<div class="col-md-2">
+	
+</div>	
 <br><br><br><br>
 
-
-
-
-<div class="container">
-<h2> Party Breakdown </h2>
-<table>
+	<div class="col-md-1">
+		
+	</div>
+<div class="col-md-12">
+<div class="table-holder">
+<h1 class="align-center pad50t50b"> Party Breakdown </h2>
+<table class="table-responsive">
     <tr>
         <th>Party/Voting Group</th>
         <th> PAC Avg </th>
@@ -103,88 +109,95 @@
 
     <tr>
         <td> All Democrats</td>
-        <td> {{ all_dems_pac_avg|intcomma }}</td>
-        <td> {{ pac_total_all_dems|intcomma }}</td>
-        <td> {{ all_dems_bailout_supp_avg }}</td>
-        <td> {{ all_dems_bailout_opp_avg }}</td>
+        <td> ${{ all_dems_pac_avg|intcomma }}</td>
+        <td> ${{ pac_total_all_dems|intcomma }}</td>
+        <td> {{ all_dems_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ all_dems_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ ada_all_dems_avg }}</td>
         <td> {{ dems }}</td>
     </tr>
 
     <tr>
         <td> All Republicans</td>
-        <td> {{ all_reps_pac_avg|intcomma }}</td>
-        <td> {{ pac_total_all_reps|intcomma }}</td>
-        <td> {{ all_reps_bailout_supp_avg }}</td>
-        <td> {{ all_reps_bailout_opp_avg }}</td>
+        <td> ${{ all_reps_pac_avg|intcomma }}</td>
+        <td> ${{ pac_total_all_reps|intcomma }}</td>
+        <td> {{ all_reps_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ all_reps_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ ada_all_reps_avg }}</td>
         <td> {{ reps }}</td>
     </tr>
 
     <tr>
         <td> Dems that voted 'Yes' and 'Yes' </td>
-        <td> {{ dems_yy_pac_avg|intcomma }}</td>
-        <td> {{ pac_total_dems_yy }}</td>
-        <td> {{ dems_yy_bailout_supp_avg }}</td>
-        <td> {{ dems_yy_bailout_opp_avg }}</td>
+        <td> ${{ dems_yy_pac_avg|intcomma }}</td>
+        <td> ${{ pac_total_dems_yy|intcomma }}</td>
+        <td> {{ dems_yy_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ dems_yy_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ dems_yy_ada_avg }}</td>
         <td> {{ length_dems_yy }}</td>
     </tr>
 
     <tr>
         <td>Reps that voted 'Yes' and 'Yes'</td>
-        <td> {{ reps_yy_pac_avg|intcomma }} </td>
-        <td> {{ pac_total_reps_yy }}</td>
-        <td> {{ reps_yy_bailout_supp_avg }}</td>
-        <td> {{ reps_yy_bailout_opp_avg }}</td>
+        <td> ${{ reps_yy_pac_avg|intcomma }} </td>
+        <td> ${{ pac_total_reps_yy|intcomma }}</td>
+        <td> {{ reps_yy_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ reps_yy_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ reps_yy_ada_avg }}</td>
         <td> {{ length_reps_yy }}</td>
     </tr>
 
     <tr>
         <td> Dems that voted 'No' and 'No' </td>
-        <td> {{ dems_nn_pac_avg|intcomma }}</td>
-        <td> {{ pac_total_dems_nn }}</td>
-        <td> {{ dems_nn_bailout_supp_avg }}</td>
-        <td> {{ dems_nn_bailout_opp_avg }}</td>
+        <td> ${{ dems_nn_pac_avg|intcomma }}</td>
+        <td> ${{ pac_total_dems_nn|intcomma }}</td>
+        <td> {{ dems_nn_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ dems_nn_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ dems_nn_ada_avg }}</td>
         <td> {{ length_dems_nn }}</td>
     </tr>
 
     <tr>
         <td> Reps that voted 'No' and 'No'</td>
-        <td> {{ reps_nn_pac_avg }}</td>
-        <td> {{ pac_total_reps_nn }}</td>
-        <td> {{ reps_nn_bailout_supp_avg }}</td>
-        <td> {{ reps_nn_bailout_opp_avg }}</td>
+        <td> ${{ reps_nn_pac_avg|intcomma }}</td>
+        <td> ${{ pac_total_reps_nn|intcomma }}</td>
+        <td> {{ reps_nn_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ reps_nn_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ reps_nn_ada_avg }}</td>
         <td> {{ length_reps_nn }}</td>
     </tr>
 
     <tr>
         <td> Dems that switched votes</td>
-        <td> {{ dems_sw_pac_avg|intcomma }}</td>
-        <td> {{ pac_total_dems_sw }}</td>
-        <td> {{ dems_sw_bailout_supp_avg }}</td>
-        <td> {{ dems_sw_bailout_opp_avg }}</td>
+        <td> ${{ dems_sw_pac_avg|intcomma }}</td>
+        <td> ${{ pac_total_dems_sw|intcomma }}</td>
+        <td> {{ dems_sw_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ dems_sw_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ dems_sw_ada_avg }}</td>
         <td> {{ length_dems_sw }}</td>
     </tr>
 
     <tr>
         <td> Reps that switched votes </td>
-        <td> {{ reps_sw_pac_avg|intcomma }}</td>
-        <td> {{ pac_total_reps_sw }}</td>
-        <td> {{ reps_sw_bailout_supp_avg }}</td>
-        <td> {{ reps_sw_bailout_opp_avg }}</td>
+        <td> ${{ reps_sw_pac_avg|intcomma }}</td>
+        <td> ${{ pac_total_reps_sw|intcomma }}</td>
+        <td> {{ reps_sw_bailout_supp_avg|floatformat:2 }}</td>
+        <td> {{ reps_sw_bailout_opp_avg|floatformat:2 }}</td>
         <td> {{ reps_sw_ada_avg }}</td>
         <td> {{ length_reps_sw }}</td>
     </tr>
-</table>
+	</table>
 
-</div>
+
+	</div>
+	</div>
+	<div class="col-md-1">
+		<!-- EMPTY DIV FOR SPACE -->
+	</div>
+
+
 
 {% endblock %}
-
 </body>
 </html>
+

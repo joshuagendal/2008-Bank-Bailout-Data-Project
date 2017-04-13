@@ -22,15 +22,16 @@
             <td>{{ total_members }}</td>
         </tr>
     </table>
-    <h1 class="black-color-theme"> Average Financial Services PAC Contributions for '08 Cycle For Members that Voted 'No' Twice:</h1>
-    <h1 class="money-green"> ${{ nah_nah_avg|intcomma }}</h1>
-    </div>
+    <h1 class="black-color-theme">Average financial services PAC contributions for '08 cycle for members that voted 'No' twice:</h1>
+    <h1 class="money-green">${{ nah_nah_avg|intcomma }}</h1>
+    <h1 class="black-color-theme">Total contributions from financial services PACs to members that voted "no" twice:</h1>
+    <h1 class="money-green">${{ dummy_nn|intcomma }}</h1>
     </div>
 {% endblock %}
 {% block searchform %}{% endblock %}
 {% block table %}
-<div class="container">
-<table class="table-responsive">
+<div class="table-holder">
+	<table class="table-responsive">
     <tr>
         <th> ID </th>
         <th> Name </th>
@@ -60,7 +61,7 @@
         <td> {{  obj.bailout_support }} </td>
         <td> {{  obj.bailout_opposition }} </td>
         <td> {{  obj.ada_score }} </td>
-        <td> {{  obj.win_margin_06 }} </td>
+        <td> {{  obj.win_margin_06|floatformat:2 }} </td>
         <td> {{  obj.swing_district }} </td>
         </tr>
     {% endfor %}

@@ -15,14 +15,17 @@
     {% block title %} <title> Dashboard </title> {% endblock %}
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
-    <link href="{% static "css/jumbotron.css" %}" rel="stylesheet">
+    <!-- <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+    <link href="{% static "css/jumbotron.css" %}" rel="stylesheet"> -->
+    <link href="{% static "css/custom.css" %}" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:100, 200, 300,400,600" rel="stylesheet">
+    <link href="{% static "css/normalize.css" %}" type="text/css" rel="stylesheet">
 
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -37,8 +40,9 @@
 
     <style>
         td, th {
-            padding: 10px;
-            border: 1px solid black;
+          padding: 10px;
+          border: 1px solid black;
+					text-align: center;
         }
     </style>
 {% endblock %}
@@ -51,82 +55,185 @@
         <div class="bailout-logo">
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/bailout">Home</a></li>
+          <li><a href="/bailout">Home</a></li>
           <li><a href="/bailout/data">Data</a></li>
           <li><a href="/bailout/links">Links & Sources</a></li>
           <li><a href="/bailout/register">Sign Up</a></li>
-          <li><a href="/bailout/dashboard">Dashboard</a></li>
+          <li class="active"><a href="/bailout/dashboard">Dashboard</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
-  </nav>  
+  </nav>
 
 
 {% endblock %}
-{% comment %}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/bailout"></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/bailout">Home</a></li>
-            <li><a href="/bailout/data">Data</a></li>
-            <li><a href="/bailout/links">Links & Sources</a></li>
-            <li><a href="/bailout/register">Sign Up</a></li>
-            <li><a href="/bailout/dashboard">Dashboard</a></li>
-            <li><a href="/bailout/logout">Log Out</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
+
+<!-- PICTURE SLIDER -->
+{% block picture-slider %}
+  <div class="container-fluid">
+    <div class="container">
+      <!-- <img class="img-responsive hero-image" src="US-capitol.jpg" alt="http://www.publicdomainpictures.net/view-image.php?image=21750">-->
+      <div class="hero-image">
       </div>
-    </nav>
-{% endcomment %}
+    </div><!-- /.container -->
+  </div>
+{% endblock %}
 
-<!-- {% endblock %} -->
 
-    {% comment %}
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="/bailout/dashboard">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="/bailout/dashboard/{{user_profile.state}}">Rate Members of Your State</a></li>
-            <li><a href="/bailout/ratings/">Rating History</a></li>
-          </ul>
+ <!-- TOP CONTENT CONTAINER -->
+ <div class="row">
+   <div class="container pad50t50b align-left">
+    <!-- SIDEBAR -->
+    {% block sidebar %}
+    <div class="col-md-3">
+      <div class="sidebar-1 affix-top">
+        <div class="row pad25b">
+        <!-- SIDEBAR MENU -->
+          <div id="MainMenu">
+              <div class="list-group panel sidebar-color align-left">
+								<a href="/bailout/dashboard" class="list-group-item strong top-level-nav active">View and Search for All members</a>
+                <a href="/bailout/dashboard/{{user_profile.state}}" class="list-group-item strong top-level-nav">Rate Members of Your State</a>
+                <a href="/bailout/ratings" class="list-group-item strong top-level-nav">Rating History</a>
+              </div>
           </div>
         </div>
+      </div>
     </div>
-    {% endcomment %}
-
-
-
-{% block sidebar %}
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="/bailout/dashboard">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="/bailout/dashboard/{{user_profile.state}}">Rate Members of Your State</a></li>
-            <li><a href="/bailout/ratings/">Rating History</a></li>
-          </ul>
-        </div>
 {% endblock %}
 
-{% block first_section %}
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+{% block main-content %}
+<!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
+  	<div class="col-md-9 main-content">
+    	<h1 class="big-header center-align"> Welcome {{ da_user }} </h1>
+		</div>
+	</div> 
+{% endblock %}
+ 
+{% block table %}
+  <div class="row">		  
+  	<div class="col-md-1">
+  		<!-- EMPTY DIV FOR SPACING -->
+  	</div>  
+  	<div class="col-md-10 pad50t50b align-center">
+			<h1 class="big-header align-left"> Below, select the member of the House of Representatives for the 110th Congress that you want to rate! </h1><br>
+			<!-- SEARCH FORM -->
+			<form action='/bailout/dashboard' method="post" class="align-center">
+			{{  form  }}
+			<input type="submit" value="Search">
+			{% csrf_token %}
+			</form><br>
+			<div>
+      <table class="dashboard-table table-responsive table-striped">
+        <thead class="">
+{% if members_to_rate %}
+  
 
-          <h1 class="page-header"> JDJKLJLWelcome {{ da_user }} </h1>
+          <tr class="margin-auto">
+            <th> ID a</th>
+            <th> Name </th>
+            <th> Party </th>
+            <th> State </th>
+            <th> PAC $ </th>
+            <th> Vote 1 </th>
+            <th> Vote 2 </th>
+            <th> Switch </th>
+            <th> Dist Supp </th>
+            <th> Dist Opp </th>
+            <th> ADA Score </th>
+            <th> Margin of Victory</th>
+            <th> Swing District</th>
+          </tr>
+        </thead>
 
+			{% for obj in members_to_rate %}
+
+          <tr>
+              <td> {{ obj.identifier }}</td>
+              <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
+              <td> {{  obj.party }} </td>
+              <td> {{  obj.state }} </td>
+              <td> {{  obj.PAC }} </td>
+              <td> {{  obj.vote_1 }} </td>
+              <td> {{  obj.vote_2 }} </td>
+              <td> {{  obj.switch }} </td>
+              <td> {{  obj.bailout_support }} </td>
+              <td> {{  obj.bailout_opposition }} </td>
+              <td> {{  obj.ada_score }} </td>
+              <td> {{  obj.win_margin_06|floatformat:2 }} </td>
+              <td> {{  obj.swing_district }} </td>
+          </tr>
+
+
+{% endfor %}
+{% else %}
+
+
+
+
+    <thead>
+    <tr>
+        <th> ID </th>
+        <th> Name </th>
+        <th> Party </th>
+        <th> State </th>
+        <th> PAC $ </th>
+        <th> Vote 1 </th>
+        <th> Vote 2 </th>
+        <th> Switch </th>
+        <th> Dist Supp </th>
+        <th> Dist Opp </th>
+        <th> ADA Score </th>
+        <th> Margin of Victory</th>
+        <th> Swing District</th>
+    </tr>
+    </thead>
+{% for obj in members %}
+    <tbody>
+    <tr>
+        <td> {{ obj.identifier }}</td>
+        <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
+        <td> {{  obj.party }} </td>
+        <td> {{  obj.state }} </td>
+        <td> {{  obj.PAC }} </td>
+        <td> {{  obj.vote_1 }} </td>
+        <td> {{  obj.vote_2 }} </td>
+        <td> {{  obj.switch }} </td>
+        <td> {{  obj.bailout_support }} </td>
+        <td> {{  obj.bailout_opposition }} </td>
+        <td> {{  obj.ada_score }} </td>
+        <td> {{  obj.win_margin_06|floatformat:2 }} </td>
+        <td> {{  obj.swing_district }} </td>
+    </tr>
+    </tbody>
+
+
+
+{% endfor %}
+{% endif %}
+				</table>
+			</div>
+
+</div>
+			<div class="col-md-1">
+				<!-- EMPTY DIV FOR SPACING -->
+			</div>
+
+  	</div>   
+{% endblock %}
+  	    
+  
+
+
+
+
+
+
+
+
+
+
+
+<!--
 
           {% comment %} **** IF YOU GO TO http://getbootstrap.com/examples/dashboard/ THESE ARE THE CIRCLES AT THE TOP. REMOVED FOR NOW MIGHT FIND A WAY TO INCORPORATE LATER
           <div class="row placeholders">       ****** IDEA- ADD PICTURES OF POPULAR MEMBERS OF HOUSE I.E. PAUL RYAN, PELOSI, AND ADD A LINK UNDERNEATH TO TAKE THEM TO RATING PAGE FOR THAT MEMBER
@@ -153,358 +260,10 @@
           </div>
           {% endcomment %}
         <h1> Select Members of the House of Representatives for the 110th Congress that you want to rate! </h1>
+-->
 
 
-        <form action='/bailout/dashboard' method="post" >
-        {{  form  }}
-        <input type="submit" value="Search">
-        {% csrf_token %}
-        </form>
-        {% endblock %}
-
-        {% block section_title %}
-          <h2 class="sub-header">Section title</h2>
-        {% endblock %}
-
-
-        {% block table %}
-            <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-        {% if members_to_rate %}
-            {% for obj in members_to_rate %}
-
-            <tr>
-                <th> ID </th>
-                <th> Name </th>
-                <th> Party </th>
-                <th> State </th>
-                <th> PAC $ </th>
-                <th> Vote 1 </th>
-                <th> Vote 2 </th>
-                <th> Switch </th>
-                <th> Dist Supp </th>
-                <th> Dist Opp </th>
-                <th> ADA Score </th>
-                <th> Margin of Victory</th>
-                <th> Swing District</th>
-            </tr>
-            </thead>
-
-
-
-            <tr>
-                <td> {{ obj.identifier }}</td>
-                <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
-                <td> {{  obj.party }} </td>
-                <td> {{  obj.state }} </td>
-                <td> {{  obj.PAC }} </td>
-                <td> {{  obj.vote_1 }} </td>
-                <td> {{  obj.vote_2 }} </td>
-                <td> {{  obj.switch }} </td>
-                <td> {{  obj.bailout_support }} </td>
-                <td> {{  obj.bailout_opposition }} </td>
-                <td> {{  obj.ada_score }} </td>
-                <td> {{  obj.win_margin_06 }} </td>
-                <td> {{  obj.swing_district }} </td>
-            </tr>
-
-
-    {% endfor %}
-    {% else %}
-
-        {% for obj in members %}
-
-            <thead>
-            <tr>
-                <th> ID </th>
-                <th> Name </th>
-                <th> Party </th>
-                <th> State </th>
-                <th> PAC $ </th>
-                <th> Vote 1 </th>
-                <th> Vote 2 </th>
-                <th> Switch </th>
-                <th> Dist Supp </th>
-                <th> Dist Opp </th>
-                <th> ADA Score </th>
-                <th> Margin of Victory</th>
-                <th> Swing District</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr>
-                <td> {{ obj.identifier }}</td>
-                <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
-                <td> {{  obj.party }} </td>
-                <td> {{  obj.state }} </td>
-                <td> {{  obj.PAC }} </td>
-                <td> {{  obj.vote_1 }} </td>
-                <td> {{  obj.vote_2 }} </td>
-                <td> {{  obj.switch }} </td>
-                <td> {{  obj.bailout_support }} </td>
-                <td> {{  obj.bailout_opposition }} </td>
-                <td> {{  obj.ada_score }} </td>
-                <td> {{  obj.win_margin_06 }} </td>
-                <td> {{  obj.swing_district }} </td>
-            </tr>
-            </tbody>
-
-
-
-    {% endfor %}
-    {% endif %}
-
-    {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              {% comment %}
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-            {% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %}
-        {% for obj in members_to_rate %}
-
-            <tr>
-                <th> ID </th>
-                <th> Name </th>
-                <th> Party </th>
-                <th> State </th>
-                <th> PAC $ </th>
-                <th> Vote 1 </th>
-                <th> Vote 2 </th>
-                <th> Switch </th>
-                <th> Dist Supp </th>
-                <th> Dist Opp </th>
-                <th> ADA Score </th>
-                <th> Margin of Victory</th>
-                <th> Swing District</th>
-            </tr>
-        <div>
-            <tr>
-                <td> {{ obj.identifier }}</td>
-                <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
-                <td> {{  obj.party }} </td>
-                <td> {{  obj.state }} </td>
-                <td> {{  obj.PAC }} </td>
-                <td> {{  obj.vote_1 }} </td>
-                <td> {{  obj.vote_2 }} </td>
-                <td> {{  obj.switch }} </td>
-                <td> {{  obj.bailout_support }} </td>
-                <td> {{  obj.bailout_opposition }} </td>
-                <td> {{  obj.ada_score }} </td>
-                <td> {{  obj.win_margin_06 }} </td>
-                <td> {{  obj.swing_district }} </td>
-            </tr>
-            <table>
-            </div>
-    {% endfor %}
-
-
-        {% for obj in members %}
-            <table>
-            <tr>
-                <th> ID </th>
-                <th> Name </th>
-                <th> Party </th>
-                <th> State </th>
-                <th> PAC $ </th>
-                <th> Vote 1 </th>
-                <th> Vote 2 </th>
-                <th> Switch </th>
-                <th> Dist Supp </th>
-                <th> Dist Opp </th>
-                <th> ADA Score </th>
-                <th> Margin of Victory</th>
-                <th> Swing District</th>
-            </tr>
-
-        <div>
-            <tr>
-                <td> {{ obj.identifier }}</td>
-                <td><a href="/bailout/dashboard/{{obj.identifier}}"> {{ obj.name }}</a></td>
-                <td> {{  obj.party }} </td>
-                <td> {{  obj.state }} </td>
-                <td> {{  obj.PAC }} </td>
-                <td> {{  obj.vote_1 }} </td>
-                <td> {{  obj.vote_2 }} </td>
-                <td> {{  obj.switch }} </td>
-                <td> {{  obj.bailout_support }} </td>
-                <td> {{  obj.bailout_opposition }} </td>
-                <td> {{  obj.ada_score }} </td>
-                <td> {{  obj.win_margin_06 }} </td>
-                <td> {{  obj.swing_district }} </td>
-            </tr>
-            <table>
-        </div>
-
-    {% endfor %}
-    {% endcomment %}
+       
 
 
     <!-- Bootstrap core JavaScript
