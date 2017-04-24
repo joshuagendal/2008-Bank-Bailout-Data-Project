@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -6,6 +6,14 @@ from django.core.urlresolvers import reverse
 from bailout.forms import MemberSearchForm, UserForm, UserProfileForm, RatingForm
 from bailout.models import Bailout, UserProfile, Rating
 from django.contrib.auth.models import User
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from bailout.serializers import BailoutSerializer
 
 
 def index(request):
@@ -858,5 +866,41 @@ def user_ratings(request):
 def explain_variables(request):
     return render(request, 'explain_variables.html')
 
+# ==================== REST API VIEWS =======================
 
-# Create your views here.
+@api_view(['GET'])
+def members_of_congress_list(request):
+    if request.method == 'GET':
+        members_of_congress = Bailout.objects.all()
+        serializer = BailoutSerializer(members_of_congress, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def member_of_congress_detail(request, identifier):
+    try:
+        member_of_congress = Bailout.objects.get(identifier=identifier)
+    except Bailout.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = BailoutSerializer(member_of_congress)
+        return Response(serializer.data)            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

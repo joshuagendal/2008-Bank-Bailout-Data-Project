@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from bailout.views import index, data, links, member_search, financial_services_committee, switchers, no_no, yes_yes, register, user_login, user_dashboard, rating_page, user_logout, members_by_user_state, user_ratings, analyze, order_by_pac, explain_variables
+from bailout.views import index, data, links, member_search, financial_services_committee, switchers, no_no, yes_yes, register, user_login, user_dashboard, rating_page, user_logout, members_by_user_state, user_ratings, analyze, order_by_pac, explain_variables, members_of_congress_list, member_of_congress_detail
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^$', index),
@@ -20,12 +21,16 @@ urlpatterns = [
     url(r'^ratings/$', user_ratings),
     url(r'^analyze/$', analyze),
     url(r'^order_by_pac/$', order_by_pac),
-    url(r'^explain_variables$', explain_variables)
+    url(r'^explain_variables$', explain_variables),
+    url(r'^members_of_congress/$', members_of_congress_list),
+    url(r'^member_of_congress/(?P<identifier>[0-9]+)/$', member_of_congress_detail),
 
 
 
-
-
+    # url(r'^members/$', members_of_congress_list),
+    # url(r'^api/(?P<identifier>[0-9]+)/$', member_of_congress_detail),
 
      # url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

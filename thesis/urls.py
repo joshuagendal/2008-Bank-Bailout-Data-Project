@@ -18,13 +18,14 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from bailout import urls as bailout_urls
 from django.contrib.auth import views as auth_views
+from django.http import HttpResponse
 
 
 urlpatterns = [
+    url(r'^robots.txt', lambda x: HttpResponse("User-Agent: *\nDisallow:", content_type="text/plain"),
     url(r'^$', auth_views.login, {'template_name' : 'login.html'}),
     url(r'^admin/', admin.site.urls),
-    url(r'^bailout/', include(bailout_urls)), #include: load, parse, use it
-
+    url(r'^bailout/', include(bailout_urls)), 
 ]
 
 if settings.DEBUG:
