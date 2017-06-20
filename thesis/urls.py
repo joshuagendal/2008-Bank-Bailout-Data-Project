@@ -22,10 +22,10 @@ from django.http import HttpResponse
 
 
 urlpatterns = [
-    url(r'^robots.txt', lambda x: HttpResponse("User-Agent: *\nDisallow:", content_type="text/plain"),
+    # url(r'^robots.txt', lambda x: HttpResponse("User-Agent: *\nDisallow:", content_type="text/plain"),
     url(r'^$', auth_views.login, {'template_name' : 'login.html'}),
     url(r'^admin/', admin.site.urls),
-    url(r'^bailout/', include(bailout_urls)), 
+    url(r'^bailout/', include(bailout_urls)),
 ]
 
 if settings.DEBUG:
