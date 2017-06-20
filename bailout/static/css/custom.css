@@ -294,3 +294,9 @@ STYLE FORM
 	align-content: center;
 	text-align: center;
 }
+
+
+
+.white {
+	background-color: white !important;
+}

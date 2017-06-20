@@ -876,9 +876,9 @@ def members_of_congress_list(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def member_of_congress_detail(request, identifier):
+def member_of_congress_detail(request, name):
     try:
-        member_of_congress = Bailout.objects.get(identifier=identifier)
+        member_of_congress = Bailout.objects.filter(name__icontains=name)
     except Bailout.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
