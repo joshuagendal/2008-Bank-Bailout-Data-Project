@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from bailout.forms import MemberSearchForm, UserForm, UserProfileForm, RatingForm
 from bailout.models import Bailout, UserProfile, Rating
 from django.contrib.auth.models import User
+from django.core.cache import cache
+from django.db.models import Sum, Avg
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -24,55 +26,34 @@ def index(request):
     return render(request, 'base.html', context)
 
 def data(request):
+    all_members = Bailout.objects.all()
+    all_members_count = Bailout.objects.count()
+    total_dems_count, total_reps_count = count_all_members_by_party()
+
     members = []
-    members_1 = []
-    members_1 = Bailout.objects.all()
-    dems = 0
-    reps = 0
 
-
-    if request.method == 'POST':
+    members_searched_for = []
+    if request.method == 'POST': # !!! I THINK I ONLY NEED THIS IN MEMBER_SEARCH VIEW ???
         form = MemberSearchForm(request.POST)
         if form.is_valid():
-            #return HttpResponseRedirect('/bailout/member_search')
             member_name = form.cleaned_data['name']
-            members = Bailout.objects.filter(name__icontains=member_name)
-
-
-            # search_dict = {}
-            # for field_name, field_value in form.cleaned_data.iteritems():
-                # if field_value:
-                    # search_dict[field_name] = field_value
-            #print 'Search dict:\n\t{}'.format(str(search_dict))
-            #members = Bailout.objects.filter(**search_dict)
+            members_searched_for = Bailout.objects.filter(name__icontains=member_name)
     else:
         form = MemberSearchForm()
-    for i in members_1:
-        if i.party == 'Dem':
-            dems += 1
-        if i.party == 'Rep':
-            reps += 1
-    dum = 0
-    for i in members_1:
-        try:
-            dum += i.PAC
-        except:
-            pass
-    members_avg = dum/len(members_1)
-    total_members = dems + reps
-    objs = Bailout.objects.all()
-    obj = objs[0]
-    # display = ''
-    # display += '{} - {} - {} - {} - {}<br><br>'.format(obj.identifier, obj.name, obj.state, obj.PAC, obj.switch)
+
+
+    total_PAC_all_members = Bailout.objects.aggregate(Sum('PAC'))
+    avg_PAC_all_members = Bailout.objects.aggregate(Avg('PAC'))
+
     context = {
-        'objs' : objs,
+        'all_members' : all_members,
+        'all_members_count' : all_members_count,
+        'total_dems_count' : total_dems_count,
+        'total_reps_count' : total_reps_count,
         'form': form,
-        'members': members,
-        'dems' : dems,
-        'reps' : reps,
-        'members_avg' : members_avg,
-        'dum' : dum,
-        'total_members' : total_members,
+        'members_searched_for': members_searched_for,
+        'total_PAC_all_members' : total_PAC_all_members,
+        'avg_PAC_all_members' : avg_PAC_all_members,
     }
 
     return render(request, 'data_new.html', context)
@@ -93,34 +74,35 @@ def member_search(request):
 
     return render(request, 'member_search.html', {'members_searched_for' : members_searched_for})
 
-def financial_services_committee(request):
-    fin_serv = []
-    dem_count_fs = 0
-    rep_count_fs = 0
-    for i in Bailout.objects.all():
-        if i.financial_services_committee == 1:
-            fin_serv.append(i)
-    for i in fin_serv:
-        if i.party == 'Dem':
-            dem_count_fs += 1
-        if i.party == 'Rep':
-            rep_count_fs += 1
-    dummy_fs = 0
-    for i in fin_serv:
-        try:
-            dummy_fs += i.PAC
-        except:
-            pass
+def count_all_members_by_party():
+    total_dems_count = cache.get('democrats', None)
+    total_reps_count = cache.get('republicans', None)
 
-    fin_serv_avg = dummy_fs/len(fin_serv)
-    total_members = dem_count_fs + rep_count_fs
+    if total_dems_count and total_reps_count:
+        return total_dems, total_reps
+    else:
+        total_dems_count = Bailout.objects.filter(party='Dem').count()
+        total_reps_count = Bailout.objects.filter(party='Rep').count()
+        return total_dems_count, total_reps_count
+
+
+def financial_services_committee(request):
+    members_financial_services_committee = Bailout.objects.filter(financial_services_committee = 1)
+    members_financial_services_committee_count = Bailout.objects.filter(financial_services_committee = 1).count()
+
+    dems_financial_services_committee_count = Bailout.objects.filter(financial_services_committee = 1).filter(party = 'Dem').count()
+    reps_financial_services_committee_count = Bailout.objects.filter(financial_services_committee = 1).filter(party = 'Rep').count()
+
+    total_PAC_financial_services = Bailout.objects.filter(financial_services_committee = 1).aggregate(Sum('PAC'))
+    avg_PAC_financial_services = Bailout.objects.filter(financial_services_committee = 1).aggregate(Avg('PAC'))
+
     context = {
-        'fin_serv' : fin_serv,
-        'dem_count_fs' : dem_count_fs,
-        'rep_count_fs' : rep_count_fs,
-        'fin_serv_avg' : fin_serv_avg,
-        'dummy_fs' : dummy_fs,
-        'total_members' : total_members,
+        'members_financial_services_committee' : members_financial_services_committee,
+        'members_financial_services_committee_count' : members_financial_services_committee_count,
+        'dems_financial_services_committee_count' : dems_financial_services_committee_count,
+        'reps_financial_services_committee_count' : reps_financial_services_committee_count,
+        'total_PAC_financial_services' : total_PAC_financial_services,
+        'avg_PAC_financial_services' : avg_PAC_financial_services,
     }
 
 
@@ -226,7 +208,7 @@ def yes_yes(request):
         'rep_count_yy' : rep_count_yy,
         'yah_yah_avg' : yah_yah_avg,
         'total_members' : total_members,
-			  'dummy_yy' : dummy_yy,
+	    'dummy_yy' : dummy_yy,
     }
     return render(request, 'yes_yes.html', context)
 
@@ -236,6 +218,8 @@ def analyze(request):
     all_members = Bailout.objects.all()
     dems = 0
     reps = 0
+
+
     for i in all_members:
         if i.party == 'Dem':
             dems += 1

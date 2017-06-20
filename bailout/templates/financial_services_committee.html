@@ -10,7 +10,7 @@
 
 <body>
 {% block sidebar %}
-	 
+
   <div class="container pad50t50b align-left">
     <div class="col-md-3">
       <div class="sidebar-1 affix-top">
@@ -44,9 +44,9 @@
         </tr>
 
         <tr>
-          <td> {{ dem_count_fs }} </td>
-          <td> {{ rep_count_fs }} </td>
-          <td> {{ total_members }}</td>
+          <td> {{ dems_financial_services_committee_count }} </td>
+          <td> {{ reps_financial_services_committee_count }} </td>
+          <td> {{ members_financial_services_committee_count }}</td>
         </tr>
       </table>
         <h1 class="black-color-theme"> Average Financial Services PAC Contributions to Members on the Financial Services Committee for '08 Cycle </h1>
@@ -83,7 +83,7 @@
             <th> Swing District</th>
         </tr>
 
-        {% for obj in fin_serv %}
+        {% for obj in members_financial_services_committee %}
             <tr>
                 <td> {{  obj.identifier }} </td>
                 <td> {{  obj.name }} </td>
@@ -100,7 +100,7 @@
                 <td> {{  obj.swing_district }} </td>
             </tr>
         {% endfor %}
-        
+
 {% endblock %}
     </table>
 </div>

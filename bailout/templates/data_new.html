@@ -59,7 +59,7 @@
 
 <!-- SIDE NAVBAR -->
 {% block sidebar %}
-	 
+
   <div class="container pad50t50b align-left">
     <div class="col-md-3">
       <div class="sidebar-1 affix-top">
@@ -94,15 +94,15 @@
             </tr>
 
             <tr>
-                <td> {{ dems|intcomma }} </td>
-                <td> {{ reps|intcomma }} </td>
-                <td> {{ total_members }}</td>
+                <td> {{ total_dems_count|intcomma }} </td>
+                <td> {{ total_reps_count|intcomma }} </td>
+                <td> {{ all_members_count|intcomma }}</td>
             </tr>
         </table>
         <h1 class="black-color-theme"> Average Financial Services PAC Contributions for '08 Cycle </h1>
-        <h1 class="money-green"> ${{ members_avg|intcomma }}</h3>
+        <h1 class="money-green"> ${{ avg_PAC_all_members|intcomma }}</h3>
         <h1 class="black-color-theme"> Total contributions from financial services PACs for all Members for '08 Cycle</h1>
-        <h1 class="money-green"> ${{ dum|intcomma }}</h3>
+        <h1 class="money-green"> ${{ total_PAC_all_members|intcomma }}</h3>
         <br><br><p> Pssssttt... If you want to rate members of congress, make sure you <a href="/bailout/register"> click here </a>
         to register. If you are already registered, <a href="/bailout/dashboard"> click here</a> to go to the dashboard page and
         get to ratin'! </p>
@@ -140,7 +140,7 @@
               <th> Swing District</th>
           </tr>
 
-          {% for obj in objs %}
+          {% for obj in all_members %}
               <tr>
                   <td> {{  obj.identifier }} </td>
                   <td> {{  obj.name }} </td>
