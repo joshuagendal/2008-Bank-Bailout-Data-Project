@@ -8,13 +8,13 @@
 
 {% block main-content %}{% endblock %}
 
-{%block table %}
+{% block table %}
 
 
 
 
 
-{% if members %}
+{% if members_searched_for %}
 	<div class="table-holder center-align">
 		<div class="container">
 			<h1 class="big-header pad50b">Search Results</h1>
@@ -35,7 +35,7 @@
 					<th> Swing District </th>
 			</tr>
 
-			{% for obj in members %}
+			{% for obj in members_searched_for %}
 			<tr>
 					<td> {{ obj.identifier }} </td>
 					<td> {{ obj.name }} </td>
@@ -57,9 +57,9 @@
 	<div class="container">
 		<h1 class="big-header">Sorry, your search turned up empty. Click <a href="/bailout/data">here</a> to try again.</h1>
 	</div>
-	
+
 {% endif %}
-{%endblock %}
+{% endblock %}
 
 
 

@@ -81,17 +81,17 @@ def links(request):
     return render(request, 'links.html')
 
 def member_search(request):
-    members = []
+    members_searched_for = []
     if request.method == 'POST':
         form = MemberSearchForm(request.POST)
         if form.is_valid():
             # return HttpResponseRedirect('data/member_search')
             member_name = form.cleaned_data['name']
-            members = Bailout.objects.filter(name__icontains=member_name)
+            members_searched_for = Bailout.objects.filter(name__icontains=member_name)
     #make context dictionary and pass it to render
     # in html file add link back to data
 
-    return render(request, 'member_search.html', {'members':members})
+    return render(request, 'member_search.html', {'members_searched_for' : members_searched_for})
 
 def financial_services_committee(request):
     fin_serv = []
@@ -884,23 +884,4 @@ def member_of_congress_detail(request, identifier):
 
     if request.method == 'GET':
         serializer = BailoutSerializer(member_of_congress)
-        return Response(serializer.data)            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return Response(serializer.data)
