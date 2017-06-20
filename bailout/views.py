@@ -30,8 +30,6 @@ def data(request):
     all_members_count = Bailout.objects.count()
     total_dems_count, total_reps_count = count_all_members_by_party()
 
-    members = []
-
     members_searched_for = []
     if request.method == 'POST': # !!! I THINK I ONLY NEED THIS IN MEMBER_SEARCH VIEW ???
         form = MemberSearchForm(request.POST)
@@ -52,8 +50,8 @@ def data(request):
         'total_reps_count' : total_reps_count,
         'form': form,
         'members_searched_for': members_searched_for,
-        'total_PAC_all_members' : total_PAC_all_members,
-        'avg_PAC_all_members' : avg_PAC_all_members,
+        'total_PAC_all_members' : total_PAC_all_members['PAC__sum'],
+        'avg_PAC_all_members' : avg_PAC_all_members['PAC__avg'],
     }
 
     return render(request, 'data_new.html', context)
@@ -66,11 +64,8 @@ def member_search(request):
     if request.method == 'POST':
         form = MemberSearchForm(request.POST)
         if form.is_valid():
-            # return HttpResponseRedirect('data/member_search')
             member_name = form.cleaned_data['name']
             members_searched_for = Bailout.objects.filter(name__icontains=member_name)
-    #make context dictionary and pass it to render
-    # in html file add link back to data
 
     return render(request, 'member_search.html', {'members_searched_for' : members_searched_for})
 
@@ -79,96 +74,79 @@ def count_all_members_by_party():
     total_reps_count = cache.get('republicans', None)
 
     if total_dems_count and total_reps_count:
-        return total_dems, total_reps
+        return total_dems_count, total_reps_count
     else:
         total_dems_count = Bailout.objects.filter(party='Dem').count()
         total_reps_count = Bailout.objects.filter(party='Rep').count()
+        cache.set('democrats', total_dems_count)
+        cache.set('republicans', total_reps_count)
         return total_dems_count, total_reps_count
 
 
 def financial_services_committee(request):
     members_financial_services_committee = Bailout.objects.filter(financial_services_committee = 1)
-    members_financial_services_committee_count = Bailout.objects.filter(financial_services_committee = 1).count()
+    members_financial_services_committee_count = members_financial_services_committee.count()
 
-    dems_financial_services_committee_count = Bailout.objects.filter(financial_services_committee = 1).filter(party = 'Dem').count()
-    reps_financial_services_committee_count = Bailout.objects.filter(financial_services_committee = 1).filter(party = 'Rep').count()
+    dems_financial_services_committee_count = members_financial_services_committee.filter(party = 'Dem').count()
+    reps_financial_services_committee_count = members_financial_services_committee.filter(party = 'Rep').count()
 
-    total_PAC_financial_services = Bailout.objects.filter(financial_services_committee = 1).aggregate(Sum('PAC'))
-    avg_PAC_financial_services = Bailout.objects.filter(financial_services_committee = 1).aggregate(Avg('PAC'))
+    total_PAC_financial_services = members_financial_services_committee.aggregate(Sum('PAC'))
+    avg_PAC_financial_services = members_financial_services_committee.aggregate(Avg('PAC'))
 
     context = {
         'members_financial_services_committee' : members_financial_services_committee,
         'members_financial_services_committee_count' : members_financial_services_committee_count,
         'dems_financial_services_committee_count' : dems_financial_services_committee_count,
         'reps_financial_services_committee_count' : reps_financial_services_committee_count,
-        'total_PAC_financial_services' : total_PAC_financial_services,
-        'avg_PAC_financial_services' : avg_PAC_financial_services,
+        'total_PAC_financial_services' : total_PAC_financial_services['PAC__sum'],
+        'avg_PAC_financial_services' : avg_PAC_financial_services['PAC__avg'],
     }
 
 
     return render(request, 'financial_services_committee.html', context)
 
 def switchers(request):
-    the_switchers = []
-    dem_count_sw = 0
-    rep_count_sw = 0
-    for i in Bailout.objects.all():
-        if i.switch == 'Yes':
-            the_switchers.append(i)
-    for i in the_switchers:
-        if i.party == 'Dem':
-            dem_count_sw += 1
-        if i.party == 'Rep':
-            rep_count_sw += 1
-    dummy_sw = 0
-    for i in the_switchers:
-        try:
-            dummy_sw += i.PAC
-        except:
-            pass
-    the_switchers_avg = dummy_sw/len(the_switchers)
-    total_members = dem_count_sw + rep_count_sw
+    members_switch_votes = Bailout.objects.filter(switch = 'Yes')
+    members_switch_votes_count = members_switch_votes.count()
+
+    dems_switch_votes = members_switch_votes.filter(party = 'Dem').count()
+    reps_switch_votes = members_switch_votes.filter(party = 'Rep').count()
+
+    total_PAC_switchers = members_switch_votes.aggregate(Sum('PAC'))
+    avg_PAC_switchers = members_switch_votes.aggregate(Avg('PAC'))
 
     context = {
-        'the_switchers' : the_switchers,
-        'dem_count_sw' : dem_count_sw,
-        'rep_count_sw' : rep_count_sw,
-        'the_switchers_avg' : the_switchers_avg,
-        'total_members' : total_members,
-				'dummy_sw' : dummy_sw,
+        'the_switchers' : members_switch_votes,
+        'dem_count_sw' : dems_switch_votes,
+        'rep_count_sw' : reps_switch_votes,
+        'the_switchers_avg' : avg_PAC_switchers['PAC__avg'],
+		'dummy_sw' : total_PAC_switchers['PAC__sum'],
+        'total_members_switch' : members_switch_votes_count,
     }
 
     return render(request, 'switchers.html', context)
 
 def no_no(request):
-    nah_nah = []
-    dem_count = 0
-    rep_count = 0
-    for i in Bailout.objects.all():
-        if i.vote_1 == 'No' and i.vote_2 == 'No':
-            nah_nah.append(i)
-    for i in nah_nah:
-        if i.party == 'Dem':
-            dem_count += 1
-        if i.party == 'Rep':
-            rep_count += 1
-    dummy_nn = 0
-    for i in nah_nah:
-        try:
-            dummy_nn += i.PAC
-        except:
-            pass
-    nah_nah_avg = dummy_nn/len(nah_nah)
-    total_members = dem_count + rep_count
+    members_voted_no_no = Bailout.objects.filter(vote_1 = 'No').filter(vote_2 = 'No')
+    members_voted_no_no_count = members_voted_no_no.count()
+
+    dems_voted_no_no = members_voted_no_no.filter(party = 'Dem').count()
+    reps_voted_no_no = members_voted_no_no.filter(party = 'Rep').count()
+
+    total_PAC_no_no = members_voted_no_no.aggregate(Sum('PAC'))
+    avg_PAC_no_no = members_voted_no_no.aggregate(Avg('PAC'))
+
+
+
 
 
     context = {
-        'nah_nah' : nah_nah,
-        'dem_count' : dem_count,
-        'rep_count' : rep_count,
-        'nah_nah_avg' : nah_nah_avg,
-        'total_members' : total_members,
-			  'dummy_nn' : dummy_nn,
+        'nah_nah' : members_voted_no_no,
+        'dem_count' : dems_voted_no_no,
+        'rep_count' : reps_voted_no_no,
+        'nah_nah_avg' : avg_PAC_no_no['PAC__avg'],
+        'total_members' : members_voted_no_no_count,
+	    'dummy_nn' : total_PAC_no_no['PAC__sum'],
     }
     return render(request, 'no_no.html', context)
 
@@ -182,33 +160,22 @@ def order_by_pac(request):
     return render(request, 'order_by_pac.html', context)
 
 def yes_yes(request):
-    yah_yah = []
-    dem_count_yy = 0
-    rep_count_yy = 0
-    for i in Bailout.objects.all():
-        if i.vote_1 == 'Yes' and i.vote_2 == 'Yes':
-            yah_yah.append(i)
-    for i in yah_yah:
-        if i.party == 'Dem':
-            dem_count_yy += 1
-        if i.party == 'Rep':
-            rep_count_yy += 1
-    dummy_yy = 0
-    for i in yah_yah:
-        try:
-            dummy_yy += i.PAC
-        except:
-            pass
-    yah_yah_avg = dummy_yy/len(yah_yah)
-    total_members = dem_count_yy + rep_count_yy
+    members_voted_yes_yes = Bailout.objects.filter(vote_1 = 'Yes').filter(vote_2 = 'Yes')
+    members_voted_yes_yes_count = members_voted_yes_yes.count()
+
+    dems_voted_yes_yes = members_voted_yes_yes.filter(party = 'Dem').count()
+    reps_voted_yes_yes = members_voted_yes_yes.filter(party = 'Rep').count()
+
+    total_PAC_yes_yes = members_voted_yes_yes.aggregate(Sum('PAC'))
+    avg_PAC_yes_yes = members_voted_yes_yes.aggregate(Avg('PAC'))
 
     context = {
-        'yah_yah' : yah_yah,
-        'dem_count_yy' : dem_count_yy,
-        'rep_count_yy' : rep_count_yy,
-        'yah_yah_avg' : yah_yah_avg,
-        'total_members' : total_members,
-	    'dummy_yy' : dummy_yy,
+        'yah_yah' : members_voted_yes_yes,
+        'dem_count_yy' : dems_voted_yes_yes,
+        'rep_count_yy' : reps_voted_yes_yes,
+        'yah_yah_avg' : avg_PAC_yes_yes['PAC__avg'],
+        'total_members' : members_voted_yes_yes_count,
+	    'dummy_yy' : total_PAC_yes_yes['PAC__sum'],
     }
     return render(request, 'yes_yes.html', context)
 
@@ -856,15 +823,22 @@ def explain_variables(request):
 def members_of_congress_list(request):
     if request.method == 'GET':
         members_of_congress = Bailout.objects.all()
+        print request.query_params
+        s = request.query_params.get('s')
+        if s:
+            print 'Filtering'
+            members_of_congress = members_of_congress.filter(name__icontains=s)
         serializer = BailoutSerializer(members_of_congress, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
 def member_of_congress_detail(request, name):
+    print name
     try:
-        member_of_congress = Bailout.objects.filter(name__icontains=name)
-    except Bailout.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        member_of_congress = Bailout.objects.filter(name__icontains=name)[0]
+    except IndexError:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    print 'so far so good'
 
     if request.method == 'GET':
         serializer = BailoutSerializer(member_of_congress)

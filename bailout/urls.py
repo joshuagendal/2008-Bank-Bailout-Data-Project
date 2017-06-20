@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^order_by_pac/$', order_by_pac),
     url(r'^explain_variables$', explain_variables),
     url(r'^members_of_congress/$', members_of_congress_list),
-    url(r'^member_of_congress/(?P<name>[\w-]+)/$', member_of_congress_detail),
+    url(r'^member_of_congress/(?P<name>[\w\s]+)/$', member_of_congress_detail),
 
 
 
