@@ -665,11 +665,6 @@ def user_dashboard(request):
     members = []
     members = Bailout.objects.all()
 
-
-
-
-
-
     search_form = MemberSearchForm()
     if request.method == 'POST':
         if request.POST.get('moc', False):
@@ -678,10 +673,6 @@ def user_dashboard(request):
                 rate_obj = form.save(commit=False)  # Must link rating and logged in user prior to saving
                 rate_obj.user = request.user  # This line links the rating object with the user that is logged in
                 rate_obj.save()
-                print 'i made it this far'
-
-
-
         else:
             search_form = MemberSearchForm(request.POST)
             if search_form.is_valid():
@@ -689,13 +680,6 @@ def user_dashboard(request):
                 member_name = search_form.cleaned_data['name']
                 members_to_rate = Bailout.objects.filter(name__icontains=member_name)
 
-
-            # search_dict = {}
-            # for field_name, field_value in form.cleaned_data.iteritems():
-                # if field_value:
-                    # search_dict[field_name] = field_value
-            #print 'Search dict:\n\t{}'.format(str(search_dict))
-            #members = Bailout.objects.filter(**search_dict)
     else:
         search_form = MemberSearchForm()
     context = {
@@ -707,46 +691,6 @@ def user_dashboard(request):
         'user_profile' : user_profile,
     }
     return render(request, 'dashboard.html', context)
-
-
-# @login_required(login_url='/')
-# def rating_page_search(request):
-
-
-
-
-
-
-
-
-
-
-
-    # members_to_rate = []
-    # members_to_rate = Bailout.objects.all()
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    # # if request.method == 'POST':
-    # #     form = RatingForm(request.POST)
-    # #     if form.is_valid():
-    # #         rate_objs = form.save(commit=False)
-    # #         rate_objs.user = request.user # person who is rating the objects is the user who is requesting the information
-    # #         rate_objs.save()
-    # # else:
-    # #     form = RatingForm()
-    # # mocs = Bailout.objects.all()
-    # context = {
-    #     'members_to_rate' : members_to_rate,
-    # }
-    #
-    # return render(request, 'dashboard.html', context)
 
 @login_required(login_url='/')
 def rating_page(request, identifier=None):
@@ -780,10 +724,7 @@ def user_logout(request):
 
 @login_required(login_url='/')
 def members_by_user_state(request, state=None):
-    da_user = request.user.username #CHANGE FOR OTHERS!!!!!!!
-    # user_state = UserProfile.User.objects.get()
-    # if not state:
-        # make default state for user if they dont add when they sign up
+    da_user = request.user.username
     members_of_user_state = Bailout.objects.filter(state_ab=state)
     user_state = state
 
